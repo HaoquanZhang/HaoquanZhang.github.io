@@ -21,16 +21,36 @@
     <link rel="stylesheet" href="desktop.css" media="screen and (min-width: 601px)">
     <link rel="stylesheet" href="mobile.css" media="screen and (max-width: 600px)">
     <link rel="stylesheet" href="desktop.css" media="print">
+    <!-- Font Awesome CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- Animation CSS -->
+    <style>
+      @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+      
+      .fade-in {
+        animation: fadeIn 0.8s ease forwards;
+        opacity: 0;
+      }
+      
+      .delay-1 { animation-delay: 0.2s; }
+      .delay-2 { animation-delay: 0.4s; }
+      .delay-3 { animation-delay: 0.6s; }
+      .delay-4 { animation-delay: 0.8s; }
+      .delay-5 { animation-delay: 1s; }
+    </style>
   </head>
 
   <body>
     <div class="mobile-component">
       <ul>
-        <li><a href="#Top"><strong>Top👆</strong></a></li>&nbsp;·&nbsp;
-        <li><a href="#Research">💡</a></li>&nbsp;·&nbsp;
-        <li><a href="#Projects">📂</a></li>&nbsp;·&nbsp;
-        <li><a href="#Awards">🏆</a></li>&nbsp;·&nbsp;
-        <li><a href="#Experiences">🌍</a></li>
+        <li><a href="#Top"><strong>Top <i class="fas fa-arrow-up"></i></strong></a></li>&nbsp;·&nbsp;
+        <li><a href="#Research"><i class="fas fa-lightbulb"></i></a></li>&nbsp;·&nbsp;
+        <li><a href="#Projects"><i class="fas fa-folder-open"></i></a></li>&nbsp;·&nbsp;
+        <li><a href="#Awards"><i class="fas fa-trophy"></i></a></li>&nbsp;·&nbsp;
+        <li><a href="#Experiences"><i class="fas fa-globe"></i></a></li>
       </ul>
     </div>
 
@@ -72,7 +92,7 @@
     <table style="max-width:900px;margin:auto;padding-top: 30px;"><tbody>
       <tr style="padding:0px">
         <td style="padding:0px"> 
-          <div class="bio" >
+          <div class="bio fade-in" >
             <div class="face-name">
               <img src="images/wc_icon.png" alt="profile photo" class="profile-img">
               <div class="name-info">
@@ -90,9 +110,9 @@
             </p>
             <div class="links">
               <!-- <a href="data/resume.pdf">CV</a> &nbsp;·&nbsp; -->
-              <a href="https://www.zhihu.com/people/homybush">Zhihu</a> &nbsp;·&nbsp;
-              <a href="https://scholar.google.com/citations?user=VUboP9QAAAAJ&hl=en-US">Google Scholar</a> &nbsp;·&nbsp;
-              <a href="mailto:haoquanzhang@outlook.com">Email</a> &nbsp;·&nbsp;
+              <a href="https://www.zhihu.com/people/homybush"><i class="fab fa-zhihu"></i> Zhihu</a> &nbsp;·&nbsp;
+              <a href="https://scholar.google.com/citations?user=VUboP9QAAAAJ&hl=en-US"><i class="fas fa-graduation-cap"></i> Google Scholar</a> &nbsp;·&nbsp;
+              <a href="mailto:haoquanzhang@outlook.com"><i class="fas fa-envelope"></i> Email</a>
               <!-- <a href="images/wechat.jpg">WeChat</a> -->
             </div>
           </div>
@@ -103,32 +123,32 @@
             <tbody>
               <tr>
                 <td style="padding:20px;width:100%;vertical-align:middle">
-                  <h2><strong>News📰</strong></h2>
+                  <h2 class="fade-in delay-1"><strong><i class="fas fa-newspaper"></i> News</strong></h2>
                 </td>
               </tr>
             </tbody>
           </table>
   
-          <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;padding:20px">
+          <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;padding:20px" class="fade-in delay-1">
             <tbody>
               <tr>
-                <td class="date">2024-10-31 💼</td>
+                <td class="date">2024-10-31 <i class="fas fa-briefcase"></i></td>
                 <td>Glad to serve as a visiting student at Westlake University, advised by <a href="https://scholar.google.com/citations?user=HmylMfcAAAAJ&hl=en">Yandong Wen.</a></td>
               </tr>
               <tr>
-                <td class="date">2024-10-25 💼</td>
+                <td class="date">2024-10-25 <i class="fas fa-briefcase"></i></td>
                 <td>Glad to receive an intern offer from Shanghai AI Lab! See you in Shanghai!</td>
               </tr>
               <tr>
-                  <td class="date">2024-06-26 🎓</td>
+                  <td class="date">2024-06-26 <i class="fas fa-graduation-cap"></i></td>
                   <td>PhD offer from CUHK!</td>
               </tr>
               <tr>
-                  <td class="date">2024-06-14 🚀</td>
+                  <td class="date">2024-06-14 <i class="fas fa-rocket"></i></td>
                   <td>Mask4Align now released!</td>
               </tr>
               <tr>
-                  <td class="date">2024-02-27 📄</td>
+                  <td class="date">2024-02-27 <i class="fas fa-file-alt"></i></td>
                   <td>My first paper accepted by CVPR 2024! See you in Seattle!</td>
               </tr>
             </tbody>
@@ -140,7 +160,7 @@
           <tbody>
             <tr>
               <td style="padding:20px;width:100%;vertical-align:middle">
-                <h2><strong>Research 💡</strong></h2>
+                <h2 class="fade-in delay-2"><strong><i class="fas fa-lightbulb"></i> Research</strong></h2>
               </td>
             </tr>
           </tbody>
@@ -148,7 +168,7 @@
 
         <section id="Mask4Align"></section>
 
-          <div class="paper-container">
+          <div class="paper-container fade-in delay-2">
             <div class="image">
               <img src='images/M4A.png' alt="Mask4Align">
             </div>
@@ -167,8 +187,8 @@
               </p>
         
               <p>
-                <strong class="buttom"><a href="https://openaccess.thecvf.com/content/CVPR2024/papers/Zhang_Mask4Align_Aligned_Entity_Prompting_with_Color_Masks_for_Multi-Entity_Localization_CVPR_2024_paper.pdf">[Paper]</a></strong>
-                <strong class="buttom"><a href="https://www.zhihu.com/question/627841035/answer/3286130863">[Submission Journey]</a></strong>  
+                <strong class="buttom"><a href="https://openaccess.thecvf.com/content/CVPR2024/papers/Zhang_Mask4Align_Aligned_Entity_Prompting_with_Color_Masks_for_Multi-Entity_Localization_CVPR_2024_paper.pdf"><i class="fas fa-file-pdf"></i> Paper</a></strong>
+                <strong class="buttom"><a href="https://www.zhihu.com/question/627841035/answer/3286130863"><i class="fas fa-book"></i> Submission Journey</a></strong>  
               </p>
         
               <div class="CVPR">
@@ -177,7 +197,7 @@
             </div>
           </div>
 
-          <div class="paper-container">
+          <div class="paper-container fade-in delay-2">
             <div class="image">
               <img src='images/SCD-2024.png' alt="Mask4Align">
             </div>
@@ -200,8 +220,8 @@
               </p>
         
               <p>
-                <strong class="buttom">[Paper]</strong>
-                <strong class="buttom">[Code]</strong> 
+                <strong class="buttom"><i class="fas fa-file-pdf"></i> [Paper]</strong>
+                <strong class="buttom"><i class="fas fa-code"></i> [Code]</strong> 
               </p>
         
               <div class="insub">
@@ -215,50 +235,61 @@
           <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
             <tr>
             <td style="padding:20px;width:100%;vertical-align:middle">
-              <h2><strong>Projects 📂</strong></h2>
+              <h2 class="fade-in delay-3"><strong><i class="fas fa-folder-open"></i> Projects</strong></h2>
             </td>
             </tr>
             </tbody>
           </table>
 
-          <div class="paper-container">
+          <!-- <div class="paper-container fade-in delay-3">
             <div class="image">
               <img src='images/BEM2023CONTEST.png' alt="BEM 2023 Contest" >
             </div>
             <div class="text">
               <span class="papertitle">Design of Auxiliary Diagnosis Algorithm for Schizophrenia Based on Feature Fusion of EEG and ECG</span><br>
-              <strong><a href="NBMEC_2023/B030079.pdf">[Entry (Chinese)]</a></strong>
-              <p></p>
-              <em>Entry</em>, 2023, National Biomedical Engineering Innovation Design Competition for College Students
-              <br>
-              <p></p>
+              
+              <p>
+                <u><strong>Haoquan Zhang</strong></u>,
+                Team Members
+              </p>
+              
               <p>
                 Calculated brain functional network features, heart rate variability features and heart-brain coupling features to build machine learning models for automatic diagnosis; Deep learning models using ResNet were built based on original EEG and ECG also.
               </p>
-              <strong>Second Prize. (6%)</strong>
+        
+              <p>
+                <strong class="buttom"><a href="NBMEC_2023/B030079.pdf"><i class="fas fa-file-pdf"></i> Entry (Chinese)</a></strong>
+              </p>
+              
             </div>
-          </div>
+          </div> -->
 
-          <div class="paper-container" >
+          <div class="paper-container fade-in delay-3" >
             <div class="image" onmouseout="gun_stop()" onmouseover="gun_start()">
               <img src='images/gunmayhem_logo.png'>
             </div>
             <div class="text">
               <span class="papertitle">Perfect GunMayhem Remake: A 2D Shooting PVP Game Based on Cocos2d-x</span><br>
-              <strong><a href="https://github.com/Randonee1/Advanced-Language-Programming">[Github]</a></strong> · 
-              <strong><a href="GunMayhem/gunMayhem.html">[Project Page]</a></strong> · 
-              <strong><a href="https://gun-mayhem-2.github.io/">[Original Game]</a></strong> · 
-              <strong><a href="/GunMayhem/gunmayhem_GameArts.zip">[Art Assets (.ai)]</a></strong>
-              <br><br>
-              <em>Course design</em>, 2022, Advanced Language Programming (C++)
-              <br>
+              
+              <p>
+                <u><strong>Haoquan Zhang</strong></u>,
+                Team Members
+              </p>
+              
               <p> 
                 GunMayhem Remake is a project independently completed by our team members, covering all aspects, including source code, game artwork, and music assets. You can play our <a href="https://github.com/Randonee1/Advanced-Language-Programming/tree/main/dist">executable file</a>.
               </p>
+              
               <p>
-                <span style="color: rgb(149, 63, 184);">Shoutout to <a href="https://www.thekevingu.com/">Kevin Gu</a> for creating this incredible game!</span>
+                <span style="color: rgb(149, 63, 184);"><i class="fas fa-bullhorn"></i> Shoutout to <a href="https://www.thekevingu.com/">Kevin Gu</a> for creating this incredible game!</span>
               </p>
-              <strong>Final Score: 99, 4.0/4.0. (1%)</strong>
+
+              <p>
+                <strong class="buttom"><a href="https://github.com/Randonee1/Advanced-Language-Programming"><i class="fab fa-github"></i> Github</a></strong>
+                <strong class="buttom"><a href="GunMayhem/gunMayhem.html"><i class="fas fa-link"></i> Project Page</a></strong>
+                <strong class="buttom"><a href="https://gun-mayhem-2.github.io/"><i class="fas fa-gamepad"></i> Original Game</a></strong>
+                <strong class="buttom"><a href="/GunMayhem/gunmayhem_GameArts.zip"><i class="fas fa-palette"></i> Art Assets (.ai)</a></strong>
+              </p>
             </div>
           </div>
 
@@ -267,12 +298,12 @@
           <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
             <tr>
               <td style="padding:20px;width:100%;vertical-align:middle">
-                <h2><strong>Awards 🏆</strong></h2>
+                <h2 class="fade-in delay-4"><strong><i class="fas fa-trophy"></i> Awards</strong></h2>
 
-                <p><strong>TaiHu Innovation Prize (1%)</strong>,
+                <p><strong><i class="fas fa-medal"></i> TaiHu Innovation Prize (1%)</strong>,
                 <br>Highest scholarship, which awarded by the Wuxi governments, 2024</p>
                 
-                <p><strong>Second Prize (6%), <em><span style="color: rgb(43, 155, 142);"> *Medical AI Track</span></em> </strong>
+                <p><strong><i class="fas fa-medal"></i> Second Prize (6%), <em><span style="color: rgb(43, 155, 142);"> *Medical AI Track</span></em> </strong>
                 <br>The National BME lnnovation Design Competition, China Society of Biomedical Engineering, 2023</p>
 
                 <!-- <p><strong>Second Prize (5%)</strong>, 
@@ -284,7 +315,7 @@
                 <p><strong>Third Prize (12%)</strong>, 
                 <br>The Huameng Scholarships, TCL Corporate , 2022</p> -->
 
-                <p><strong>Meritorious Winner (6%), <em><span style="color: rgb(43, 155, 142);"> *Prior to the release of ChatGPT </span></em>😏 </strong>
+                <p><strong><i class="fas fa-medal"></i> Meritorious Winner (6%), <em><span style="color: rgb(43, 155, 142);"> *Prior to the release of ChatGPT </span></em><i class="fas fa-smile-wink"></i> </strong>
                 <br>The Interdisciplinary Contest in Modeling (ICM), <a href="https://www.comap.com/">COMAP</a>, 2021</p>
   
               </td>
@@ -296,9 +327,10 @@
           <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
             <tr>
               <td style="padding:20px;width:100%;vertical-align:middle">
-                <h2><strong>Experiences 🌍</strong></h2>
+                <h2 class="fade-in delay-5"><strong><i class="fas fa-globe"></i> Experiences</strong></h2>
 
-                <div class="experience-container" >
+                <br>
+                <div class="experience-container fade-in delay-5" >
                   <div class="image" onmouseout="gun_stop()" onmouseover="gun_start()">
                     <img src='images/pjlab.png'>
                   </div>
@@ -310,7 +342,7 @@
                   </div>
                 </div>
 
-                <div class="experience-container" >
+                <div class="experience-container fade-in delay-5" >
                   <div class="image" onmouseout="gun_stop()" onmouseover="gun_start()">
                     <img src='images/westlake.png'>
                   </div>
@@ -452,19 +484,17 @@
             <tbody>
               <tr>
                 <td style="padding:0px">                          
-                  <p style="text-align:center;font-size: large;">
+                  <p style="text-align:center;font-size: large;" class="fade-in delay-5">
                     <em>Do something insightful.</em>
                     <br><br>
-                    <span style="font-size: medium;color: rgb(143, 143, 143);">© 2024 Haoquan Zhang&nbsp;&nbsp;</span>
+                    <span style="font-size: medium;color: rgb(143, 143, 143);"><i class="far fa-copyright"></i> 2024 Haoquan Zhang&nbsp;&nbsp;</span>
                     <!-- <br>
                     Feel free to take the <a href="https://github.com/HaoquanZhang/HaoquanZhang.github.io">resources</a> of this page. -->
                   </p>
                     
                   </p>
-                  <div class="logo-container">
+                  <div class="logo-container fade-in delay-5">
                     <img src="images/scut_logo.png" alt="SCUT Logo">
-                    <!-- <img src="images/gzic.jpg" alt="GZIC"> -->
-                    <!-- <img src="images/smu.jpg" alt="SMU Logo"> -->
                     <img src="images/CUHK.png" alt="CUHK Logo">
                     <img src="images/pjlab.png" alt="ailab Logo">
                     <img src="images/westlake.png" alt="ailab Logo">
@@ -477,6 +507,53 @@
         </td>
       </tr>
     </table>
+
+    <!-- Scroll to top button -->
+    <div id="scroll-to-top" style="position: fixed; bottom: 20px; right: 20px; display: none; background-color: rgba(0,0,0,0.5); color: white; width: 40px; height: 40px; border-radius: 50%; text-align: center; line-height: 40px; cursor: pointer; transition: all 0.3s ease; z-index: 1000;">
+      <i class="fas fa-arrow-up"></i>
+    </div>
+
+    <script>
+      // Get the height of the mobile and desktop navigation bars
+      var navbarHeightMobile = document.querySelector('.mobile-component ul').offsetHeight;
+      var navbarHeightDesktop = document.querySelector('.desktop-component ul').offsetHeight;
+  
+      // Add click event listeners to navigation links
+      document.querySelectorAll('.mobile-component ul li a, .desktop-component ul li a, .a').forEach(function(anchor) {
+          anchor.addEventListener('click', function(event) {
+              event.preventDefault(); // Prevent the default navigation behavior
+  
+              var targetId = this.getAttribute('href'); // Get the target section's ID from the link's href
+              var targetElement = document.querySelector(targetId); // Find the target element using its ID
+              var targetOffsetTop = targetElement.offsetTop; // Get the target's top offset relative to the document
+  
+              // Calculate scroll position considering the navigation bar height to avoid overlap
+              var navbarHeight = (window.innerWidth < 768) ? navbarHeightMobile : navbarHeightDesktop;
+              window.scrollTo({
+                  top: targetOffsetTop - navbarHeight,
+                  behavior: 'smooth' // Smooth scroll to the target position
+              });
+          });
+      });
+
+      // Scroll to top button functionality
+      var scrollToTopBtn = document.getElementById("scroll-to-top");
+      
+      window.onscroll = function() {
+        if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
+          scrollToTopBtn.style.display = "block";
+        } else {
+          scrollToTopBtn.style.display = "none";
+        }
+      };
+      
+      scrollToTopBtn.addEventListener("click", function() {
+        window.scrollTo({
+          top: 0,
+          behavior: "smooth"
+        });
+      });
+    </script>
   </body>
 </html>
 

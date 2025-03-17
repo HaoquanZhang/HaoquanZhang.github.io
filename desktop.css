@@ -66,12 +66,23 @@
 a {
   color: #1e6fb1;
   text-decoration: none;
+  transition: color 0.2s ease;
 }
 
 a:focus,
 a:hover {
   color: #eb430b;
   text-decoration: none;
+}
+
+/* Icon styling */
+.fas, .fab, .far {
+  margin-right: 4px;
+  transition: transform 0.3s ease;
+}
+
+a:hover .fas, a:hover .fab, a:hover .far {
+  transform: scale(1.2);
 }
 
 body{
@@ -221,23 +232,37 @@ ul li a:hover{
 .CVPR {
   background-color: #4192e8; 
   border-radius: 4px; 
-  padding-left: 4px; 
-  padding-right: 4px; 
-  padding-top: 2px; 
-  padding-bottom: 2px; 
+  padding-left: 8px; 
+  padding-right: 8px; 
+  padding-top: 4px; 
+  padding-bottom: 4px; 
   display: inline-block; 
   color: #ffffff;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.CVPR:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
 }
 
 .insub {
   background-color: #858585; 
   border-radius: 4px; 
-  padding-left: 4px; 
-  padding-right: 4px; 
-  padding-top: 2px; 
-  padding-bottom: 2px; 
+  padding-left: 8px; 
+  padding-right: 8px; 
+  padding-top: 4px; 
+  padding-bottom: 4px; 
   display: inline-block; 
   color: #ffffff;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.insub:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
 }
 
 .interest {
@@ -280,17 +305,17 @@ hr {
   height: auto;
 }
 
-
 .paper-container {
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 20px;
-  background: linear-gradient(110deg, #ffffff, #ffffff, #ffffff,#ffffff,#ffffff, #e1ebf2, #c9e8e8);
+  background: linear-gradient(110deg, #ffffff, #ffffff, #ffffff,#ffffff,#ffffff, #f3fbff, #f0fcff);
   background-size: 200% 200%;
   background-position: left;
-  transition: background-position 0.25s ease;
+  transition: background-position 0.25s ease, transform 0.3s ease, box-shadow 0.3s ease;
   border-radius: 10px;
+  margin-bottom: 20px;
 }
 .paper-container .image {
   flex: 1;
@@ -306,10 +331,36 @@ hr {
 .paper-container img {
   max-width: 100%;
   height: auto;
+  transition: transform 0.3s ease;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 
 .paper-container:hover {
   background-position: right;
+  transform: translateY(-5px);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.paper-container:hover img {
+  transform: scale(1.05);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+
+.paper-container .papertitle {
+  margin-bottom: 10px;
+  display: inline-block;
+  color: #333333;
+  transition: all 0.3s ease;
+}
+
+.paper-container:hover .papertitle {
+  color: #222222;
+}
+
+.paper-container p {
+  margin-top: 8px;
+  margin-bottom: 8px;
 }
 
 .experience-container {
@@ -320,8 +371,9 @@ hr {
   background: linear-gradient(110deg, #ffffff, #ffffff, #ffffff,#ffffff,#ffffff, #e1ebf2, #c9e8e8);
   background-size: 200% 200%;
   background-position: left;
-  transition: background-position 0.25s ease;
+  transition: background-position 0.25s ease, transform 0.3s ease, box-shadow 0.3s ease;
   border-radius: 10px;
+  margin-bottom: 15px;
 }
 .experience-container .image {
   flex: 1;
@@ -337,13 +389,18 @@ hr {
 .experience-container img {
   max-width: 100%;
   height: auto;
+  transition: transform 0.3s ease;
 }
 
 .experience-container:hover {
   background-position: right;
+  transform: translateY(-5px);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
 }
 
-
+.experience-container:hover img {
+  transform: scale(1.05);
+}
 
 td {
   padding-left: 2px;
@@ -394,9 +451,16 @@ td {
 .logo-container img {
   height: 50px;
   /* width: 50px; */
-  margin-right: 5px;
-  margin-left: 5px;
+  margin-right: 10px;
+  margin-left: 10px;
   border-radius: 10%;
+  transition: transform 0.3s ease;
+  filter: grayscale(30%);
+}
+
+.logo-container img:hover {
+  transform: scale(1.1);
+  filter: grayscale(0%);
 }
 
 .timeline {
@@ -420,6 +484,41 @@ td {
 .description {
   flex-grow: 1;
   padding-left: 10px;
+}
+
+.buttom {
+  display: inline-block;
+  margin-right: 10px;
+  padding: 6px 12px;
+  border-radius: 4px;
+  background-color: #f5f5f5;
+  transition: all 0.3s ease;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.buttom:hover {
+  background-color: #e0e0e0;
+  transform: translateY(-2px);
+  box-shadow: 0 3px 6px rgba(0,0,0,0.15);
+}
+
+.buttom a {
+  color: #333;
+  text-decoration: none;
+}
+
+.buttom a strong {
+  font-weight: 700 !important;
+  font-family: 'Lato', Verdana, Helvetica, sans-serif !important;
+}
+
+.buttom strong {
+  font-weight: 700 !important;
+  font-family: 'Lato', Verdana, Helvetica, sans-serif !important;
+}
+
+.buttom a:hover {
+  color: #1e6fb1;
 }
 
 /* Print styles */
