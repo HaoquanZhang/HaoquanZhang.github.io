@@ -242,11 +242,6 @@ ul li a:hover{
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.CVPR:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
-}
-
 .insub {
   background-color: #858585; 
   border-radius: 4px; 
@@ -260,9 +255,18 @@ ul li a:hover{
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.insub:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+.arxiv {
+  background-color: #b10000; 
+  border-radius: 4px; 
+  padding-left: 8px; 
+  padding-right: 8px; 
+  padding-top: 4px; 
+  padding-bottom: 4px; 
+  display: inline-block; 
+  color: #ffffff;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  margin-top: 10px;
 }
 
 .interest {
