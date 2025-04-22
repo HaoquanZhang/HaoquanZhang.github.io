@@ -40,6 +40,23 @@
       .delay-3 { animation-delay: 0.6s; }
       .delay-4 { animation-delay: 0.8s; }
       .delay-5 { animation-delay: 1s; }
+      
+      /* Style for empty links - with higher specificity */
+      strong.buttom.disabled-link, 
+      html body strong.buttom.disabled-link {
+        opacity: 0.5 !important;
+        cursor: not-allowed !important;
+        background-color: #e5e5e5 !important;
+        color: #888 !important;
+        border-color: #ccc !important;
+        position: relative;
+      }
+      
+      strong.buttom.disabled-link a, 
+      html body strong.buttom.disabled-link a {
+        color: #888 !important;
+        pointer-events: none !important;
+      }
     </style>
   </head>
 
@@ -86,6 +103,74 @@
               });
           });
       });
+
+      // Scroll to top button functionality
+      var scrollToTopBtn = document.getElementById("scroll-to-top");
+      
+      window.onscroll = function() {
+        if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
+          scrollToTopBtn.style.display = "block";
+        } else {
+          scrollToTopBtn.style.display = "none";
+        }
+      };
+      
+      scrollToTopBtn.addEventListener("click", function() {
+        window.scrollTo({
+          top: 0,
+          behavior: "smooth"
+        });
+      });
+      
+      // Function to check button links and apply styles based on URL validity
+      function styleEmptyLinks() {
+        // Get all buttom elements with anchors
+        var buttons = document.querySelectorAll('strong.buttom');
+        
+        // Debug count
+        console.log("Found " + buttons.length + " buttons with class 'buttom'");
+        
+        // Process each button
+        buttons.forEach(function(button) {
+          var anchor = button.querySelector('a');
+          
+          // If anchor exists and has an empty or "#" href
+          if (anchor && (!anchor.getAttribute('href') || anchor.getAttribute('href') === '' || anchor.getAttribute('href') === '#')) {
+            console.log("Empty link found:", anchor);
+            
+            // Add disabled class
+            button.classList.add('disabled-link');
+            
+            // Directly apply inline styles for maximum specificity
+            button.style.opacity = "0.5";
+            button.style.cursor = "not-allowed";
+            button.style.backgroundColor = "#e5e5e5";
+            button.style.color = "#888";
+            
+            // Style the anchor
+            anchor.style.color = "#888";
+            anchor.style.pointerEvents = "none";
+            
+            // Prevent click events
+            anchor.addEventListener('click', function(e) {
+              e.preventDefault();
+              e.stopPropagation();
+              return false;
+            });
+          }
+        });
+      }
+      
+      // Run when DOM is loaded
+      if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", styleEmptyLinks);
+      } else {
+        // DOM already loaded, run now
+        styleEmptyLinks();
+      }
+      
+      // Also run after window load (for good measure)
+      window.addEventListener('load', styleEmptyLinks);
     </script>
 
     <section id="Top"></section>
@@ -188,7 +273,7 @@
               </p>
         
               <p>
-                <strong class="buttom"><a href=""><i class="fas fa-file-pdf"></i> Paper</a></strong>
+                <strong class="buttom"><a href="https://arxiv.org/abs/2504.14191"><i class="fas fa-file-pdf"></i> Paper</a></strong>
                 <strong class="buttom"><a href="https://ai-idea-bench.github.io"><i class="fas fa-globe"></i> Project Page</a></strong>
                 <strong class="buttom"><a href=""><i class="fab fa-github"></i> Code</a></strong>
                 <strong class="buttom"><a href=""><i class="fas fa-database"></i> Benchmark</a></strong>
@@ -544,48 +629,6 @@
     <div id="scroll-to-top" style="position: fixed; bottom: 20px; right: 20px; display: none; background-color: rgba(0,0,0,0.5); color: white; width: 40px; height: 40px; border-radius: 50%; text-align: center; line-height: 40px; cursor: pointer; transition: all 0.3s ease; z-index: 1000;">
       <i class="fas fa-arrow-up"></i>
     </div>
-
-    <script>
-      // Get the height of the mobile and desktop navigation bars
-      var navbarHeightMobile = document.querySelector('.mobile-component ul').offsetHeight;
-      var navbarHeightDesktop = document.querySelector('.desktop-component ul').offsetHeight;
-  
-      // Add click event listeners to navigation links
-      document.querySelectorAll('.mobile-component ul li a, .desktop-component ul li a, .a').forEach(function(anchor) {
-          anchor.addEventListener('click', function(event) {
-              event.preventDefault(); // Prevent the default navigation behavior
-  
-              var targetId = this.getAttribute('href'); // Get the target section's ID from the link's href
-              var targetElement = document.querySelector(targetId); // Find the target element using its ID
-              var targetOffsetTop = targetElement.offsetTop; // Get the target's top offset relative to the document
-  
-              // Calculate scroll position considering the navigation bar height to avoid overlap
-              var navbarHeight = (window.innerWidth < 768) ? navbarHeightMobile : navbarHeightDesktop;
-              window.scrollTo({
-                  top: targetOffsetTop - navbarHeight,
-                  behavior: 'smooth' // Smooth scroll to the target position
-              });
-          });
-      });
-
-      // Scroll to top button functionality
-      var scrollToTopBtn = document.getElementById("scroll-to-top");
-      
-      window.onscroll = function() {
-        if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
-          scrollToTopBtn.style.display = "block";
-        } else {
-          scrollToTopBtn.style.display = "none";
-        }
-      };
-      
-      scrollToTopBtn.addEventListener("click", function() {
-        window.scrollTo({
-          top: 0,
-          behavior: "smooth"
-        });
-      });
-    </script>
   </body>
 </html>
 
