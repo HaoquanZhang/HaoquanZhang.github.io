@@ -57,6 +57,27 @@
         color: #888 !important;
         pointer-events: none !important;
       }
+      
+      .buttom-disabled {
+        opacity: 0.5 !important;
+        background-color: #e0e0e0 !important;
+        color: #999 !important;
+        cursor: not-allowed !important;
+        pointer-events: none !important;
+        box-shadow: none !important;
+        transform: none !important;
+      }
+      
+      .buttom-disabled:hover {
+        background-color: #e0e0e0 !important;
+        transform: none !important;
+        box-shadow: none !important;
+      }
+      
+      .buttom-disabled a {
+        color: #999 !important;
+        pointer-events: none !important;
+      }
     </style>
   </head>
 
@@ -123,7 +144,7 @@
       });
       
       // Function to check button links and apply styles based on URL validity
-      function styleEmptyLinks() {
+      function disableEmptyLinks() {
         // Get all buttom elements with anchors
         var buttons = document.querySelectorAll('strong.buttom');
         
@@ -139,16 +160,16 @@
             console.log("Empty link found:", anchor);
             
             // Add disabled class
-            button.classList.add('disabled-link');
+            button.className += ' buttom-disabled';
             
             // Directly apply inline styles for maximum specificity
             button.style.opacity = "0.5";
             button.style.cursor = "not-allowed";
-            button.style.backgroundColor = "#e5e5e5";
-            button.style.color = "#888";
+            button.style.backgroundColor = "#e0e0e0";
+            button.style.color = "#999";
             
             // Style the anchor
-            anchor.style.color = "#888";
+            anchor.style.color = "#999";
             anchor.style.pointerEvents = "none";
             
             // Prevent click events
@@ -163,14 +184,14 @@
       
       // Run when DOM is loaded
       if (document.readyState === "loading") {
-        document.addEventListener("DOMContentLoaded", styleEmptyLinks);
+        document.addEventListener("DOMContentLoaded", disableEmptyLinks);
       } else {
         // DOM already loaded, run now
-        styleEmptyLinks();
+        disableEmptyLinks();
       }
       
       // Also run after window load (for good measure)
-      window.addEventListener('load', styleEmptyLinks);
+      window.addEventListener('load', disableEmptyLinks);
     </script>
 
     <section id="Top"></section>
@@ -190,6 +211,34 @@
               Hi, my name is Haoquan Zhang, a final-year undergraduate majoring in Data Science at South China University of Technology (SCUT), and also an incoming phd student to join The Chinese University of Hong Kong (CUHK). I am currently working with my advisor <a href="https://wyliu.com/">Weiyang Liu</a> 
               , focusing on <span style="text-decoration: underline;">Vision-Language Representation Learning</span>. Additionally, I am collaborating with <a href="https://scholar.google.com/citations?user=4OqZBmYAAAAJ&hl=en&oi=ao">Kaipeng Zhang</a> @<a href="https://www.shlab.org.cn/">Shanghai AI Lab</a> to address challenges in <span style="text-decoration: underline;">LLM Reasoning</span>.
             </p>
+            <div class="random-thoughts">
+              <h4><strong id="thoughts-toggle" style="cursor: pointer;"><i class="fas fa-chevron-right"></i> Click for some random thoughts 🤔</strong></h4>
+              
+              <div id="thoughts-content" style="display: none;">
+                <p>
+                  · currently listening to <a href="https://www.khaidreams.com">khai dreams</a> and <a href="https://www.toe.st">toe</a>. <br>  
+                  · want to buy a camera but still haven't saved enough money 🤨. <br>
+                  · i love architecture, but i'm still at the stage where I can only occasionally drop some professional terms.
+                </p>
+              </div>
+            </div>
+
+            <script>
+              // Toggle visibility of random thoughts
+              document.getElementById('thoughts-toggle').addEventListener('click', function() {
+                const content = document.getElementById('thoughts-content');
+                const icon = this.querySelector('i');
+                
+                if (content.style.display === 'none') {
+                  content.style.display = 'block';
+                  icon.className = 'fas fa-chevron-down';
+                } else {
+                  content.style.display = 'none';
+                  icon.className = 'fas fa-chevron-right';
+                }
+              });
+            </script>
+
             <p>
               Access more info / Contack me through the following links:
             </p>
@@ -476,126 +525,6 @@
             </tr>
           </tbody></table>
 
-          <!-- <hr>
-          <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
-            <tr>
-              <td style="padding:20px;width:100%;vertical-align:middle">
-                <h3><strong>Misc 🤔</strong></h3>
-
-                <p>· I love anime. Recently I've been watching <a href="https://makeine-anime.com/"><em>Too Many Losing Heroines!</em></a>. </p>
-                <p>· I occasionally make tracks, mainly around focused on EDM.</p>
-  
-              </td>
-            </tr>
-          </tbody></table> -->
-          
-          <!-- <hr>
-          <section id="Friends"></section>
-          <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;">
-            <tbody>
-                <tr>
-                <td style="padding:20px;width:100%;vertical-align:middle">
-                <h2><strong>Friends 🤜🤛</strong></h2>
-                  <br>
-                <div class="image-text-container">
-                  <div class="image">
-                      <img src="images/scut_logo.png">
-                  </div>
-
-                  <div class="text">
-                  <table>
-                    <tr>
-                        <td><strong><a href="https://tobyleelsz.github.io/">Shangzhe Li</a></strong></td>
-                        <td>Research Intern @UCSD</td>
-                        <td><em>Reinforcement Learning · physics enthusiast · pilot</em></td>
-                    </tr>
-                    <tr>
-                        <td><strong><a href="https://xinjie-shen.com/">Xinjie Shen</a></strong></td>
-                        <td>Research Intern @Dartmouth</td>
-                        <td><em>Interaction · Graph · Quantitative Finance</em></td>
-                    </tr>
-                    <tr>
-                        <td><strong><a href="https://brandon-liu-jx.github.io/">Jinxiu Liu</a></strong></td>
-                        <td>Research Intern @Stanford</td>
-                        <td><em>4D Dynamic Generation · MLLM</em></td>
-                    </tr>
-                    <tr>
-                        <td><strong><a href="https://troychowzyb.github.io/">Yubin Zhou</a></strong></td>
-                        <td>Research Intern @BrainCo</td>
-                        <td><em>Brain-Computer Interface · Cognitive Neuroscience</em></td>
-                    </tr>
-                  </table>
-                </div>
-                
-                </div>
-
-                <div class="image-text-container">
-                  <div class="image">
-                      <img src="images/NYU.jpg">
-                  </div>
-                  <div class="text">
-                    <table>
-                      <tr>
-                        <td><strong>Junru Liao</strong></td>
-                        <td>Undergraduate @NYU</td>
-                        <td><em>Biomechanics · Cellular Mechanics Response</em></td>
-                      </tr>
-                    </table>
-                  </div>
-                </div>
-
-                <div class="image-text-container">
-                  <div class="image">
-                      <img src="images/Sun_Yat-sen_University_Logo.png">
-                  </div>
-                  <div class="text">
-                    <h2 style="padding-bottom:10px;">Sun Yat-sen University</h2>
-
-                    <strong>HONG Xuan</strong>
-                     - <em>High-Energy Phenomenology · Particle Physics · Cosmology<br>
-
-                    <strong>FAN Wei</strong>
-                     - <em>Piezoelectricity · Semiconductor · DeviceFabrication<br>
-                  </div>
-                </div>
-
-                </td>
-            </tr>
-            </tbody>
-          </table> -->
-
-          <!-- <hr>
-          <section id="Awards"></section>
-          <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
-            <tr>
-              <td style="padding:20px;width:100%;vertical-align:middle">
-                <h2><strong>Presentaitons 🗣️</strong></h2>
-
-                <div class="paper-container">
-                  <div class="image">
-                    <img src='images/vp.png'>
-                  </div>
-                  <div class="text">
-                    <span class="papertitle">A Brief Intro to <em style="color: rgb(41, 73, 168);">Visual Prompting</em></span><br>
-
-                    <em style="color: rgb(160, 160, 160);font-size: smaller;">* With my friends and mentors @ Shanghai AI Lab</em>
-              
-                    <p>
-                      An introduction to the concept of Visual Prompting, a technique used to enhance the performance of pre-trained Vision-Language models. It references several research papers that delve into different aspects of Visual Prompting.
-                    </p>
-              
-                    <p>
-                      <a href="data/Intro2VisualPrompting.pptx" ><strong class="buttom">[Slides (.pptx)]</strong></a>
-                      <a href="data/Intro2VisualPrompting.pdf" ><strong class="buttom">[Slides (.pdf)]</strong></a>
-                    </p>
-
-                  </div>
-                </div>
-  
-              </td>
-            </tr>
-          </tbody></table> -->
-          
           <hr>
           <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;padding: 20px;">
             <tbody>
