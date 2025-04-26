@@ -78,6 +78,39 @@
         color: #999 !important;
         pointer-events: none !important;
       }
+      
+      /* New CSS rules to fix button hover effects */
+      /* Prevent hover animation on anchor tags within buttons */
+      strong.buttom a {
+        transition: none !important;
+        /* Ensure the link inherits button colors and doesn't change on hover */
+        color: inherit !important;
+      }
+      
+      strong.buttom a:hover {
+        /* Cancel any hover effects that might be applied to anchor tags */
+        color: inherit !important;
+        text-decoration: none !important;
+        transform: none !important;
+        /* Prevent any other hover animations */
+        animation: none !important;
+        -webkit-animation: none !important;
+        -moz-animation: none !important;
+        -o-animation: none !important;
+      }
+      
+      /* Ensure hover effects only apply to the button container */
+      strong.buttom {
+        /* Add your preferred hover animation properties here */
+        transition: all 0.3s ease !important;
+        display: inline-block !important;
+      }
+      
+      strong.buttom:hover {
+        /* These effects will apply only to the button container */
+        transform: translateY(-2px) !important;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1) !important;
+      }
     </style>
   </head>
 
@@ -313,12 +346,12 @@
                 Zhaopan Xu, 
                 Ming Li, 
                 Diping Song, 
-                Zheng Wang*, 
-                Kaipeng Zhang*
+                Zheng Wang, 
+                Kaipeng Zhang
               </p>
         
               <p>
-                Despite LLMs' success in idea generation, current evaluations overlook knowledge leakage, lack open-ended benchmarks, and have limited feasibility analysis. We present AI Idea Bench 2025, a framework to quantitatively evaluate LLM-generated ideas in AI research, featuring a dataset of 3,495 papers with inspired works and a robust evaluation methodology. The system assesses idea quality based on alignment with original papers and reference-based judgment, serving as a valuable resource for comparing idea generation techniques and advancing scientific discovery automation.
+                We present AI Idea Bench 2025, a framework to quantitatively evaluate LLM-generated ideas in AI research, featuring a dataset of 3,495 papers with inspired works and a robust evaluation methodology. The system assesses idea quality based on alignment with original papers and reference-based judgment.
               </p>
         
               <p>
@@ -349,7 +382,7 @@
               </p>
         
               <p>
-                Pretrained VLMs excel in accurately recognizing and precisely localizing entities within VQA tasks. However, in visual scenes with multiple entities, textual descriptions struggle to distinguish the entities from the same category effectively. Consequently, the existing VQA dataset cannot adequately cover scenarios involving multiple entities. Therefore, we introduce a Mask for Align (Mask4Align) method to determine the entity's position in the given image that best matches the user input question. This method incorporates colored masks into the image, enabling the VQA model to handle discrimination and localization challenges associated with multiple entities.
+                We introduce colorful masks, this visual prompt can help VLMs to discriminate multiple entities in a single image. Then we enable the ability of VLMs to localize multiple entities in a single image.
               </p>
         
               <p>
@@ -382,7 +415,7 @@
               </p>
         
               <p>
-                In asymmetric image retrieval systems, there is a significant capacity gap between the query and gallery network. The low-capacity query network struggles to effectively store and understand knowledge from the high-capacity teacher network. Therefore, we introduce a simple yet effective semi-collaborative distillation (SCD) framework, which can additionally adjust the gallery network because the gallery network has a redundant capacity to carry specific knowledge from the query network. Specifically, as the query network converges, we incrementally unfreeze the gallery network to smoothly adjust the feature space of the gallery network to be consistent with that of the query network.
+                In asymmetric image retrieval, the capacity gap between query and gallery networks creates knowledge transfer challenges. Our semi-collaborative distillation (SCD) framework addresses this by allowing the high-capacity gallery network to adapt to the query network. As the query network converges, we gradually unfreeze the gallery network to align their feature spaces, creating a more effective retrieval system.
               </p>
         
               <p>
