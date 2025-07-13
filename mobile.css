@@ -392,7 +392,7 @@ hr {
 .experience-container .text {
   flex: 1;
   padding-left: 20px;
-  text-align: justify;
+  text-align: left;
 }
 .experience-container img {
   max-width: 100%;
@@ -420,7 +420,7 @@ td {
   padding: 20px;
 }
 .bio p {
-  text-align: justify; /* Adjust text alignment as needed */
+  text-align: left; /* Adjust text alignment as needed */
 }
 .links {
   text-align: center;
