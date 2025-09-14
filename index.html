@@ -18,100 +18,11 @@
     <meta name="google-site-verification" content="vJ_pZMsbGuDnzTd88nb-RQcqes9CnJjFV7_vN4YtXwU" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="shortcut icon" href="images/favicon/whale.png" type="image/x-icon">
-    <link rel="stylesheet" href="desktop.css" media="screen and (min-width: 601px)">
-    <link rel="stylesheet" href="mobile.css" media="screen and (max-width: 600px)">
-    <link rel="stylesheet" href="desktop.css" media="print">
+    <link rel="stylesheet" href="css/desktop.css" media="screen and (min-width: 601px)">
+    <link rel="stylesheet" href="css/mobile.css" media="screen and (max-width: 600px)">
+    <link rel="stylesheet" href="css/desktop.css" media="print">
     <!-- Font Awesome CDN -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <!-- Animation CSS -->
-    <style>
-      @keyframes fadeIn {
-        from { opacity: 0; transform: translateY(20px); }
-        to { opacity: 1; transform: translateY(0); }
-      }
-      
-      .fade-in {
-        animation: fadeIn 0.8s ease forwards;
-        opacity: 0;
-      }
-      
-      .delay-1 { animation-delay: 0.2s; }
-      .delay-2 { animation-delay: 0.4s; }
-      .delay-3 { animation-delay: 0.6s; }
-      .delay-4 { animation-delay: 0.8s; }
-      .delay-5 { animation-delay: 1s; }
-      
-      /* Style for empty links - with higher specificity */
-      strong.buttom.disabled-link, 
-      html body strong.buttom.disabled-link {
-        opacity: 0.5 !important;
-        cursor: not-allowed !important;
-        background-color: #e5e5e5 !important;
-        color: #888 !important;
-        border-color: #ccc !important;
-        position: relative;
-      }
-      
-      strong.buttom.disabled-link a, 
-      html body strong.buttom.disabled-link a {
-        color: #888 !important;
-        pointer-events: none !important;
-      }
-      
-      .buttom-disabled {
-        opacity: 0.5 !important;
-        background-color: #e0e0e0 !important;
-        color: #999 !important;
-        cursor: not-allowed !important;
-        pointer-events: none !important;
-        box-shadow: none !important;
-        transform: none !important;
-      }
-      
-      .buttom-disabled:hover {
-        background-color: #e0e0e0 !important;
-        transform: none !important;
-        box-shadow: none !important;
-      }
-      
-      .buttom-disabled a {
-        color: #999 !important;
-        pointer-events: none !important;
-      }
-      
-      /* New CSS rules to fix button hover effects */
-      /* Prevent hover animation on anchor tags within buttons */
-      strong.buttom a {
-        transition: none !important;
-        /* Ensure the link inherits button colors and doesn't change on hover */
-        color: inherit !important;
-      }
-      
-      strong.buttom a:hover {
-        /* Cancel any hover effects that might be applied to anchor tags */
-        color: inherit !important;
-        text-decoration: none !important;
-        transform: none !important;
-        /* Prevent any other hover animations */
-        animation: none !important;
-        -webkit-animation: none !important;
-        -moz-animation: none !important;
-        -o-animation: none !important;
-      }
-      
-      /* Ensure hover effects only apply to the button container */
-      strong.buttom {
-        /* Add your preferred hover animation properties here */
-        transition: all 0.3s ease !important;
-        display: inline-block !important;
-      }
-      
-      strong.buttom:hover {
-        /* These effects will apply only to the button container */
-        transform: translateY(-2px) !important;
-        box-shadow: 0 4px 8px rgba(0,0,0,0.1) !important;
-      }
-    </style>
   </head>
 
   <body>
@@ -120,7 +31,6 @@
         <li><a href="#Top"><strong>Top <i class="fas fa-arrow-up"></i></strong></a></li>&nbsp;·&nbsp;
         <li><a href="#Research"><i class="fas fa-lightbulb"></i></a></li>&nbsp;·&nbsp;
         <li><a href="#Projects"><i class="fas fa-folder-open"></i></a></li>&nbsp;·&nbsp;
-        <!-- <li><a href="#Awards"><i class="fas fa-trophy"></i></a></li>&nbsp;·&nbsp; -->
         <li><a href="#Experiences"><i class="fas fa-globe"></i></a></li>
       </ul>
     </div>
@@ -130,102 +40,9 @@
         <li><a href="#Top"><strong><span style="color: #8B4513; font-size: 1.6em;">■</span> About</strong></a></li>&nbsp;·&nbsp;
         <li><a href="#Research"><strong><span style="color: #FFD700; font-size: 1.6em;">■</span> Research</strong></a></li>&nbsp;·&nbsp;
         <li><a href="#Projects"><strong><span style="color: #FF8C00; font-size: 1.6em;">■</span> Projects</strong></a></li>&nbsp;·&nbsp;
-        <!-- <li><a href="#Awards"><strong><span style="color: #800080; font-size: 1.6em;">■</span> Awards</strong></a></li>&nbsp;·&nbsp; -->
         <li><a href="#Experiences"><strong><span style="color: #0000FF; font-size: 1.6em;">■</span> Experiences</strong></a></li>
       </ul>
     </div>
-
-    <script>
-      // Get the height of the mobile and desktop navigation bars
-      var navbarHeightMobile = document.querySelector('.mobile-component ul').offsetHeight;
-      var navbarHeightDesktop = document.querySelector('.desktop-component ul').offsetHeight;
-  
-      // Add click event listeners to navigation links
-      document.querySelectorAll('.mobile-component ul li a, .desktop-component ul li a, .a').forEach(function(anchor) {
-          anchor.addEventListener('click', function(event) {
-              event.preventDefault(); // Prevent the default navigation behavior
-  
-              var targetId = this.getAttribute('href'); // Get the target section's ID from the link's href
-              var targetElement = document.querySelector(targetId); // Find the target element using its ID
-              var targetOffsetTop = targetElement.offsetTop; // Get the target's top offset relative to the document
-  
-              // Calculate scroll position considering the navigation bar height to avoid overlap
-              var navbarHeight = (window.innerWidth < 768) ? navbarHeightMobile : navbarHeightDesktop;
-              window.scrollTo({
-                  top: targetOffsetTop - navbarHeight,
-                  behavior: 'smooth' // Smooth scroll to the target position
-              });
-          });
-      });
-
-      // Scroll to top button functionality
-      var scrollToTopBtn = document.getElementById("scroll-to-top");
-      
-      window.onscroll = function() {
-        if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
-          scrollToTopBtn.style.display = "block";
-        } else {
-          scrollToTopBtn.style.display = "none";
-        }
-      };
-      
-      scrollToTopBtn.addEventListener("click", function() {
-        window.scrollTo({
-          top: 0,
-          behavior: "smooth"
-        });
-      });
-      
-      // Function to check button links and apply styles based on URL validity
-      function disableEmptyLinks() {
-        // Get all buttom elements with anchors
-        var buttons = document.querySelectorAll('strong.buttom');
-        
-        // Debug count
-        console.log("Found " + buttons.length + " buttons with class 'buttom'");
-        
-        // Process each button
-        buttons.forEach(function(button) {
-          var anchor = button.querySelector('a');
-          
-          // If anchor exists and has an empty or "#" href
-          if (anchor && (!anchor.getAttribute('href') || anchor.getAttribute('href') === '' || anchor.getAttribute('href') === '#')) {
-            console.log("Empty link found:", anchor);
-            
-            // Add disabled class
-            button.className += ' buttom-disabled';
-            
-            // Directly apply inline styles for maximum specificity
-            button.style.opacity = "0.5";
-            button.style.cursor = "not-allowed";
-            button.style.backgroundColor = "#e0e0e0";
-            button.style.color = "#999";
-            
-            // Style the anchor
-            anchor.style.color = "#999";
-            anchor.style.pointerEvents = "none";
-            
-            // Prevent click events
-            anchor.addEventListener('click', function(e) {
-              e.preventDefault();
-              e.stopPropagation();
-              return false;
-            });
-          }
-        });
-      }
-      
-      // Run when DOM is loaded
-      if (document.readyState === "loading") {
-        document.addEventListener("DOMContentLoaded", disableEmptyLinks);
-      } else {
-        // DOM already loaded, run now
-        disableEmptyLinks();
-      }
-    
-      // Also run after window load (for good measure)
-      window.addEventListener('load', disableEmptyLinks);
-    </script>
 
     <section id="Top"></section>
     <table style="max-width:900px;margin:auto;padding-top: 30px;"><tbody>
@@ -235,8 +52,8 @@
             <div class="face-name">
               <img src="images/face.jpeg" alt="profile photo" class="profile-img">
               <div class="name-info">
-                  <span style="font-family: 'Times New Roman', Times, serif;">Haoquan Zhang</span> <br> 
-                  <span style="font-family: '华文中宋', serif;">张皓泉</span>
+                  <span style="font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;">Haoquan Zhang</span> <br> 
+                  <span style="font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;">张皓泉</span>
               </div>
             </div>
             <br>
@@ -245,6 +62,14 @@
               Previously, I used to be an intern at <a href="https://www.shlab.org.cn/">Shanghai AI Lab</a>, mentored by <a href="https://scholar.google.com/citations?user=4OqZBmYAAAAJ&hl=en&oi=ao">Kaipeng Zhang</a>. My research interests lie in (M)LLM Reasoning. 
               In addition to my primary research, I'm also fascinated by the interpretability and cognitive science.
             </p>
+
+            <div class="links">
+              <a href="https://scholar.google.com/citations?user=VUboP9QAAAAJ&hl=en-US" class="buttom bio-button">Google Scholar</a>
+              <a href="mailto:haoquanzhang@outlook.com" class="buttom bio-button">Email</a>
+              <a href="https://www.xiaohongshu.com/user/profile/6325ef2a0000000023027921" class="buttom bio-button">Xiaohongshu</a>
+              <a href="https://x.com/Haoquan03" class="buttom bio-button">X</a>
+            </div>
+
             <div class="random-thoughts">
               <h4><strong id="thoughts-toggle" style="cursor: pointer;"><i class="fas fa-chevron-right"></i> Click for some random thoughts 🤔</strong></h4>
               
@@ -255,31 +80,6 @@
                 </p>
               </div>
             </div>
-
-            <script>
-              // Toggle visibility of random thoughts
-              document.getElementById('thoughts-toggle').addEventListener('click', function() {
-                const content = document.getElementById('thoughts-content');
-                const icon = this.querySelector('i');
-                
-                if (content.style.display === 'none') {
-                  content.style.display = 'block';
-                  icon.className = 'fas fa-chevron-down';
-                } else {
-                  content.style.display = 'none';
-                  icon.className = 'fas fa-chevron-right';
-                }
-              });
-            </script>
-
-            <div class="links">
-              <!-- <a href="data/resume.pdf">CV</a> &nbsp;·&nbsp; -->
-              <!-- <a href="https://www.zhihu.com/people/homybush"><i class="fab fa-zhihu"></i> Zhihu</a> &nbsp;·&nbsp; -->
-              <a href="https://scholar.google.com/citations?user=VUboP9QAAAAJ&hl=en-US"><i class="fas fa-graduation-cap"></i> Google Scholar</a> &nbsp;·&nbsp;
-              <a href="mailto:haoquanzhang@outlook.com"><i class="fas fa-envelope"></i> Email</a> &nbsp;·&nbsp;
-              <a href="https://www.xiaohongshu.com/user/profile/6325ef2a0000000023027921"><i class="fab fa-xiaohongshu"></i> Xiaohongshu</a>
-              <!-- <a href="images/wechat.jpg">WeChat</a> -->
-            </div>
           </div>
           
 
@@ -288,7 +88,7 @@
             <tbody>
               <tr>
                 <td style="padding:20px;width:100%;vertical-align:middle">
-                  <h2 class="fade-in delay-1"><strong><i class="fas fa-newspaper"></i> News</strong></h2>
+                  <h2 class="fade-in delay-1"><strong>News</strong></h2>
                 </td>
               </tr>
             </tbody>
@@ -300,26 +100,6 @@
                 <td class="date">10th July 2025</td>
                 <td>I have completed my internship at Shanghai AI Lab. Goodbye, Shanghai! Thanks to everyone I met, see you all around the world!</td>
               </tr>
-              <!-- <tr>
-                <td class="date">2024-10-31 <i class="fas fa-briefcase"></i></td>
-                <td>Glad to serve as a visiting student at Westlake University, advised by <a href="https://scholar.google.com/citations?user=HmylMfcAAAAJ&hl=en">Yandong Wen.</a></td>
-              </tr>
-              <tr>
-                <td class="date">2024-10-25 <i class="fas fa-briefcase"></i></td>
-                <td>Glad to receive an intern offer from Shanghai AI Lab! See you in Shanghai!</td>
-              </tr>
-              <tr>
-                  <td class="date">2024-06-26 <i class="fas fa-graduation-cap"></i></td>
-                  <td>PhD offer from CUHK!</td>
-              </tr>
-              <tr>
-                  <td class="date">2024-06-14 <i class="fas fa-rocket"></i></td>
-                  <td>Mask4Align now released!</td>
-              </tr>
-              <tr>
-                  <td class="date">2024-02-27 <i class="fas fa-file-alt"></i></td>
-                  <td>My first paper accepted by CVPR 2024! See you in Seattle!</td>
-              </tr> -->
             </tbody>
           </table>
 
@@ -329,219 +109,22 @@
           <tbody>
             <tr>
               <td style="padding:20px;width:100%;vertical-align:middle">
-                <h2 class="fade-in delay-2"><strong><i class="fas fa-lightbulb"></i> Research</strong></h2>
+                <h2 class="fade-in delay-2"><strong>Research</strong></h2>
               </td>
             </tr>
           </tbody>
         </table>
 
-        <div class="paper-container fade-in delay-2">
-          <div class="image">
-            <img src='images/teaser.drawio-2.png' alt="sgp-gen">
-          </div>
-          <div class="text">
-            <span class="papertitle">Symbolic Graphics Programming with Large Language Models</span><br>
-            
-            <p>
-              <span style="font-size: 13px;color: rgb(160, 160, 160);">* co-first authorship</span>
-              <br>
-              Yamei Chen<sup>*</sup>,
-              <u><strong>Haoquan Zhang</strong></u><sup>*</sup>,
-              Yangyi Huang,
-              Zeju Qiu,
-              Kaipeng Zhang,
-              Yandong Wen,
-              Weiyang Liu
-              <br>
-            </p>
-      
-            <p>
-              <strong class="buttom"><a href="https://arxiv.org/abs/2509.05208"><i class="fas fa-file-pdf"></i> Paper</a></strong>
-              <strong class="buttom"><a href="https://github.com/Sphere-AI-Lab/SGP-RL"><i class="fab fa-github"></i> Code</a></strong>
-              <strong class="buttom"><a href="https://spherelab.ai/SGP-Gen/"><i class="fas fa-globe"></i> Project Page</a></strong>
-            </p>
-      
-            <div class="arxiv">
-              <strong>Arxiv 2025</strong>
-            </div>
-          </div>
+        <div id="publications-container" class="fade-in delay-2">
+          <!-- Publications will be dynamically loaded here -->
         </div>
-
-        <div class="paper-container fade-in delay-2">
-          <div class="image">
-            <img src='images/pyvision.png' alt="pyvision">
-          </div>
-          <div class="text">
-            <span class="papertitle">PyVision: Agentic Vision with Dynamic Tooling</span><br>
-            
-            <p>
-              <span style="font-size: 13px;color: rgb(160, 160, 160);">* co-first authorship</span>
-              <br>
-              Shitian Zhao<sup>*</sup>,
-              <u><strong>Haoquan Zhang</strong></u><sup>*</sup>,
-              Shaoheng Lin<sup>*</sup>,
-              Ming Li<sup>*</sup>,
-              Qilong Wu<sup>*</sup>,
-              Kaipeng Zhang,
-              Chen Wei
-              <br>
-            </p>
-      
-            <!-- <p>
-              PyVision, an interactive framework where an MLLM can autonomously generate, execute, and iteratively refine Python code in response to multimodal queries.
-            </p> -->
-      
-            <p>
-              <strong class="buttom"><a href="https://arxiv.org/abs/2507.07998"><i class="fas fa-file-pdf"></i> Paper</a></strong>
-              <strong class="buttom"><a href="https://github.com/agents-x-project/PyVision"><i class="fab fa-github"></i> Code</a></strong>
-              <strong class="buttom"><a href="https://huggingface.co/spaces/Agents-X/PyVision"><i class="fas fa-globe"></i> Demo</a></strong>
-              <strong class="buttom"><a href="https://agent-x.space/pyvision/"><i class="fas fa-globe"></i> Project Page</a></strong>
-            </p>
-      
-            <div class="arxiv">
-              <strong>Arxiv 2025</strong>
-            </div>
-          </div>
-        </div>
-
-        <div class="paper-container fade-in delay-2">
-          <div class="image">
-            <img src='images/thinkingornot.png' alt="thinkingornot">
-          </div>
-          <div class="text">
-            <span class="papertitle">To Think or Not To Think:
-              A Study of Thinking in Rule-Based Visual Reinforcement Fine-Tuning</span><br>
-            
-            <p>
-              Ming Li,
-              Jike Zhong,
-              Shitian Zhao,
-              Yuxiang Lai,
-              <u><strong>Haoquan Zhang</strong></u>,
-              Wang Bill Zhu,
-              Kaipeng Zhang
-            </p>
-      
-            <!-- <p>
-              ¹ No-Thinking-RFT often matches or exceeds Thinking-based RFT in visual tasks. <br>
-              ² Low-capability models produce poor CoT, reducing Thinking-based RFT effectiveness. <br>
-              ³ Inconsistencies in Thinking-based RFT responses may impede reward convergence. <br>
-            </p> -->
-      
-            <p>
-              <strong class="buttom"><a href="https://arxiv.org/abs/2503.16188"><i class="fas fa-file-pdf"></i> Paper</a></strong>
-              <!-- <strong class="buttom"><a href="https://ai-idea-bench.github.io"><i class="fas fa-globe"></i> Project Page</a></strong> -->
-              <strong class="buttom"><a href="https://github.com/minglllli/CLS-RL"><i class="fab fa-github"></i> Code</a></strong>
-            </p>
-      
-            <div class="arxiv">
-              <strong>Arxiv 2025</strong>
-            </div>
-          </div>
-        </div>
-
-          <div class="paper-container fade-in delay-2">
-            <div class="image">
-              <img src='images/ideabench.jpg' alt="ideabench">
-            </div>
-            <div class="text">
-              <span class="papertitle">AI-Idea-Bench💡: A Benchmark for AI Idea Generation</span><br>
-              
-              <p>
-                Yansheng Qiu, 
-                <u><strong>Haoquan Zhang</strong></u>, 
-                Zhaopan Xu, 
-                Ming Li, 
-                Diping Song, 
-                Zheng Wang, 
-                Kaipeng Zhang
-              </p>
-        
-              <!-- <p>
-                We present AI Idea Bench 2025, a framework to quantitatively evaluate LLM-generated ideas in AI research, featuring a dataset of 3,495 papers with inspired works and a robust evaluation methodology. The system assesses idea quality based on alignment with original papers and reference-based judgment.
-              </p> -->
-        
-              <p>
-                <strong class="buttom"><a href="https://arxiv.org/abs/2504.14191"><i class="fas fa-file-pdf"></i> Paper</a></strong>
-                <strong class="buttom"><a href="https://ai-idea-bench.github.io"><i class="fas fa-globe"></i> Project Page</a></strong>
-                <strong class="buttom"><a href=""><i class="fab fa-github"></i> Code</a></strong>
-                <strong class="buttom"><a href=""><i class="fas fa-database"></i> Benchmark</a></strong>
-              </p>
-        
-              <div class="arxiv">
-                <strong>Arxiv 2025</strong>
-              </div>
-            </div>
-          </div>
-
-          <!-- <div class="paper-container fade-in delay-2">
-            <div class="image">
-              <img src='images/M4A.png' alt="Mask4Align">
-            </div>
-            <div class="text">
-              <span class="papertitle">Mask4Align: Aligned Entity Prompting with Color Masks for Multi-Entity Localization Problems</span><br>
-              
-              <p>
-                <u><strong>Haoquan Zhang</strong></u>,
-                Ronggang Huang,
-                Yi Xie,
-                <a href="https://scholar.google.com/citations?user=cC_WhWkAAAAJ">Huaidong Zhang</a>
-              </p>
-        
-              <p>
-                We introduce colorful masks, this visual prompt can help VLMs to discriminate multiple entities in a single image. Then we enable the ability of VLMs to localize multiple entities in a single image.
-              </p>
-        
-              <p>
-                <strong class="buttom"><a href="https://openaccess.thecvf.com/content/CVPR2024/papers/Zhang_Mask4Align_Aligned_Entity_Prompting_with_Color_Masks_for_Multi-Entity_Localization_CVPR_2024_paper.pdf"><i class="fas fa-file-pdf"></i> Paper</a></strong>
-                <strong class="buttom"><a href="https://www.zhihu.com/question/627841035/answer/3286130863"><i class="fas fa-book"></i> Submission Journey</a></strong>  
-              </p>
-        
-              <div class="CVPR">
-                <strong>CVPR 2024</strong>
-              </div>
-            </div>
-          </div> -->
-<!-- 
-          <div class="paper-container fade-in delay-2">
-            <div class="image">
-              <img src='images/SCD-2024.png' alt="Mask4Align">
-            </div>
-            <div class="text">
-              <span class="papertitle">Asymmetric Image Retrieval with Semi-Collaborative Distillation</span><br>
-              
-              <p>
-                Yi Xie*,
-                <u><strong>Haoquan Zhang</u>*</strong>,
-                Xuandi Luo,
-                Huaidong Zhang,
-                Xuemiao Xu,
-                <a href="http://www.shengfenghe.com/">Shengfeng He</a>
-                <br>
-                <em style="color: rgb(160, 160, 160);font-size: smaller;">* Co-first authorship</em>
-              </p>
-        
-              <p>
-                In asymmetric image retrieval, the capacity gap between query and gallery networks creates knowledge transfer challenges. Our semi-collaborative distillation (SCD) framework addresses this by allowing the high-capacity gallery network to adapt to the query network. As the query network converges, we gradually unfreeze the gallery network to align their feature spaces, creating a more effective retrieval system.
-              </p>
-        
-              <p>
-                <strong class="buttom"><i class="fas fa-file-pdf"></i> [Paper]</strong>
-                <strong class="buttom"><i class="fas fa-code"></i> [Code]</strong> 
-              </p>
-        
-              <div class="insub">
-                <strong>Under Review</strong>
-              </div>
-            </div>
-          </div> -->
 
           <hr>
           <section id="Projects"></section>
           <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
             <tr>
             <td style="padding:20px;width:100%;vertical-align:middle">
-              <h2 class="fade-in delay-3"><strong><i class="fas fa-folder-open"></i> Projects</strong></h2>
+              <h2 class="fade-in delay-3"><strong>Projects</strong></h2>
             </td>
             </tr>
             </tbody>
@@ -565,54 +148,25 @@
                 GunMayhem Remake is a project independently completed by our team members, covering all aspects, including source code, game artwork, and music assets. You can play our <a href="https://github.com/Randonee1/Advanced-Language-Programming/tree/main/dist">executable file</a>.
               </p>
               
-              <p>
+              <!-- <p>
                 <span style="color: rgb(149, 63, 184);"><i class="fas fa-bullhorn"></i> Shoutout to <a href="https://www.thekevingu.com/">Kevin Gu</a> for creating this incredible game!</span>
-              </p>
+              </p> -->
 
               <p>
-                <strong class="buttom"><a href="https://github.com/Randonee1/Advanced-Language-Programming"><i class="fab fa-github"></i> Github</a></strong>
-                <strong class="buttom"><a href="GunMayhem/gunMayhem.html"><i class="fas fa-link"></i> Project Page</a></strong>
-                <strong class="buttom"><a href="https://gun-mayhem-2.github.io/"><i class="fas fa-gamepad"></i> Original Game</a></strong>
-                <strong class="buttom"><a href="/GunMayhem/gunmayhem_GameArts.zip"><i class="fas fa-palette"></i> Art Assets (.ai)</a></strong>
+                <a href="https://github.com/Randonee1/Advanced-Language-Programming" class="buttom"><i class="fab fa-github"></i> Github</a>
+                <a href="GunMayhem/gunMayhem.html" class="buttom"><i class="fas fa-link"></i> Project Page</a>
+                <a href="https://gun-mayhem-2.github.io/" class="buttom"><i class="fas fa-gamepad"></i> Original Game</a>
+                <a href="/GunMayhem/gunmayhem_GameArts.zip" class="buttom"><i class="fas fa-palette"></i> Art Assets (.ai)</a>
               </p>
             </div>
           </div>
-
-          <!-- <hr>
-          <section id="Awards"></section>
-          <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
-            <tr>
-              <td style="padding:20px;width:100%;vertical-align:middle">
-                <h2 class="fade-in delay-4"><strong><i class="fas fa-trophy"></i> Awards</strong></h2>
-
-                <p><strong><i class="fas fa-medal"></i> TaiHu Innovation Prize (1%)</strong>,
-                <br>Highest scholarship, which awarded by the Wuxi governments, 2024</p>
-                
-                <p><strong><i class="fas fa-medal"></i> Second Prize (6%), <em><span style="color: rgb(43, 155, 142);"> *Medical AI Track</span></em> </strong>
-                <br>The National BME lnnovation Design Competition, China Society of Biomedical Engineering, 2023</p>
-
-                <p><strong>Second Prize (5%)</strong>, 
-                <br>The Taihu Innovation Scholarship, Wuxi city government, 2022</p>
-
-                <p><strong>Third Prize (12%)</strong>, 
-                <br>The SCUT Scholarship, SCUT, 2022</p>
-
-                <p><strong>Third Prize (12%)</strong>, 
-                <br>The Huameng Scholarships, TCL Corporate , 2022</p>
-
-                <p><strong><i class="fas fa-medal"></i> Meritorious Winner (6%), <em><span style="color: rgb(43, 155, 142);"> *Prior to the release of ChatGPT </span></em><i class="fas fa-smile-wink"></i> </strong>
-                <br>The Interdisciplinary Contest in Modeling (ICM), <a href="https://www.comap.com/">COMAP</a>, 2021</p>
-  
-              </td>
-            </tr>
-          </tbody></table> -->
 
           <hr>
           <section id="Experiences"></section>
           <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;"><tbody>
             <tr>
               <td style="padding:20px;width:100%;vertical-align:middle">
-                <h2 class="fade-in delay-5"><strong><i class="fas fa-globe"></i> Experiences</strong></h2>
+                <h2 class="fade-in delay-5"><strong>Experiences</strong></h2>
 
                 <br>
                 <div class="experience-container fade-in delay-5" >
@@ -655,17 +209,7 @@
                     <em>Do something insightful.</em>
                     <br><br>
                     <span style="font-size: medium;color: rgb(143, 143, 143);"><i class="far fa-copyright"></i> 2025 Haoquan Zhang&nbsp;&nbsp;</span>
-                    <!-- <br>
-                    Feel free to take the <a href="https://github.com/HaoquanZhang/HaoquanZhang.github.io">resources</a> of this page. -->
-                  <!-- </p>
-                    
-                  </p> -->
-                  <!-- <div class="logo-container fade-in delay-5">
-                    <img src="images/scut_logo.png" alt="SCUT Logo">
-                    <img src="images/CUHK.png" alt="CUHK Logo">
-                    <img src="images/pjlab.png" alt="ailab Logo">
-                    <img src="images/westlake.png" alt="westlake Logo">
-                  </div> -->
+                  </p>
                 </td>
               </tr>
             </tbody>
@@ -676,9 +220,11 @@
     </table>
 
     <!-- Scroll to top button -->
-    <div id="scroll-to-top" style="position: fixed; bottom: 20px; right: 20px; display: none; background-color: rgba(0,0,0,0.5); color: white; width: 40px; height: 40px; border-radius: 50%; text-align: center; line-height: 40px; cursor: pointer; transition: all 0.3s ease; z-index: 1000;">
+    <div id="scroll-to-top" style="position: fixed; bottom: 20px; right: 20px; display: none; background-color: rgba(0,0,0,0.5); color: white; width: 40px; height: 40px; text-align: center; line-height: 40px; cursor: pointer; transition: all 0.3s ease; z-index: 1000;">
       <i class="fas fa-arrow-up"></i>
     </div>
+    
+    <script src="js/main.js"></script>
   </body>
 </html>
 

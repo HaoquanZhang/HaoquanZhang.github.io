@@ -1,0 +1,91 @@
+[
+  {
+    "id": "sgp-gen-2025",
+    "title": "Symbolic Graphics Programming with Large Language Models",
+    "authors": [
+      {"name": "Yamei Chen", "isCoFirst": true},
+      {"name": "Haoquan Zhang", "isCoFirst": true, "isHighlight": true},
+      {"name": "Yangyi Huang"},
+      {"name": "Zeju Qiu"},
+      {"name": "Kaipeng Zhang"},
+      {"name": "Yandong Wen"},
+      {"name": "Weiyang Liu"}
+    ],
+    "venue": "Arxiv 2025",
+    "venueType": "arxiv",
+    "image": "images/teaser.drawio-2.png",
+    "links": {
+      "paper": "https://arxiv.org/abs/2509.05208",
+      "code": "https://github.com/Sphere-AI-Lab/SGP-RL",
+      "project": "https://spherelab.ai/SGP-Gen/"
+    },
+    "year": 2025
+  },
+  {
+    "id": "pyvision-2025",
+    "title": "PyVision: Agentic Vision with Dynamic Tooling",
+    "authors": [
+      {"name": "Shitian Zhao", "isCoFirst": true},
+      {"name": "Haoquan Zhang", "isCoFirst": true, "isHighlight": true},
+      {"name": "Shaoheng Lin", "isCoFirst": true},
+      {"name": "Ming Li", "isCoFirst": true},
+      {"name": "Qilong Wu", "isCoFirst": true},
+      {"name": "Kaipeng Zhang"},
+      {"name": "Chen Wei"}
+    ],
+    "venue": "Arxiv 2025",
+    "venueType": "arxiv",
+    "image": "images/pyvision.png",
+    "links": {
+      "paper": "https://arxiv.org/abs/2507.07998",
+      "code": "https://github.com/agents-x-project/PyVision",
+      "demo": "https://huggingface.co/spaces/Agents-X/PyVision",
+      "project": "https://agent-x.space/pyvision/"
+    },
+    "year": 2025
+  },
+  {
+    "id": "thinking-or-not-2025",
+    "title": "To Think or Not To Think: A Study of Thinking in Rule-Based Visual Reinforcement Fine-Tuning",
+    "authors": [
+      {"name": "Ming Li"},
+      {"name": "Jike Zhong"},
+      {"name": "Shitian Zhao"},
+      {"name": "Yuxiang Lai"},
+      {"name": "Haoquan Zhang", "isHighlight": true},
+      {"name": "Wang Bill Zhu"},
+      {"name": "Kaipeng Zhang"}
+    ],
+    "venue": "Arxiv 2025",
+    "venueType": "arxiv",
+    "image": "images/thinkingornot.png",
+    "links": {
+      "paper": "https://arxiv.org/abs/2503.16188",
+      "code": "https://github.com/minglllli/CLS-RL"
+    },
+    "year": 2025
+  },
+  {
+    "id": "ai-idea-bench-2025",
+    "title": "AI-Idea-Bench💡: A Benchmark for AI Idea Generation",
+    "authors": [
+      {"name": "Yansheng Qiu"},
+      {"name": "Haoquan Zhang", "isHighlight": true},
+      {"name": "Zhaopan Xu"},
+      {"name": "Ming Li"},
+      {"name": "Diping Song"},
+      {"name": "Zheng Wang"},
+      {"name": "Kaipeng Zhang"}
+    ],
+    "venue": "Arxiv 2025",
+    "venueType": "arxiv",
+    "image": "images/ideabench.jpg",
+    "links": {
+      "paper": "https://arxiv.org/abs/2504.14191",
+      "project": "https://ai-idea-bench.github.io",
+      "code": "",
+      "benchmark": ""
+    },
+    "year": 2025
+  }
+] 
