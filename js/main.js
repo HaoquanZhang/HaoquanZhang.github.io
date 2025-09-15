@@ -79,17 +79,47 @@ function disableEmptyLinks() {
   });
 }
 
-// Toggle visibility of random thoughts
+// Toggle visibility of random thoughts with staggered animation
 document.getElementById('thoughts-toggle').addEventListener('click', function() {
   const content = document.getElementById('thoughts-content');
   const icon = this.querySelector('i');
+  const thoughtItems = content.querySelectorAll('.thought-item');
+  const isExpanded = content.classList.contains('expanded');
   
-  if (content.style.display === 'none') {
-    content.style.display = 'block';
-    icon.className = 'fas fa-chevron-down';
+  if (!isExpanded) {
+    // Show thoughts with staggered animation
+    content.classList.add('expanded');
+    icon.style.transform = 'rotate(90deg)';
+    
+    thoughtItems.forEach((item, index) => {
+      const delay = parseInt(item.dataset.delay) || 0;
+      setTimeout(() => {
+        item.classList.remove('hide');
+        item.classList.add('show');
+      }, delay + 200); // Add 200ms delay for container expansion
+    });
   } else {
-    content.style.display = 'none';
-    icon.className = 'fas fa-chevron-right';
+    // Hide thoughts with reverse staggered animation
+    icon.style.transform = 'rotate(0deg)';
+    
+    // Reverse order for hiding
+    const reversedItems = Array.from(thoughtItems).reverse();
+    reversedItems.forEach((item, index) => {
+      const delay = index * 100; // 100ms intervals for hiding
+      setTimeout(() => {
+        item.classList.remove('show');
+        item.classList.add('hide');
+      }, delay);
+    });
+    
+    // Collapse the container after all animations complete
+    setTimeout(() => {
+      content.classList.remove('expanded');
+      // Reset all items for next show
+      thoughtItems.forEach(item => {
+        item.classList.remove('show', 'hide');
+      });
+    }, (thoughtItems.length * 100) + 400);
   }
 });
 
@@ -178,16 +208,20 @@ function createPublicationHTML(pub) {
             <img src='${pub.image}' alt="${pub.id}">
           </div>
           <div class="text">
-            <span class="papertitle">${pub.title}</span><br>
+            <div class="paper-title-section">
+              <span class="papertitle">${pub.title}</span>
+            </div>
             
-            ${coFirstNote}${authorsHTML}
-              <br>
-            </p>
-      
-            <p>
-              <span class="${pub.venueType}"><strong>${pub.venue}</strong></span>
-              ${linksHTML}
-            </p>
+            <div class="paper-bottom-section">
+              ${coFirstNote}${authorsHTML}
+                <br>
+              </p>
+        
+              <p class="paper-links">
+                <span class="${pub.venueType}"><strong>${pub.venue}</strong></span>
+                ${linksHTML}
+              </p>
+            </div>
           </div>
         </div>`;
 }

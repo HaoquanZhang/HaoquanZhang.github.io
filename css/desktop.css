@@ -169,7 +169,7 @@ ul li a:hover{
   padding: 6px 12px; 
   display: inline-block; 
   color: #ffffff;
-  margin-right: 10px;
+  flex-shrink: 0;
   font-size: 13px;
   line-height: 1.4;
   text-align: center;
@@ -183,7 +183,7 @@ ul li a:hover{
   padding: 6px 12px; 
   display: inline-block; 
   color: #ffffff;
-  margin-right: 10px;
+  flex-shrink: 0;
   font-size: 13px;
   line-height: 1.4;
   text-align: center;
@@ -197,7 +197,7 @@ ul li a:hover{
   padding: 6px 12px; 
   display: inline-block; 
   color: #ffffff;
-  margin-right: 10px;
+  flex-shrink: 0;
   font-size: 13px;
   line-height: 1.4;
   text-align: center;
@@ -252,22 +252,25 @@ hr {
   align-items: center;
   justify-content: center;
   padding: 20px;
-  background: linear-gradient(110deg, #ffffff, #ffffff, #ffffff,#ffffff,#ffffff, #f3fbff, #f0fcff);
-  background-size: 200% 200%;
-  background-position: left;
-  transition: background-position 0.25s ease;
+  background-color: #ffffff;
+  border: 1px solid #efeeee;
+  transition: background-color 0.3s ease;
   margin-bottom: 20px;
 }
 .paper-container .image {
   flex: 1;
-  max-width: 180px;
+  max-width: 120px;
   text-align: top;
-  padding-right:20px;
+  /* padding-right:20px; */
 }
 .paper-container .text {
   flex: 1;
-  padding-left: 20px;
+  padding-left: 15px;
   text-align: left;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 120px;
 }
 .paper-container img {
   max-width: 100%;
@@ -276,14 +279,14 @@ hr {
 }
 
 .paper-container:hover {
-  background-position: right;
+  background-color: #efeeee;
 }
 
 .paper-container:hover img {
 }
 
 .paper-container .papertitle {
-  margin-bottom: 10px;
+  /* margin-bottom: 6px; */
   display: inline-block;
   color: #333333;
   transition: all 0.3s ease;
@@ -294,8 +297,26 @@ hr {
 }
 
 .paper-container p {
-  margin-top: 8px;
-  margin-bottom: 8px;
+  margin-top: 6px;
+  margin-bottom: 12px;
+}
+
+.paper-container .paper-links {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 5px;
+}
+
+.paper-title-section {
+  flex: 0 0 auto;
+}
+
+.paper-bottom-section {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
 }
 
 .experience-container {
@@ -380,7 +401,7 @@ td {
 .logo-container img {
   height: 50px;
   /* width: 50px; */
-  margin-right: 10px;
+  flex-shrink: 0;
   margin-left: 10px;
   transition: transform 0.3s ease;
   filter: grayscale(30%);
@@ -415,7 +436,6 @@ td {
 
 .buttom {
   display: inline-block;
-  margin-right: 10px;
   padding: 6px 12px;
   background-color: #e5e5e5;
   transition: all 0.3s ease;
@@ -427,6 +447,7 @@ td {
   text-decoration: none;
   font-weight: 700;
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  flex-shrink: 0;
 }
 
 .buttom:hover {
@@ -483,4 +504,39 @@ td {
   table {
     page-break-inside: avoid;
   }
+}
+
+/* Random thoughts animation */
+.thought-item {
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.4s ease, transform 0.4s ease;
+  /* margin-bottom: 2px; */
+  /* padding: 4px 0; */
+}
+
+.thought-item.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.thought-item.hide {
+  opacity: 0;
+  transform: translateY(-10px);
+}
+
+/* Icon rotation animation */
+#thoughts-toggle i {
+  transition: transform 0.3s ease;
+}
+
+/* Smooth expand/collapse for thoughts content */
+#thoughts-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.5s ease;
+}
+
+#thoughts-content.expanded {
+  max-height: 200px;
 }
