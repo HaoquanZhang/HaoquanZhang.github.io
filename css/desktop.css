@@ -1,4 +1,4 @@
-/* Using Helvetica font family for clean, professional typography */
+/* Using Helvetica font family for clean, modern typography */
 
 a {
   color: #1e6fb1;
@@ -251,7 +251,10 @@ hr {
   display: flex;
   align-items: center;
   justify-content: center;
+  margin-left: 20px;
+  margin-right: 20px;
   padding: 20px;
+  padding-right: 40px;
   background-color: #ffffff;
   border: 2px solid #efeeee;
   transition: background-color 0.3s ease;
@@ -265,7 +268,7 @@ hr {
 }
 .paper-container .text {
   flex: 1;
-  padding-left: 15px;
+  padding-left: 20px;
   text-align: left;
   display: flex;
   flex-direction: column;
@@ -529,6 +532,18 @@ td {
 /* Icon rotation animation */
 #thoughts-toggle i {
   transition: transform 0.3s ease;
+}
+
+/* Author links styling - only apply to author paragraphs, not button paragraphs */
+.paper-container p:not(.paper-links) a {
+  color: #000000;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.paper-container p:not(.paper-links) a:hover {
+  color: #da2c00;
+  text-decoration: none;
 }
 
 /* Smooth expand/collapse for thoughts content */

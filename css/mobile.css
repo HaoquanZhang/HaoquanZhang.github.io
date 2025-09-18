@@ -1,4 +1,4 @@
-/* Using Helvetica font family for clean, professional typography */
+/* Using Helvetica font family for clean, modern typography */
 
 a {
   color: #2d6bc7;
@@ -492,6 +492,18 @@ td {
 /* Icon rotation animation */
 #thoughts-toggle i {
   transition: transform 0.3s ease;
+}
+
+/* Author links styling - only apply to author paragraphs, not button paragraphs */
+.paper-container p:not(.paper-links) a {
+  color: #000000;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.paper-container p:not(.paper-links) a:hover {
+  color: #1e3a8a;
+  text-decoration: none;
 }
 
 /* Smooth expand/collapse for thoughts content */

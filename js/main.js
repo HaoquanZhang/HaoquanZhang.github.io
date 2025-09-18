@@ -123,9 +123,24 @@ document.getElementById('thoughts-toggle').addEventListener('click', function() 
   }
 });
 
+// Global variable to store author links
+let authorLinks = {};
+
+// Function to load author links
+async function loadAuthorLinks() {
+  try {
+    const response = await fetch('data/authors.json');
+    authorLinks = await response.json();
+  } catch (error) {
+    console.error('Error loading author links:', error);
+  }
+}
+
 // Function to render publications from JSON data
 async function renderPublications() {
   try {
+    // Load both publications and author links
+    await loadAuthorLinks();
     const response = await fetch('data/publications.json');
     const publications = await response.json();
     
@@ -142,10 +157,16 @@ async function renderPublications() {
 
 // Function to create HTML for a single publication
 function createPublicationHTML(pub) {
-  // Generate authors string
+  // Generate authors string with automatic links
   let authorsHTML = '';
   pub.authors.forEach((author, index) => {
     let authorName = author.name;
+    
+    // Check if author has a homepage link
+    const authorLink = authorLinks[authorName];
+    if (authorLink && authorLink !== '') {
+      authorName = `<a href="${authorLink}" target="_blank">${authorName}</a>`;
+    }
     
     if (author.isHighlight) {
       authorName = `<u><strong>${authorName}</strong></u>`;
