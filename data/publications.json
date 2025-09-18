@@ -56,8 +56,8 @@
       {"name": "Wang Bill Zhu"},
       {"name": "Kaipeng Zhang"}
     ],
-    "venue": "Arxiv 2025",
-    "venueType": "arxiv",
+    "venue": "NeurIPS 2025 (Spotlight)",
+    "venueType": "award",
     "image": "images/thinkingornot.png",
     "links": {
       "paper": "https://arxiv.org/abs/2503.16188",
