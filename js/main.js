@@ -201,7 +201,7 @@ function createPublicationHTML(pub) {
           break;
         case 'project':
           iconClass = 'fas fa-globe';
-          linkText = 'Project Page';
+          linkText = 'Project';
           break;
         case 'demo':
           iconClass = 'fas fa-globe';
@@ -218,6 +218,12 @@ function createPublicationHTML(pub) {
       
       linksHTML += `<a href="${url}" class="buttom"><i class="${iconClass}"></i> ${linkText}</a>\n              `;
     }
+  }
+  
+  // Generate misc button HTML if exists
+  let miscHTML = '';
+  if (pub.misc && pub.misc.text && pub.misc.link && pub.misc.link !== '') {
+    miscHTML = `<a href="${pub.misc.link}" class="buttom misc-button" target="_blank">${pub.misc.text}</a>\n              `;
   }
   
   // Start paragraph without co-first authorship note
@@ -240,7 +246,7 @@ function createPublicationHTML(pub) {
         
               <p class="paper-links">
                 <span class="${pub.venueType}"><strong>${pub.venue}</strong></span>
-                ${linksHTML}
+                ${linksHTML}${miscHTML}
               </p>
             </div>
           </div>

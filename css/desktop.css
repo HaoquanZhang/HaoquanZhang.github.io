@@ -340,6 +340,12 @@ hr {
   gap: 5px;
 }
 
+.paper-misc {
+  margin: 4px 0;
+  font-style: italic;
+  font-size: 13px;
+}
+
 .paper-title-section {
   flex: 0 0 auto;
 }
@@ -495,6 +501,16 @@ td {
 .bio-button:hover {
   background-color: #87ceeb !important;
   color: #ffffff !important;
+}
+
+.misc-button {
+  background-color: #ffd500 !important;
+  color: #000000 !important;
+}
+
+.misc-button:hover {
+  background-color: #ffecc3 !important;
+  color: #000000 !important;
 }
 
 /* Print styles */

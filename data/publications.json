@@ -19,6 +19,10 @@
       "code": "https://github.com/Sphere-AI-Lab/SGP-RL",
       "project": "https://spherelab.ai/SGP-Gen/"
     },
+    "misc": {
+      "text": "#3 HF Daily Paper",
+      "link": "https://huggingface.co/papers/2509.05208"
+    },
     "year": 2025
   },
   {
