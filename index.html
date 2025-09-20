@@ -48,35 +48,43 @@
     <table style="max-width:900px;margin:auto;padding-top: 30px;"><tbody>
       <tr style="padding:0px">
         <td style="padding:0px"> 
-          <div class="bio fade-in" >
-            <div class="face-name">
-              <img src="images/face.jpeg" alt="profile photo" class="profile-img">
-              <div class="name-info">
-                  <span style="font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;">Haoquan Zhang</span> <br> 
+          <div class="bio fade-in">
+            <div class="bio-layout">
+              <div class="bio-left">
+                <div class="profile-img-container">
+                  <img src="images/face.jpeg" alt="profile photo" class="profile-img" id="profile-img">
+                  <div class="profile-overlay">
+                    <i class="fas fa-undo-alt"></i>
+                  </div>
+                </div>
+                <div class="name-info">
+                  <span style="font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;">Haoquan Zhang</span><br>
                   <span style="font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;">张皓泉</span>
+                </div>
               </div>
-            </div>
-            <br>
-            <p>
-              Hi, I'm Haoquan, a fresh phd student studying at <a href="https://spherelab.ai">SphereLab</a>, CUHK, advised by <a href="https://wyliu.com/">Weiyang Liu</a>. 
-              Previously, I spend wonderful time in Shanghai, where I was an intern at <a href="https://www.shlab.org.cn/">Shanghai AI Lab</a>, mentored by <a href="https://scholar.google.com/citations?user=4OqZBmYAAAAJ&hl=en&oi=ao">Kaipeng Zhang</a>. My research interests lie in (M)LLM Reasoning. 
-              In addition to my primary research, I'm also fascinated by the interpretability and cogsci.
-            </p>
-
-            <div class="links">
-              <a href="https://scholar.google.com/citations?user=VUboP9QAAAAJ&hl=en-US" class="buttom bio-button">Google Scholar</a>
-              <a href="mailto:haoquanzhang@outlook.com" class="buttom bio-button">Email</a>
-              <a href="https://www.xiaohongshu.com/user/profile/6325ef2a0000000023027921" class="buttom bio-button">Xiaohongshu</a>
-              <a href="https://x.com/Haoquan03" class="buttom bio-button">X</a>
-            </div>
-
-            <div class="random-thoughts">
-              <h4><strong id="thoughts-toggle" style="cursor: pointer;"><i class="fas fa-chevron-right"></i> Click for some random thoughts 🤔</strong></h4>
               
-              <div id="thoughts-content">
-                <div class="thought-item" data-delay="0">· 📷 I wanna buy a camera but still haven't saved enough money.</div>
-                <div class="thought-item" data-delay="100">· 🏠 I love architecture, but not professional enough.</div>
-                <div class="thought-item" data-delay="200">· 🤓 I just changed the homepage style to be more square, hoping to balance out my round face.</div>
+              <div class="bio-right">
+                <p class="bio-text">
+                  Hi, I'm Haoquan, a fresh phd student studying at <a href="https://spherelab.ai">SphereLab</a>, CUHK, advised by <a href="https://wyliu.com/">Weiyang Liu</a>. 
+                  Previously, I spend wonderful time in Shanghai, where I was an intern at <a href="https://www.shlab.org.cn/">Shanghai AI Lab</a>, mentored by <a href="https://scholar.google.com/citations?user=4OqZBmYAAAAJ&hl=en&oi=ao">Kaipeng Zhang</a>. My research interests lie in (M)LLM Reasoning. 
+                  In addition to my primary research, I'm also fascinated by the interpretability and cogsci.
+                </p>
+
+                <div class="random-thoughts">
+                  <h4><strong>Random thoughts 🤔</strong></h4>
+                  <div class="thoughts-list">
+                    <div>· 📷 I wanna buy a camera but still haven't saved enough money.</div>
+                    <div>· 🏠 I love architecture, but not professional enough.</div>
+                    <div>· 🤓 Click my face to rotate it. (currently only works on desktop)</div>
+                  </div>
+                </div>
+
+                <div class="links">
+                  <a href="https://scholar.google.com/citations?user=VUboP9QAAAAJ&hl=en-US" class="buttom bio-button">Google Scholar</a>
+                  <a href="mailto:haoquanzhang@outlook.com" class="buttom bio-button">Email</a>
+                  <a href="https://www.xiaohongshu.com/user/profile/6325ef2a0000000023027921" class="buttom bio-button">Xiaohongshu</a>
+                  <a href="https://x.com/Haoquan03" class="buttom bio-button">X</a>
+                </div>
               </div>
             </div>
           </div>
@@ -94,18 +102,16 @@
           </table>
 
   
-          <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;padding:20px" class="fade-in delay-1">
-            <tbody>
-              <tr>
-                <td class="date">19th Sep 2025</td>
-                <td>Thrilled to share that our paper <strong style="color: rgb(50, 142, 211);">To Think or Not to Think</strong> has been selected as a <strong style="color: rgb(255, 170, 0);">Spotlight</strong> at NeurIPS 2025! Congratulations to my friend Ming Li.</td>
-              </tr>
-              <tr>
-                <td class="date">10th July 2025</td>
-                <td>I have completed my internship at Shanghai AI Lab. Goodbye, Shanghai! Thanks to everyone I met, see you all around the world!</td>
-              </tr>
-            </tbody>
-          </table>
+          <div class="news-container fade-in delay-1">
+            <div class="news-item">
+              <div class="news-date">19th Sep 2025</div>
+              <div class="news-content">Our paper <strong style="color: rgb(50, 142, 211);">To Think or Not to Think</strong> has been selected as a <strong style="color: rgb(255, 170, 0);">Spotlight</strong> at NeurIPS 2025! Congrats to my friend Ming Li.</div>
+            </div>
+            <div class="news-item">
+              <div class="news-date">10th July 2025</div>
+              <div class="news-content">I have completed my internship at Shanghai AI Lab. Thanks to everyone I met, see you all around the world!</div>
+            </div>
+          </div>
 
         
         <section id="Research"></section>
@@ -171,38 +177,35 @@
             <tr>
               <td style="padding:20px;width:100%;vertical-align:middle">
                 <h2 class="fade-in delay-5"><strong>Experiences</strong></h2>
-
-                <br>
-                <div class="experience-container fade-in delay-5" >
-                  <div class="image" onmouseout="gun_stop()" onmouseover="gun_start()">
-                    <img src='images/pjlab.png'>
-                  </div>
-                  <div class="text">
-                    <span class="papertitle">Shanghai AI Lab</span><br>
-                    Research Intern<br>
-                    Mentored by <a href="https://scholar.google.com/citations?user=4OqZBmYAAAAJ&hl=en&oi=ao">Kaipeng Zhang</a><br>
-                    <br>
-                    <span style="color: rgb(160, 160, 160);font-size: 13px;"> Nov 2024 - Jul 2025</span>
-                  </div>
-                </div>
-
-                <div class="experience-container fade-in delay-5" >
-                  <div class="image" onmouseout="gun_stop()" onmouseover="gun_start()">
-                    <img src='images/westlake.png'>
-                  </div>
-                  <div class="text">
-                    <span class="papertitle">Westlake University</span><br>
-                    Visiting Students<br>
-                    Advised by <a href="https://scholar.google.com/citations?user=HmylMfcAAAAJ&hl=en">Yandong Wen</a><br>
-                    <br>
-                    <span style="color: rgb(160, 160, 160);font-size: 13px;"> Sep 2024 - Present</span>
-
-                  </div>
-                </div>
-  
               </td>
             </tr>
           </tbody></table>
+
+          <div class="experience-section fade-in delay-5">
+            <div class="experience-item">
+              <div class="exp-period">Nov 2024 - Jul 2025</div>
+              <div class="exp-content">
+                <img src='images/pjlab.png' class="exp-logo">
+                <div class="exp-info">
+                  <div class="exp-title">Shanghai AI Lab</div>
+                  <div class="exp-position">Research Intern</div>
+                  <div class="exp-mentor">Mentored by <a href="https://scholar.google.com/citations?user=4OqZBmYAAAAJ&hl=en&oi=ao">Kaipeng Zhang</a></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="experience-item">
+              <div class="exp-period">Sep 2024 - Present</div>
+              <div class="exp-content">
+                <img src='images/westlake.png' class="exp-logo">
+                <div class="exp-info">
+                  <div class="exp-title">Westlake University</div>
+                  <div class="exp-position">Visiting Student</div>
+                  <div class="exp-mentor">Advised by <a href="https://scholar.google.com/citations?user=HmylMfcAAAAJ&hl=en">Yandong Wen</a></div>
+                </div>
+              </div>
+            </div>
+          </div>
 
           <hr>
           <table style="width:100%;border:0px;border-spacing:0px;border-collapse:separate;margin-right:auto;margin-left:auto;padding: 20px;">

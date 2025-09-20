@@ -79,49 +79,52 @@ function disableEmptyLinks() {
   });
 }
 
-// Toggle visibility of random thoughts with staggered animation
-document.getElementById('thoughts-toggle').addEventListener('click', function() {
-  const content = document.getElementById('thoughts-content');
-  const icon = this.querySelector('i');
-  const thoughtItems = content.querySelectorAll('.thought-item');
-  const isExpanded = content.classList.contains('expanded');
-  
-  if (!isExpanded) {
-    // Show thoughts with staggered animation
-    content.classList.add('expanded');
-    icon.style.transform = 'rotate(90deg)';
+// Random thoughts toggle functionality (only for mobile)
+const thoughtsToggle = document.getElementById('thoughts-toggle');
+if (thoughtsToggle) {
+  thoughtsToggle.addEventListener('click', function() {
+    const content = document.getElementById('thoughts-content');
+    const icon = this.querySelector('i');
+    const thoughtItems = content.querySelectorAll('.thought-item');
+    const isExpanded = content.classList.contains('expanded');
     
-    thoughtItems.forEach((item, index) => {
-      const delay = parseInt(item.dataset.delay) || 0;
-      setTimeout(() => {
-        item.classList.remove('hide');
-        item.classList.add('show');
-      }, delay + 200); // Add 200ms delay for container expansion
-    });
-  } else {
-    // Hide thoughts with reverse staggered animation
-    icon.style.transform = 'rotate(0deg)';
-    
-    // Reverse order for hiding
-    const reversedItems = Array.from(thoughtItems).reverse();
-    reversedItems.forEach((item, index) => {
-      const delay = index * 100; // 100ms intervals for hiding
-      setTimeout(() => {
-        item.classList.remove('show');
-        item.classList.add('hide');
-      }, delay);
-    });
-    
-    // Collapse the container after all animations complete
-    setTimeout(() => {
-      content.classList.remove('expanded');
-      // Reset all items for next show
-      thoughtItems.forEach(item => {
-        item.classList.remove('show', 'hide');
+    if (!isExpanded) {
+      // Show thoughts with staggered animation
+      content.classList.add('expanded');
+      icon.style.transform = 'rotate(90deg)';
+      
+      thoughtItems.forEach((item, index) => {
+        const delay = parseInt(item.dataset.delay) || 0;
+        setTimeout(() => {
+          item.classList.remove('hide');
+          item.classList.add('show');
+        }, delay + 200); // Add 200ms delay for container expansion
       });
-    }, (thoughtItems.length * 100) + 400);
-  }
-});
+    } else {
+      // Hide thoughts with reverse staggered animation
+      icon.style.transform = 'rotate(0deg)';
+      
+      // Reverse order for hiding
+      const reversedItems = Array.from(thoughtItems).reverse();
+      reversedItems.forEach((item, index) => {
+        const delay = index * 100; // 100ms intervals for hiding
+        setTimeout(() => {
+          item.classList.remove('show');
+          item.classList.add('hide');
+        }, delay);
+      });
+      
+      // Collapse the container after all animations complete
+      setTimeout(() => {
+        content.classList.remove('expanded');
+        // Reset all items for next show
+        thoughtItems.forEach(item => {
+          item.classList.remove('show', 'hide');
+        });
+      }, (thoughtItems.length * 100) + 400);
+    }
+  });
+}
 
 // Global variable to store author links
 let authorLinks = {};
@@ -263,6 +266,19 @@ if (document.readyState === "loading") {
   // DOM already loaded, run now
   disableEmptyLinks();
   renderPublications();
+}
+
+// Profile image rotation functionality
+let currentRotation = 0;
+const profileImg = document.getElementById('profile-img');
+if (profileImg) {
+  const profileContainer = profileImg.closest('.profile-img-container');
+  if (profileContainer) {
+    profileContainer.addEventListener('click', function() {
+      currentRotation -= 90; // Counter-clockwise rotation
+      profileImg.style.transform = `rotate(${currentRotation}deg)`;
+    });
+  }
 }
 
 // Also run after window load (for good measure)
