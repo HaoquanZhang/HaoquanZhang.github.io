@@ -364,7 +364,7 @@ hr {
 
 .experience-item {
   background-color: #ffffff;
-  border: 1px solid #e0e0e0;
+  border: 1px solid #efeeee;
   padding: 12px;
   margin-bottom: 10px;
   transition: background-color 0.3s ease;
@@ -372,7 +372,7 @@ hr {
 }
 
 .experience-item:hover {
-  background-color: #f9f9f9;
+  background-color: #efeeee;
 }
 
 .exp-content {
@@ -535,14 +535,14 @@ td {
 
 .news-item {
   background-color: #ffffff;
-  border: 1px solid #e0e0e0;
+  border: 1px solid #efeeee;
   padding: 12px;
   margin-bottom: 10px;
   transition: background-color 0.3s ease;
 }
 
 .news-item:hover {
-  background-color: #f9f9f9;
+  background-color: #efeeee;
 }
 
 .news-date {
