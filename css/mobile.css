@@ -286,7 +286,7 @@ hr {
   padding: 20px;
   /* padding-top: 10%; */
   background-color: #ffffff;
-  border: 1px solid #e0e0e0;
+  border: 1px solid #efeeee;
   transition: background-color 0.3s ease;
   margin-bottom: 15px;
   margin-left: 20px;
@@ -310,7 +310,7 @@ hr {
   transition: transform 0.3s ease;
 }
 .paper-container:hover {
-  background-color: #f5f5f5;
+  background-color: #f4f4f4;
 }
 
 .paper-container:hover img {
