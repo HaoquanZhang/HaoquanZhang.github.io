@@ -727,7 +727,7 @@ td {
 
 .paper-container p:not(.paper-links) a:hover {
   color: #da2c00;
-  text-decoration: none;
+  text-decoration: underline;
 }
 
 /* Smooth expand/collapse for thoughts content */
