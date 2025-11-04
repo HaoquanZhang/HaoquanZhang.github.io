@@ -176,7 +176,7 @@ function createPublicationHTML(pub) {
     }
     
     if (author.isCoFirst) {
-      authorName += '<sup>*</sup>';
+      authorName += '*';
     }
     
     authorsHTML += authorName;

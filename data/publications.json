@@ -1,6 +1,29 @@
 [
   {
     "id": "sgp-gen-2025",
+    "title": "TIR-Bench: A Comprehensive Benchmark for Agentic Thinking-with-Images Reasoning",
+    "authors": [
+      {"name": "Ming Li","isCoFirst": true},
+      {"name": "Jike Zhong","isCoFirst": true},
+      {"name": "Shitian Zhao","isCoFirst": true},
+      {"name": "Haoquan Zhang","isCoFirst": true, "isHighlight": true},
+      {"name": "Shaoheng Lin","isCoFirst": true},
+      {"name": "Yuxiang Lai","isCoFirst": true},
+      {"name": "Wei Chen"},
+      {"name": "Konstantinos Psounis"},
+      {"name": "Kaipeng Zhang"}
+    ],
+    "venue": "Arxiv 2025",
+    "venueType": "arxiv",
+    "image": "images/tir-bench.png",
+    "links": {
+      "paper": "https://arxiv.org/pdf/2511.01833",
+      "code": "https://github.com/agents-x-project/TIR-Bench"
+    },
+    "year": 2025
+  },
+  {
+    "id": "sgp-gen-2025",
     "title": "Symbolic Graphics Programming with Large Language Models",
     "authors": [
       {"name": "Yamei Chen", "isCoFirst": true},
