@@ -36,7 +36,7 @@
     ],
     "venue": "Arxiv 2025",
     "venueType": "arxiv",
-    "image": "images/teaser.drawio-2.png",
+    "image": "images/teaser.png",
     "links": {
       "paper": "https://arxiv.org/abs/2509.05208",
       "code": "https://github.com/Sphere-AI-Lab/SGP-RL",
