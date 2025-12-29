@@ -5,7 +5,7 @@ var navbarHeightMobile = document.querySelector('.mobile-component ul').offsetHe
 var navbarHeightDesktop = document.querySelector('.desktop-component ul').offsetHeight;
 
 // Add click event listeners to navigation links
-document.querySelectorAll('.mobile-component ul li a, .desktop-component ul li a, .a').forEach(function(anchor) {
+document.querySelectorAll('.mobile-component ul li a, .desktop-component ul li a').forEach(function(anchor) {
     anchor.addEventListener('click', function(event) {
         event.preventDefault(); // Prevent the default navigation behavior
 
@@ -39,92 +39,6 @@ scrollToTopBtn.addEventListener("click", function() {
     behavior: "smooth"
   });
 });
-
-// Function to check button links and apply styles based on URL validity
-function disableEmptyLinks() {
-  // Get all buttom elements with anchors
-  var buttons = document.querySelectorAll('strong.buttom');
-  
-  // Debug count
-  console.log("Found " + buttons.length + " buttons with class 'buttom'");
-  
-  // Process each button
-  buttons.forEach(function(button) {
-    var anchor = button.querySelector('a');
-    
-    // If anchor exists and has an empty or "#" href
-    if (anchor && (!anchor.getAttribute('href') || anchor.getAttribute('href') === '' || anchor.getAttribute('href') === '#')) {
-      console.log("Empty link found:", anchor);
-      
-      // Add disabled class
-      button.className += ' buttom-disabled';
-      
-      // Directly apply inline styles for maximum specificity
-      button.style.opacity = "0.5";
-      button.style.cursor = "not-allowed";
-      button.style.backgroundColor = "#e0e0e0";
-      button.style.color = "#999";
-      
-      // Style the anchor
-      anchor.style.color = "#999";
-      anchor.style.pointerEvents = "none";
-      
-      // Prevent click events
-      anchor.addEventListener('click', function(e) {
-        e.preventDefault();
-        e.stopPropagation();
-        return false;
-      });
-    }
-  });
-}
-
-// Random thoughts toggle functionality (only for mobile)
-const thoughtsToggle = document.getElementById('thoughts-toggle');
-if (thoughtsToggle) {
-  thoughtsToggle.addEventListener('click', function() {
-    const content = document.getElementById('thoughts-content');
-    const icon = this.querySelector('i');
-    const thoughtItems = content.querySelectorAll('.thought-item');
-    const isExpanded = content.classList.contains('expanded');
-    
-    if (!isExpanded) {
-      // Show thoughts with staggered animation
-      content.classList.add('expanded');
-      icon.style.transform = 'rotate(90deg)';
-      
-      thoughtItems.forEach((item, index) => {
-        const delay = parseInt(item.dataset.delay) || 0;
-        setTimeout(() => {
-          item.classList.remove('hide');
-          item.classList.add('show');
-        }, delay + 200); // Add 200ms delay for container expansion
-      });
-    } else {
-      // Hide thoughts with reverse staggered animation
-      icon.style.transform = 'rotate(0deg)';
-      
-      // Reverse order for hiding
-      const reversedItems = Array.from(thoughtItems).reverse();
-      reversedItems.forEach((item, index) => {
-        const delay = index * 100; // 100ms intervals for hiding
-        setTimeout(() => {
-          item.classList.remove('show');
-          item.classList.add('hide');
-        }, delay);
-      });
-      
-      // Collapse the container after all animations complete
-      setTimeout(() => {
-        content.classList.remove('expanded');
-        // Reset all items for next show
-        thoughtItems.forEach(item => {
-          item.classList.remove('show', 'hide');
-        });
-      }, (thoughtItems.length * 100) + 400);
-    }
-  });
-}
 
 // Global variable to store author links
 let authorLinks = {};
@@ -259,12 +173,10 @@ function createPublicationHTML(pub) {
 // Run when DOM is loaded
 if (document.readyState === "loading") {
   document.addEventListener("DOMContentLoaded", function() {
-    disableEmptyLinks();
     renderPublications();
   });
 } else {
   // DOM already loaded, run now
-  disableEmptyLinks();
   renderPublications();
 }
 
@@ -280,8 +192,3 @@ if (profileImg) {
     });
   }
 }
-
-// Also run after window load (for good measure)
-window.addEventListener('load', function() {
-  disableEmptyLinks();
-}); 
