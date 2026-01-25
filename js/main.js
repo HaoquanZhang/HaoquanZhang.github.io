@@ -60,10 +60,10 @@ async function renderPublications() {
     await loadAuthorLinks();
     const response = await fetch('data/publications.json');
     const publications = await response.json();
-    
+    const filteredPublications = publications.filter(publication => publication.show);
     const container = document.getElementById('publications-container');
     
-    publications.forEach(publication => {
+    filteredPublications.forEach(publication => {
       const publicationHTML = createPublicationHTML(publication);
       container.innerHTML += publicationHTML;
     });
