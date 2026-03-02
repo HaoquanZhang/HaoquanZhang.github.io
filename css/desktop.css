@@ -3,18 +3,19 @@
 a {
   color: #1e6fb1;
   text-decoration: none;
-  transition: color 0.2s ease;
+  transition: all 0.2s ease;
 }
 
 a:focus,
 a:hover {
   color: #eb430b;
+  transition: all 0.2s ease;
   text-decoration: none;
 }
 
 /* Icon styling */
 .fas, .fab, .far {
-  transition: transform 0.3s ease;
+  transition: transform 0.2s ease;
 }
 
 body{
@@ -187,7 +188,7 @@ hr {
   padding: 20px;
   padding-right: 20px;
   background-color: #ffffff;
-  border: 2px solid #efeeee;
+  border: 1px solid #e7e7e7;
   transition: background-color 0.3s ease;
   margin-bottom: 20px;
 }
@@ -214,7 +215,7 @@ hr {
 }
 
 .paper-container:hover {
-  background-color: #efeeee;
+  background-color: #f1f1f1;
 }
 
 .paper-container .papertitle {
@@ -268,7 +269,7 @@ hr {
 }
 
 .experience-item:hover {
-  background-color: #efeeee;
+  background-color: #f1f1f1;
 }
 
 .exp-content {
@@ -401,6 +402,7 @@ td {
   font-size: 16px;
   line-height: 1.2;
   margin: 0;
+  margin-bottom: 16px;
 }
 
 .bio-right .random-thoughts {
@@ -448,7 +450,7 @@ td {
 }
 
 .news-item:hover {
-  background-color: #efeeee;
+  background-color: #f1f1f1;
 }
 
 .news-date {
@@ -479,7 +481,7 @@ td {
 }
 
 .service-item:hover {
-  background-color: #efeeee;
+  background-color: #f1f1f1;
 }
 
 .service-title {
@@ -623,11 +625,10 @@ td {
 /* Author links styling - only apply to author paragraphs, not button paragraphs */
 .paper-container p:not(.paper-links) a {
   color: #000000;
-  text-decoration: none;
   transition: color 0.2s ease;
 }
 
 .paper-container p:not(.paper-links) a:hover {
   color: #da2c00;
-  text-decoration: underline;
+  transition: all 0.2s ease;
 }
