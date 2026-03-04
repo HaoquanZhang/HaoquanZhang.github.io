@@ -508,14 +508,14 @@ td {
 }
 
 .bio-button {
-  background-color: #87ceeb !important;
-  color: #000000 !important;
+  background-color: #3589cd !important;
+  color: #ffffff !important;
 }
 
 .bio-button:hover {
-  background-color: #4682b4 !important;
+  background-color: #87ceeb !important;
   color: #ffffff !important;
-}
+}z
 
 .misc-button {
   background-color: #ffdc91 !important;
