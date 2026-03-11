@@ -8,7 +8,7 @@ a {
 
 a:focus,
 a:hover {
-  color: #eb430b;
+  color: #ff6200;
   transition: all 0.2s ease;
   text-decoration: none;
 }
@@ -567,18 +567,18 @@ td {
 }
 
 .bio-button:hover {
-  background-color: #87ceeb !important;
+  background-color: #ff6200 !important;
   color: #ffffff !important;
 }
 
 .misc-button {
-  background-color: #ffdc91 !important;
-  color: #000000 !important;
+  background-color: #ffbb00 !important;
+  color: #ffffff !important;
 }
 
 .misc-button:hover {
-  background-color: #ffc400 !important;
-  color: #ffffff !important;
+  background-color: #ffecaf !important;
+  color: #000000 !important;
 }
 
 /* Print styles */
@@ -629,6 +629,6 @@ td {
 }
 
 .paper-container p:not(.paper-links) a:hover {
-  color: #da2c00;
+  color: #ff6200;
   transition: all 0.2s ease;
 }

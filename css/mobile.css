@@ -8,7 +8,7 @@ a {
 
 a:focus,
 a:hover {
-  color: #00bce6;
+  color: #ff7700;
   text-decoration: none;
 }
 
@@ -77,7 +77,7 @@ section {
 
 .desktop-component ul li a:hover,
 .mobile-component ul li a:hover {
-  color: #6493df;
+  color: #ff7700;
 }
 
 @media (max-width: 1240px) {
@@ -513,7 +513,7 @@ td {
 }
 
 .bio-button:hover {
-  background-color: #87ceeb !important;
+  background-color: #ff7700 !important;
   color: #ffffff !important;
 }z
 
