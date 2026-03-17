@@ -39,6 +39,7 @@ h2 {
   font-weight: normal;
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
   font-size: 20px;
+  padding: 20px;
 }
 
 .papertitle {
@@ -339,6 +340,8 @@ td {
 /* Mobile bio layout override */
 .bio-layout {
   display: block !important;
+  padding: 20px;
+  padding-top: 40px;
 }
 
 .bio-left {
