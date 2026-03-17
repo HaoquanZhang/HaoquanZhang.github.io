@@ -18,37 +18,97 @@ a:hover {
   transition: transform 0.2s ease;
 }
 
-body{
+body {
   margin: 0;
-}
-td,
-th,
-tr,
-p,
-a {
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  /* font-size: 16px; */
-}
-
-strong {
-  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-size: 16px;
 }
 
 h2 {
   margin: 0;
   font-weight: normal;
-  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
   font-size: 24px;
 }
 
 .papertitle {
-  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
   font-size: 20px;
   font-weight: 700;
 }
 
-section {
+/* Main content wrapper - replaces old table layout */
+.main-content {
+  max-width: 900px;
+  margin: 0 auto;
+  padding-top: 50px;
+}
+
+/* Sections: offset for fixed nav bar */
+.main-content section {
+  scroll-margin-top: 50px;
+  padding-top: 10px;
+}
+
+/* Section headings */
+.main-content section > h2 {
+  padding: 20px;
+}
+
+/* Bio section: remove extra top padding, main-content already handles nav clearance */
+#Top {
   padding-top: 0;
+}
+
+/* Footer */
+footer {
+  padding: 0 20px 20px;
+}
+
+.footer-text {
+  text-align: center;
+  font-size: small;
+}
+
+.copyright {
+  font-size: medium;
+  color: rgb(143, 143, 143);
+}
+
+/* Nav dot color indicators */
+.nav-dot {
+  font-size: 1.6em;
+}
+
+.nav-dot--brown { color: #8B4513; }
+.nav-dot--gold  { color: #FFD700; }
+.nav-dot--blue  { color: #0000FF; }
+
+/* Spotlight highlight in news */
+.highlight-spotlight {
+  color: rgb(255, 170, 0);
+}
+
+/* Link icons in bio buttons */
+.link-icon {
+  vertical-align: text-bottom;
+}
+
+/* Scroll-to-top button */
+.scroll-to-top {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  display: none;
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  width: 40px;
+  height: 40px;
+  text-align: center;
+  line-height: 40px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  z-index: 1000;
+  border: none;
+  padding: 0;
 }
 
 .desktop-component ul,
@@ -101,10 +161,10 @@ section {
   }
 }
 
-.CVPR {
-  background-color: #4192e8; 
-  padding: 6px 12px; 
-  display: inline-block; 
+/* Shared styles for all venue badge types */
+.CVPR, .insub, .arxiv, .accepted, .award {
+  padding: 6px 12px;
+  display: inline-block;
   color: #ffffff;
   flex-shrink: 0;
   font-size: 13px;
@@ -112,64 +172,13 @@ section {
   text-align: center;
   vertical-align: middle;
   font-weight: 700;
-  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 
-.insub {
-  background-color: #858585; 
-  padding: 6px 12px; 
-  display: inline-block; 
-  color: #ffffff;
-  flex-shrink: 0;
-  font-size: 13px;
-  line-height: 1.4;
-  text-align: center;
-  vertical-align: middle;
-  font-weight: 700;
-  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-}
-
-.arxiv {
-  background-color: #da4242; 
-  padding: 6px 12px; 
-  display: inline-block; 
-  color: #ffffff;
-  flex-shrink: 0;
-  font-size: 13px;
-  line-height: 1.4;
-  text-align: center;
-  vertical-align: middle;
-  font-weight: 700;
-  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-}
-
-.accepted {
-  background-color: #22c55e; 
-  padding: 6px 12px; 
-  display: inline-block; 
-  color: #ffffff;
-  flex-shrink: 0;
-  font-size: 13px;
-  line-height: 1.4;
-  text-align: center;
-  vertical-align: middle;
-  font-weight: 700;
-  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-}
-
-.award {
-  background-color: #f58c0b; 
-  padding: 6px 12px; 
-  display: inline-block; 
-  color: #ffffff;
-  flex-shrink: 0;
-  font-size: 13px;
-  line-height: 1.4;
-  text-align: center;
-  vertical-align: middle;
-  font-weight: 700;
-  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-}
+.CVPR    { background-color: #4192e8; }
+.insub   { background-color: #858585; }
+.arxiv   { background-color: #da4242; }
+.accepted{ background-color: #22c55e; }
+.award   { background-color: #f58c0b; }
 
 hr {
   border: none;
@@ -315,13 +324,7 @@ hr {
   font-weight: normal;
 }
 
-td {
-  padding-left: 2px;
-  padding-right: 2px;
-}
-
 .bio {
-  flex: 1 1 70%;
   padding: 20px;
 }
 
@@ -329,7 +332,8 @@ td {
 .bio-layout {
   display: flex;
   gap: 30px;
-  margin-top: 20px;
+  margin-top: 0;
+  padding:20px;
 }
 
 .bio-left {
@@ -358,6 +362,7 @@ td {
     width: 100%;
     height: 100%;
     object-fit: cover;
+
   }
 
   .profile-overlay {
@@ -395,6 +400,7 @@ td {
   font-size: 24px;
   line-height: 1.3;
   font-weight: bold;
+  margin: 0;
 }
 
 .bio-text {
@@ -552,7 +558,6 @@ td {
   color: #ffffff;
   text-decoration: none;
   font-weight: 700;
-  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
   flex-shrink: 0;
 }
 
