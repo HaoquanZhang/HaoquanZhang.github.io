@@ -269,22 +269,27 @@ hr {
 }
 
 .experience-item {
-  background-color: #ffffff;
-  border: 1px solid #efeeee;
-  padding: 20px;
-  margin-bottom: 20px;
-  transition: background-color 0.3s ease;
-  position: relative;
-}
-
-.experience-item:hover {
-  background-color: #f1f1f1;
-}
-
-.exp-content {
   display: flex;
-  align-items: flex-start;
-  gap: 20px;
+  align-items: stretch;
+  margin-bottom: 20px;
+}
+
+.exp-item-bar {
+  width: 5px;
+  flex-shrink: 0;
+  background-color: #d0d0d0;
+  transition: background-color 0.3s ease;
+}
+
+.experience-item:hover .exp-item-bar {
+  background-color: #1e6fb1;
+}
+
+.exp-item-body {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding-left: 15px;
 }
 
 .exp-logo {
@@ -300,28 +305,25 @@ hr {
 
 .exp-title {
   font-weight: bold;
-  font-size: 16px;
-  margin-bottom: 4px;
+  font-size: 20px;
+  margin-bottom: 2px;
 }
 
 .exp-position {
-  font-size: 14px;
-  margin-bottom: 4px;
+  font-weight: normal;
+  font-size: 16px;
+  color: #555555;
 }
 
 .exp-mentor {
-  font-size: 14px;
-  color: #666666;
-  margin-bottom: 4px;
+  font-size: 13px;
+  color: #888888;
+  margin-bottom: 1px;
 }
 
 .exp-period {
-  position: absolute;
-  top: 16px;
-  right: 16px;
   font-size: 12px;
-  color: #666666;
-  font-weight: normal;
+  color: #aaaaaa;
 }
 
 .bio {
