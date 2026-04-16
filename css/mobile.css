@@ -1,15 +1,17 @@
 /* Using Helvetica font family for clean, modern typography */
 
 a {
-  color: #2d6bc7;
-  text-decoration: none;
+  color: #4a4a4a;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  text-decoration-thickness: 1px;
   transition: color 0.2s ease;
 }
 
 a:focus,
 a:hover {
-  color: #ff7700;
-  text-decoration: none;
+  color: #9a9a9a;
+  text-decoration: underline;
 }
 
 /* Icon styling */
@@ -35,11 +37,17 @@ strong {
 }
 
 h2 {
-  margin: 0;
-  font-weight: normal;
-  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  font-size: 20px;
-  padding: 20px;
+  margin: 0 20px 4px;
+  font-weight: 700;
+  font-family: 'Source Serif 4', Georgia, 'Times New Roman', serif;
+  font-size: 24px;
+  padding: 20px 0 8px;
+  border-bottom: 1px solid #dcdcdc;
+}
+
+h2 strong {
+  font-family: inherit;
+  font-weight: inherit;
 }
 
 .papertitle {
@@ -185,7 +193,6 @@ hr {
   padding: 12px 0;
   background-color: transparent;
   border: none;
-  border-bottom: 1px solid #ebebeb;
   margin-left: 20px;
   margin-right: 20px;
 }
@@ -198,13 +205,60 @@ hr {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 5px;
-  margin-bottom: 8px;
+  gap: 0;
+  order: 2;
+  margin-top: 6px;
+  color: #8a8a8a;
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+.paper-sidebar > * {
+  display: inline;
+}
+
+.paper-sidebar .CVPR,
+.paper-sidebar .insub,
+.paper-sidebar .arxiv,
+.paper-sidebar .accepted,
+.paper-sidebar .award {
+  background: none;
+  padding: 0;
+  color: inherit;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.paper-sidebar .buttom,
+.paper-sidebar .misc-button {
+  display: inline;
+  background: none !important;
+  padding: 0 !important;
+  margin-left: 5px;
+  color: #666666 !important;
+  font-size: 14px !important;
+  font-weight: 500 !important;
+  line-height: 1.4;
+  text-decoration: underline !important;
+}
+
+.paper-sidebar .buttom::before,
+.paper-sidebar .misc-button::before {
+  content: " · ";
+  color: #666666;
+  font-weight: 700;
+}
+
+.paper-sidebar .buttom:hover,
+.paper-sidebar .misc-button:hover {
+  background: none !important;
+  color: #444444 !important;
 }
 
 .paper-main {
   text-align: left;
   width: 100%;
+  order: 1;
 }
 
 .paper-container .papertitle {
@@ -215,16 +269,19 @@ hr {
 
 .paper-main .paper-authors {
   margin: 4px 0 0 0;
-  font-size: 13px;
+  font-size: 14px;
   line-height: 1.4;
+  color: #8f8f8f;
+  font-family: 'Source Serif 4', Georgia, 'Times New Roman', serif;
 }
 
 .paper-main .paper-authors a {
-  color: #000;
+  color: #6f6f6f;
+  font-family: 'Source Serif 4', Georgia, 'Times New Roman', serif;
 }
 
 .paper-main .paper-authors a:hover {
-  color: #1e3a8a;
+  color: #9a9a9a;
 }
 
 /* Experience section styling */
@@ -235,12 +292,14 @@ hr {
 
 .experience-item {
   padding: 12px 0;
-  border-bottom: 1px solid #ebebeb;
+  border-bottom: none;
 }
 
 .exp-period {
-  font-size: 12px;
-  color: #999;
+  font-size: 14px;
+  color: #7f7f7f;
+  font-weight: 700;
+  font-family: 'Source Serif 4', Georgia, 'Times New Roman', serif;
   margin-bottom: 6px;
 }
 
@@ -263,64 +322,95 @@ hr {
 
 .exp-info {
   flex: 1;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 
 .exp-title {
-  font-weight: bold;
+  font-weight: 800;
   font-size: 14px;
   line-height: 1.4;
+  color: #000000;
+  font-family: inherit;
 }
 
 .exp-position {
-  font-size: 12px;
-  color: #999;
+  font-size: 14px;
+  color: #7f7f7f;
+  font-weight: 400;
+  font-family: inherit;
 }
 
 .exp-mentor {
-  font-size: 12px;
-  color: #999;
+  font-size: 14px;
+  color: #7f7f7f;
+  font-family: inherit;
+}
+
+.exp-title a,
+.exp-mentor a {
+  font-family: inherit;
+  color: inherit !important;
+  text-decoration: underline !important;
+}
+
+.exp-title a:hover,
+.exp-mentor a:hover {
+  color: #9a9a9a !important;
 }
 
 
 /* Mobile bio layout */
 .bio-layout {
-  display: block;
+  display: grid;
+  grid-template-columns: 80px 1fr;
+  grid-template-areas:
+    "photo identity"
+    "intro intro"
+    "rest rest";
+  column-gap: 12px;
+  row-gap: 10px;
   padding: 20px;
-  padding-top: 40px;
+  padding-top: 16px;
 }
 
 .bio-sidebar {
-  display: flex;
-  align-items: center;
-  gap: 15px;
-  margin-bottom: 12px;
+  grid-area: identity;
+  display: block;
+  margin-bottom: 10px;
 }
 
 .bio-links {
   display: flex;
   flex-wrap: wrap;
-  gap: 10px;
-  margin-top: 8px;
+  gap: 8px 12px;
+  margin-top: 6px;
 }
 
 .bio-links a {
-  color: #2d6bc7;
+  color: #4a4a4a;
   font-size: 13px;
-  text-decoration: none;
+  text-decoration: underline;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-weight: 700;
+}
+
+.bio-links a:hover,
+.bio-links a:focus {
+  color: #8f8f8f;
 }
 
 .bio-main {
-  margin-top: 10px;
+  display: contents;
+  margin-top: 0;
 }
 
 .bio-main-top {
-  display: flex;
-  align-items: flex-start;
-  gap: 12px;
+  display: contents;
   margin-bottom: 12px;
 }
 
 .profile-img-container {
+  grid-area: photo;
   width: 80px;
   height: 80px;
   flex-shrink: 0;
@@ -339,10 +429,24 @@ hr {
 
 .name-info {
   font-size: 22px;
-  font-weight: bold;
+  font-weight: 700;
   line-height: 1.3;
   text-align: left;
-  margin: 0;
+  margin: 0 0 6px 0;
+  font-family: 'Source Serif 4', Georgia, 'Times New Roman', serif;
+}
+
+.name-info span {
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-weight: 700;
+}
+
+.bio-main-top .bio-text {
+  grid-area: intro;
+}
+
+.bio-main > .bio-text {
+  grid-area: rest;
 }
 
 .bio-text {
@@ -359,19 +463,26 @@ hr {
 
 .news-item {
   padding: 10px 0;
-  border-bottom: 1px solid #ebebeb;
+  border-bottom: none;
 }
 
 .news-date {
-  font-weight: bold;
-  font-size: 12px;
-  color: #999;
+  font-weight: 700;
+  font-size: 14px;
+  color: #5f5f5f;
+  font-family: 'Source Serif 4', Georgia, 'Times New Roman', serif;
   margin-bottom: 4px;
 }
 
 .news-content {
   font-size: 14px;
   line-height: 1.5;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+.news-content a,
+.news-content strong {
+  font-family: inherit;
 }
 
 /* Service section styling */
@@ -487,5 +598,29 @@ hr {
 .misc-button:hover {
   background-color: #ffc400 !important;
   color: #ffffff !important;
+}
+
+footer {
+  padding: 8px 20px 8px;
+  text-align: center;
+}
+
+.footer-text {
+  margin: 0;
+  text-align: center;
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+.footer-text em {
+  display: block;
+  font-size: 18px;
+}
+
+.copyright {
+  display: inline-block;
+  margin-top: 4px;
+  font-size: 14px;
+  color: #6f6f6f;
 }
 

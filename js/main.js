@@ -1,42 +1,34 @@
 // Main JavaScript file for the website
 
-// Get the height of the mobile and desktop navigation bars
-var navbarHeightMobile = document.querySelector('.mobile-component ul').offsetHeight;
-var navbarHeightDesktop = document.querySelector('.desktop-component ul').offsetHeight;
+// Read navigation height safely because mobile nav can be removed.
+function getVisibleNavbarHeight() {
+  const desktopNav = document.querySelector('.desktop-component ul');
+  const mobileNav = document.querySelector('.mobile-component ul');
 
-// Add click event listeners to navigation links
-document.querySelectorAll('.mobile-component ul li a, .desktop-component ul li a').forEach(function(anchor) {
-    anchor.addEventListener('click', function(event) {
-        event.preventDefault(); // Prevent the default navigation behavior
-
-        var targetId = this.getAttribute('href'); // Get the target section's ID from the link's href
-        var targetElement = document.querySelector(targetId); // Find the target element using its ID
-        var targetOffsetTop = targetElement.offsetTop; // Get the target's top offset relative to the document
-
-        // Calculate scroll position considering the navigation bar height to avoid overlap
-        var navbarHeight = (window.innerWidth < 768) ? navbarHeightMobile : navbarHeightDesktop;
-        window.scrollTo({
-            top: targetOffsetTop - navbarHeight,
-            behavior: 'smooth' // Smooth scroll to the target position
-        });
-    });
-});
-
-// Scroll to top button functionality
-var scrollToTopBtn = document.getElementById("scroll-to-top");
-
-window.onscroll = function() {
-  if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
-    scrollToTopBtn.style.display = "block";
-  } else {
-    scrollToTopBtn.style.display = "none";
+  if (window.innerWidth < 768) {
+    return mobileNav ? mobileNav.offsetHeight : 0;
   }
-};
+  return desktopNav ? desktopNav.offsetHeight : 0;
+}
 
-scrollToTopBtn.addEventListener("click", function() {
-  window.scrollTo({
-    top: 0,
-    behavior: "smooth"
+// Add click event listeners to navigation links.
+document.querySelectorAll('.mobile-component ul li a, .desktop-component ul li a').forEach(function(anchor) {
+  anchor.addEventListener('click', function(event) {
+    event.preventDefault(); // Prevent the default navigation behavior
+
+    var targetId = this.getAttribute('href'); // Get the target section's ID from the link's href
+    var targetElement = document.querySelector(targetId); // Find the target element using its ID
+    if (!targetElement) {
+      return;
+    }
+    var targetOffsetTop = targetElement.offsetTop; // Get the target's top offset relative to the document
+
+    // Calculate scroll position considering the navigation bar height to avoid overlap.
+    var navbarHeight = getVisibleNavbarHeight();
+    window.scrollTo({
+      top: targetOffsetTop - navbarHeight,
+      behavior: 'smooth' // Smooth scroll to the target position
+    });
   });
 });
 
@@ -127,10 +119,15 @@ function createPublicationHTML(pub) {
     return `<a href="${item.url}" class="${cls}"${target}>${item.text}</a>`;
   }).join('\n            ');
   
+  const isMobileLayout = window.innerWidth <= 600;
+  const venueText = isMobileLayout
+    ? pub.venue.replace(/\s/g, '&nbsp;')
+    : pub.venue.replace(/\s/g, '&nbsp;').replace(/&nbsp;(\([^)]+\))/, '<br>$1');
+
   return `
         <div class="paper-container fade-in delay-2">
           <div class="paper-sidebar">
-            <span class="${pub.venueType}"><strong>${pub.venue.replace(/\s/g, '&nbsp;').replace(/&nbsp;(\([^)]+\))/, '<br>$1')}</strong></span>
+            <span class="${pub.venueType}"><strong>${venueText}</strong></span>
             ${sidebarLinksHTML}
           </div>
           <div class="paper-main">
