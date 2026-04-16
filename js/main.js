@@ -120,9 +120,19 @@ function createPublicationHTML(pub) {
   }).join('\n            ');
   
   const isMobileLayout = window.innerWidth <= 600;
-  const venueText = isMobileLayout
-    ? pub.venue.replace(/\s/g, '&nbsp;')
-    : pub.venue.replace(/\s/g, '&nbsp;').replace(/&nbsp;(\([^)]+\))/, '<br>$1');
+  const venueNoBreak = pub.venue.replace(/\s/g, '&nbsp;');
+  let venueText = venueNoBreak;
+
+  if (!isMobileLayout) {
+    // Keep Spotlight on a new line for desktop, but keep a single line on mobile.
+    if (/neurips/i.test(pub.venue) && /spotlight/i.test(pub.venue)) {
+      venueText = venueNoBreak
+        .replace(/&nbsp;\(Spotlight\)/i, '<br>(Spotlight)')
+        .replace(/&nbsp;Spotlight/i, '<br>Spotlight');
+    } else {
+      venueText = venueNoBreak.replace(/&nbsp;(\([^)]+\))/, '<br>$1');
+    }
+  }
 
   return `
         <div class="paper-container fade-in delay-2">
