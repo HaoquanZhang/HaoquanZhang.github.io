@@ -297,8 +297,8 @@ hr {
 
 .exp-period {
   font-size: 14px;
-  color: #7f7f7f;
-  font-weight: 700;
+  color: #000000;
+  font-weight: 800;
   font-family: 'Source Serif 4', Georgia, 'Times New Roman', serif;
   margin-bottom: 6px;
 }
@@ -467,9 +467,9 @@ hr {
 }
 
 .news-date {
-  font-weight: 700;
+  font-weight: 800;
   font-size: 14px;
-  color: #5f5f5f;
+  color: #000000;
   font-family: 'Source Serif 4', Georgia, 'Times New Roman', serif;
   margin-bottom: 4px;
 }
@@ -483,6 +483,12 @@ hr {
 .news-content a,
 .news-content strong {
   font-family: inherit;
+}
+
+#Research a,
+#Research a:hover,
+#Research a:focus {
+  text-decoration: none !important;
 }
 
 /* Service section styling */
