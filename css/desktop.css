@@ -41,12 +41,12 @@ h2 {
 .main-content {
   max-width: 680px;
   margin: 0 auto;
-  padding-top: 50px;
+  padding-top: 10px;
 }
 
-/* Sections: offset for fixed nav bar */
+/* Sections spacing */
 .main-content section {
-  scroll-margin-top: 50px;
+  scroll-margin-top: 10px;
   padding-top: 10px;
 }
 
@@ -59,7 +59,7 @@ h2 {
 
 /* Bio section: remove extra top padding, main-content already handles nav clearance */
 #Top {
-  padding-top: 0;
+  padding-top: 16px;
 }
 
 /* Footer */
