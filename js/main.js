@@ -100,72 +100,45 @@ function createPublicationHTML(pub) {
     }
   });
   
-  // Generate links HTML
-  let linksHTML = '';
+  // Collect links with display text, then sort by text length descending
+  let linkItems = [];
   for (const [linkType, url] of Object.entries(pub.links)) {
     if (url && url !== '') {
-      let iconClass = '';
       let linkText = '';
-      
       switch (linkType) {
-        case 'paper':
-          iconClass = 'fas fa-file-pdf';
-          linkText = 'Paper';
-          break;
-        case 'code':
-          iconClass = 'fab fa-github';
-          linkText = 'Code';
-          break;
-        case 'project':
-          iconClass = 'fas fa-globe';
-          linkText = 'Project';
-          break;
-        case 'demo':
-          iconClass = 'fas fa-globe';
-          linkText = 'Demo';
-          break;
-        case 'benchmark':
-          iconClass = 'fas fa-database';
-          linkText = 'Benchmark';
-          break;
-        default:
-          iconClass = 'fas fa-link';
-          linkText = linkType.charAt(0).toUpperCase() + linkType.slice(1);
+        case 'paper': linkText = 'Paper'; break;
+        case 'code': linkText = 'Code'; break;
+        case 'project': linkText = 'Project'; break;
+        case 'demo': linkText = 'Demo'; break;
+        case 'benchmark': linkText = 'Benchmark'; break;
+        default: linkText = linkType.charAt(0).toUpperCase() + linkType.slice(1);
       }
-      
-      linksHTML += `<a href="${url}" class="buttom"><i class="${iconClass}"></i> ${linkText}</a>\n              `;
+      linkItems.push({ url, text: linkText });
     }
   }
-  
-  // Generate misc button HTML if exists
-  let miscHTML = '';
   if (pub.misc && pub.misc.text && pub.misc.link && pub.misc.link !== '') {
-    miscHTML = `<a href="${pub.misc.link}" class="buttom misc-button" target="_blank">${pub.misc.text}</a>\n              `;
+    linkItems.push({ url: pub.misc.link, text: pub.misc.text, isMisc: true });
   }
-  
-  // Start paragraph without co-first authorship note
-  const coFirstNote = '<p>\n              ';
+  linkItems.sort((a, b) => b.text.length - a.text.length);
+
+  let sidebarLinksHTML = linkItems.map(item => {
+    const cls = item.isMisc ? 'buttom misc-button' : 'buttom';
+    const target = item.isMisc ? ' target="_blank"' : '';
+    return `<a href="${item.url}" class="${cls}"${target}>${item.text}</a>`;
+  }).join('\n            ');
   
   return `
         <div class="paper-container fade-in delay-2">
-          <div class="image">
-            <img src='${pub.image}' alt="${pub.id}">
+          <div class="paper-sidebar">
+            <span class="${pub.venueType}"><strong>${pub.venue.replace(/\s/g, '&nbsp;').replace(/&nbsp;(\([^)]+\))/, '<br>$1')}</strong></span>
+            ${sidebarLinksHTML}
           </div>
-          <div class="text">
-            <div class="paper-title-section">
-              <span class="papertitle">${pub.title}</span>
-            </div>
-            
-            <div class="paper-bottom-section">
-              ${coFirstNote}${authorsHTML}
-                <br>
-              </p>
-        
-              <p class="paper-links">
-                <span class="${pub.venueType}"><strong>${pub.venue}</strong></span>
-                ${linksHTML}${miscHTML}
-              </p>
-            </div>
+          <div class="paper-main">
+            <span class="papertitle">${pub.title}</span>
+            <p class="paper-authors">${authorsHTML}</p>
+          </div>
+          <div class="paper-image">
+            <img src='${pub.image}' alt="${pub.id}">
           </div>
         </div>`;
 }

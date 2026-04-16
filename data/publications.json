@@ -18,10 +18,11 @@
     "image": "images/tir-bench.png",
     "links": {
       "paper": "https://arxiv.org/pdf/2511.01833",
-      "code": "https://github.com/agents-x-project/TIR-Bench"
+      "code": "https://github.com/agents-x-project/TIR-Bench",
+      "leaderboard": "https://agent-x.space/tirbench/"
     },
     "year": 2025,
-    "show": false
+    "show": true
   },
   {
     "id": "sgp-gen-2025",
@@ -68,8 +69,8 @@
     "links": {
       "paper": "https://arxiv.org/abs/2507.07998",
       "code": "https://github.com/agents-x-project/PyVision",
-      "demo": "https://huggingface.co/spaces/Agents-X/PyVision",
-      "project": "https://agent-x.space/pyvision/"
+      "project": "https://agent-x.space/pyvision/",
+      "PyVision-RL": "https://agent-x.space/pyvision-rl/"
     },
     "year": 2025,
     "show": true
@@ -88,7 +89,7 @@
     ],
     "venue": "NeurIPS 2025 (Spotlight)",
     "venueType": "award",
-    "image": "images/thinkingornot.png",
+    "image": "images/thinkornot.png",
     "links": {
       "paper": "https://arxiv.org/abs/2503.16188",
       "code": "https://github.com/minglllli/CLS-RL"
