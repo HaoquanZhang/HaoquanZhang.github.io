@@ -210,7 +210,7 @@ hr {
   display: flex;
   flex-direction: column;
   align-items: flex-end;
-  gap: 3px;
+  gap: 1px;
   white-space: nowrap;
 }
 
@@ -235,28 +235,35 @@ hr {
 .paper-sidebar .insub   { color: #666; }
 
 .paper-sidebar .buttom {
-  background: none;
+  display: inline-block;
+  background: #ffffff;
   color: #777;
-  padding: 0;
+  padding: 1px 6px;
   font-size: 12px;
   font-weight: 500;
+  line-height: 1.4;
+  text-decoration: none;
+  /* border-radius: 4px; */
+  transition: all 0.2s ease;
 }
 
 .paper-sidebar .buttom:hover {
-  background: none;
+  background: #f0f0f0;
   color: #222;
 }
 
 .paper-sidebar .misc-button {
-  background: none !important;
+  background: #ffffff !important;
   color: #777 !important;
   font-size: 12px !important;
   font-weight: 500 !important;
-  padding: 0 !important;
+  padding: 1px 6px !important;
+  /* border-radius: 4px !important; */
+  text-decoration: none !important;
 }
 
 .paper-sidebar .misc-button:hover {
-  background: none !important;
+  background: #f0f0f0 !important;
   color: #222 !important;
 }
 
@@ -286,7 +293,7 @@ hr {
   text-decoration: none;
 }
 
-.paper-container:hover .papertitle {
+.paper-main:hover .papertitle {
   text-decoration: underline;
   text-decoration-thickness: 2.5px;
   text-underline-offset: 3px;

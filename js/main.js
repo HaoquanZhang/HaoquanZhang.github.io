@@ -134,6 +134,11 @@ function createPublicationHTML(pub) {
     }
   }
 
+  const primaryTitleLink = (pub.links && pub.links.project) || (pub.links && pub.links.paper) || '';
+  const titleHTML = primaryTitleLink
+    ? `<a href="${primaryTitleLink}" class="papertitle" target="_blank" rel="noopener noreferrer">${pub.title}</a>`
+    : `<span class="papertitle">${pub.title}</span>`;
+
   return `
         <div class="paper-container fade-in delay-2">
           <div class="paper-sidebar">
@@ -141,7 +146,7 @@ function createPublicationHTML(pub) {
             ${sidebarLinksHTML}
           </div>
           <div class="paper-main">
-            <span class="papertitle">${pub.title}</span>
+            ${titleHTML}
             <p class="paper-authors">${authorsHTML}</p>
           </div>
           <div class="paper-image">
