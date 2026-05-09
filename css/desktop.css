@@ -482,6 +482,23 @@ hr {
   line-height: 1.5;
   margin: 0;
 }
+
+/* Announcement-style internship callout */
+.bio-internship-bar {
+  margin-top: 10px;
+  padding: 6px 10px;
+  background-color: #fff0e0;
+  border-left: 3px solid #c2410c;
+  box-sizing: border-box;
+}
+
+.bio-internship-bar__text {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.45;
+  font-weight: 700;
+  color: #111;
+}
 /* News section styling */
 .news-container {
   padding: 0 20px;
