@@ -64,8 +64,44 @@ async function renderPublications() {
   }
 }
 
-// Function to create HTML for a single publication
-function createPublicationHTML(pub) {
+// Primary link for mobile paper cards: leaderboard → project → paper
+function getPublicationCardLink(links) {
+  if (!links) {
+    return '';
+  }
+  return links.leaderboard || links.project || links.paper || '';
+}
+
+// Primary link for desktop title: project → paper
+function getPublicationTitleLink(links) {
+  if (!links) {
+    return '';
+  }
+  return links.project || links.paper || '';
+}
+
+function createPublicationHTMLMobile(pub) {
+  const cardLink = getPublicationCardLink(pub.links);
+  const tag = cardLink ? 'a' : 'div';
+  const hrefAttr = cardLink
+    ? ` href="${cardLink}" target="_blank" rel="noopener noreferrer"`
+    : '';
+  const staticClass = cardLink ? '' : ' paper-card--static';
+
+  return `
+        <${tag}${hrefAttr} class="paper-card fade-in delay-2${staticClass}">
+          <div class="paper-card__media">
+            <img src="${pub.image}" alt="${pub.title}">
+          </div>
+          <div class="paper-card__body">
+            <p class="paper-card__title">${pub.title}</p>
+            <p class="paper-card__meta">${pub.venue}</p>
+          </div>
+        </${tag}>`;
+}
+
+// Function to create HTML for a single publication (desktop layout)
+function createPublicationHTMLDesktop(pub) {
   // Generate authors string with automatic links
   let authorsHTML = '';
   pub.authors.forEach((author, index) => {
@@ -119,22 +155,19 @@ function createPublicationHTML(pub) {
     return `<a href="${item.url}" class="${cls}"${target}>${item.text}</a>`;
   }).join('\n            ');
   
-  const isMobileLayout = window.innerWidth <= 600;
   const venueNoBreak = pub.venue.replace(/\s/g, '&nbsp;');
   let venueText = venueNoBreak;
 
-  if (!isMobileLayout) {
-    // Keep Spotlight on a new line for desktop, but keep a single line on mobile.
-    if (/neurips/i.test(pub.venue) && /spotlight/i.test(pub.venue)) {
-      venueText = venueNoBreak
-        .replace(/&nbsp;\(Spotlight\)/i, '<br>(Spotlight)')
-        .replace(/&nbsp;Spotlight/i, '<br>Spotlight');
-    } else {
-      venueText = venueNoBreak.replace(/&nbsp;(\([^)]+\))/, '<br>$1');
-    }
+  // Keep Spotlight on a new line for desktop.
+  if (/neurips/i.test(pub.venue) && /spotlight/i.test(pub.venue)) {
+    venueText = venueNoBreak
+      .replace(/&nbsp;\(Spotlight\)/i, '<br>(Spotlight)')
+      .replace(/&nbsp;Spotlight/i, '<br>Spotlight');
+  } else {
+    venueText = venueNoBreak.replace(/&nbsp;(\([^)]+\))/, '<br>$1');
   }
 
-  const primaryTitleLink = (pub.links && pub.links.project) || (pub.links && pub.links.paper) || '';
+  const primaryTitleLink = getPublicationTitleLink(pub.links);
   const titleHTML = primaryTitleLink
     ? `<a href="${primaryTitleLink}" class="papertitle" target="_blank" rel="noopener noreferrer">${pub.title}</a>`
     : `<span class="papertitle">${pub.title}</span>`;
@@ -153,6 +186,13 @@ function createPublicationHTML(pub) {
             <img src='${pub.image}' alt="${pub.id}">
           </div>
         </div>`;
+}
+
+function createPublicationHTML(pub) {
+  if (window.innerWidth <= 600) {
+    return createPublicationHTMLMobile(pub);
+  }
+  return createPublicationHTMLDesktop(pub);
 }
 
 // Run when DOM is loaded
