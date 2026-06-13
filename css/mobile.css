@@ -312,8 +312,22 @@ hr {
 
 .exp-mentor {
   font-size: 14px;
+  line-height: 1.4;
   color: #7f7f7f;
   font-family: inherit;
+}
+
+.exp-mentor--inline {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.exp-mentor-logo {
+  height: 1em;
+  width: 1em;
+  object-fit: contain;
+  flex-shrink: 0;
 }
 
 .exp-title a,
@@ -338,7 +352,7 @@ hr {
     "intro intro"
     "rest rest";
   column-gap: 12px;
-  row-gap: 10px;
+  row-gap: 14px;
   padding: 20px;
   padding-top: 16px;
 }
@@ -380,25 +394,15 @@ hr {
 
 .bio-main-top {
   display: contents;
-  margin-bottom: 12px;
-}
-
-.profile-img-container {
-  grid-area: photo;
-  width: 80px;
-  height: 80px;
-  flex-shrink: 0;
-  overflow: hidden;
 }
 
 .profile-img {
+  grid-area: photo;
   width: 80px;
   height: 80px;
   object-fit: cover;
-}
-
-.profile-overlay {
-  display: none;
+  cursor: default;
+  pointer-events: none;
 }
 
 .name-info {
@@ -423,6 +427,10 @@ hr {
 .bio-main > .bio-rest {
   grid-area: rest;
   min-width: 0;
+}
+
+.bio-rest > .bio-text + .bio-text {
+  padding-top: 14px;
 }
 
 .bio-text {
@@ -475,6 +483,15 @@ hr {
   font-size: 14px;
   line-height: 1.5;
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+.news-content .exp-mentor-logo {
+  display: inline-block;
+  height: 1.15em;
+  width: 1.15em;
+  margin: 0 0.15em;
+  vertical-align: -0.15em;
+  object-fit: contain;
 }
 
 .news-content a,
@@ -605,15 +622,23 @@ hr {
 }
 
 footer {
-  padding: 8px 20px 8px;
+  padding: 0 0 16px;
   text-align: center;
 }
 
-.footer-text {
+footer hr {
   margin: 0;
+  border: none;
+  height: 1px;
+  background-color: rgb(231, 231, 231);
+}
+
+.footer-text {
+  margin: 14px 0 0;
+  padding: 0;
   text-align: center;
   font-size: 15px;
-  line-height: 1.6;
+  line-height: 1.5;
 }
 
 .footer-text em {
@@ -623,7 +648,7 @@ footer {
 
 .copyright {
   display: inline-block;
-  margin-top: 4px;
+  margin: 0;
   font-size: 14px;
   color: #6f6f6f;
 }

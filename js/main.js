@@ -204,16 +204,3 @@ if (document.readyState === "loading") {
   // DOM already loaded, run now
   renderPublications();
 }
-
-// Profile image rotation functionality
-let currentRotation = 0;
-const profileImg = document.getElementById('profile-img');
-if (profileImg) {
-  const profileContainer = profileImg.closest('.profile-img-container');
-  if (profileContainer) {
-    profileContainer.addEventListener('click', function() {
-      currentRotation -= 90; // Counter-clockwise rotation
-      profileImg.style.transform = `rotate(${currentRotation}deg)`;
-    });
-  }
-}

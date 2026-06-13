@@ -64,15 +64,26 @@ h2 {
 
 /* Footer */
 footer {
-  padding: 10px 20px 10px;
+  padding: 0 0 16px;
+}
+
+footer hr {
+  margin: 0 20px;
+  border: none;
+  height: 1px;
+  background-color: rgb(231, 231, 231);
 }
 
 .footer-text {
+  margin: 16px 0 0;
+  padding: 0;
   text-align: center;
   font-size: small;
+  line-height: 1.5;
 }
 
 .copyright {
+  margin: 0;
   font-size: medium;
   color: rgb(143, 143, 143);
 }
@@ -324,14 +335,16 @@ hr {
 }
 
 .experience-item {
-  position: relative;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  column-gap: 16px;
+  align-items: start;
   padding: 12px 0;
 }
 
 .exp-period {
-  position: absolute;
-  right: calc(100% + 16px);
-  top: 12px;
+  grid-column: 2;
+  grid-row: 1;
   font-family: 'Source Serif 4', Georgia, 'Times New Roman', serif;
   font-size: 15px;
   line-height: 1.2;
@@ -341,21 +354,24 @@ hr {
 }
 
 .exp-main {
+  grid-column: 1;
+  grid-row: 1;
   display: flex;
-  align-items: start;
+  align-items: center;
   gap: 14px;
+  min-width: 0;
 }
 
 .exp-logo {
-  width: auto;
-  height: 100%;
-  max-height: 40px;
+  width: 40px;
+  height: 40px;
   object-fit: contain;
   flex-shrink: 0;
 }
 
 .exp-info {
-  flex: start;
+  flex: 1;
+  min-width: 0;
 }
 
 .exp-title {
@@ -376,6 +392,19 @@ hr {
   color: #999;
 }
 
+.exp-mentor--inline {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.exp-mentor-logo {
+  height: 1em;
+  width: 1em;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
 /* Bio layout: sidebar left, main right */
 .bio-layout {
   position: relative;
@@ -393,58 +422,34 @@ hr {
 
 .bio-main {
   flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 }
 
 .bio-main-top {
   display: flex;
   align-items: flex-start;
   gap: 20px;
-  margin-bottom: 16px;
+}
+
+.bio-rest {
+  display: block;
+}
+
+/* padding avoids Safari margin-collapse inside flex items (Chrome keeps margin-top) */
+.bio-rest > .bio-text + .bio-text {
+  padding-top: 16px;
 }
 
 @media (min-width: 601px) {
-  .profile-img-container {
-    position: relative;
+  .bio-main-top .profile-img {
     width: 120px;
     height: 120px;
     flex-shrink: 0;
-    cursor: pointer;
-    overflow: hidden;
-  }
-
-  .profile-img {
-    width: 100%;
-    height: 100%;
     object-fit: cover;
-  }
-
-  .profile-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.23);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    opacity: 0;
-    transition: opacity 0.3s ease;
-  }
-
-  .profile-overlay i {
-    color: white;
-    font-size: 24px;
-    animation: rotateHint 2s linear infinite;
-  }
-
-  .profile-img-container:hover .profile-overlay {
-    opacity: 1;
-  }
-
-  @keyframes rotateHint {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(-360deg); }
+    cursor: default;
+    pointer-events: none;
   }
 }
 
@@ -525,6 +530,14 @@ hr {
 .news-content {
   font-size: 15px;
   line-height: 1.5;
+}
+
+.news-content .exp-mentor-logo {
+  display: inline-block;
+  height: 1em;
+  width: 1em;
+  vertical-align: -0.16em;
+  object-fit: contain;
 }
 
 /* Service section styling */
