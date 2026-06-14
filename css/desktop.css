@@ -64,7 +64,7 @@ h2 {
 
 /* Footer */
 footer {
-  padding: 0 0 16px;
+  padding: 0 0 20px;
 }
 
 footer hr {
@@ -75,7 +75,7 @@ footer hr {
 }
 
 .footer-text {
-  margin: 16px 0 0;
+  margin: 20px 0 0;
   padding: 0;
   text-align: center;
   font-size: small;
