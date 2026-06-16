@@ -454,11 +454,51 @@ hr {
 }
 
 .name-info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
   text-align: right;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
   font-size: 20px;
   line-height: 1.3;
   font-weight: bold;
   margin: 0 0 10px 0;
+}
+
+.name-info__names {
+  display: contents;
+}
+
+.name-info__en,
+.name-info__cn {
+  display: block;
+}
+
+.bio-affiliation--compact {
+  display: none;
+}
+
+.bio-affiliation--school,
+.bio-affiliation--org {
+  display: block;
+  margin-top: 0;
+  font-family: inherit;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.3;
+  color: inherit;
+  white-space: nowrap;
+}
+
+.bio-affiliation--org {
+  margin-top: 10px;
+  font-weight: 700;
+  color: #3579b0;
+}
+
+.bio-affiliation--school {
+  font-weight: 700;
+  color: #3579b0;
 }
 
 .bio-links {
@@ -466,7 +506,7 @@ hr {
   flex-direction: column;
   align-items: flex-end;
   gap: 3px;
-  margin-top: 8px;
+  margin-top: 0;
 }
 
 .bio-links a {
