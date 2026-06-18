@@ -13,15 +13,20 @@
       {"name": "Konstantinos Psounis"},
       {"name": "Kaipeng Zhang"}
     ],
-    "venue": "Arxiv 2025",
-    "venueType": "arxiv",
+    "venue": "ECCV 2026",
+    "venueType": "conference",
     "image": "images/tir-bench.png",
     "links": {
       "paper": "https://arxiv.org/pdf/2511.01833",
       "code": "https://github.com/agents-x-project/TIR-Bench",
       "leaderboard": "https://agent-x.space/tirbench/"
     },
-    "year": 2025,
+    "highlights": [
+      "The first thinking-with-images benchmark for agentic AI.",
+      "Tool using is quite necessary in our benchmark.",
+      "Public leaderboard tracks frontier model progress."
+    ],
+    "year": 2026,
     "show": true
   },
   {
@@ -44,10 +49,10 @@
       "code": "https://github.com/Sphere-AI-Lab/SGP-RL",
       "project": "https://spherelab.ai/SGP-Gen/"
     },
-    "misc": {
-      "text": "#3 🤗 Daily Paper",
-      "link": "https://huggingface.co/papers/2509.05208"
-    },
+    "highlights": [
+      "Training LLMs to generate SVG by RLVR with CLIP reward.",
+      "SGP-GenBench benchmark SVG generation in 3 aspects"
+    ],
     "year": 2025,
     "show": true
   },
@@ -72,6 +77,10 @@
       "project": "https://agent-x.space/pyvision/",
       "PyVision-RL": "https://agent-x.space/pyvision-rl/"
     },
+    "highlights": [
+      "Let MLLM write python code on the fly to solve visual tasks.",
+      "No hand-crafted tools, no hard-coded rules."
+    ],
     "year": 2025,
     "show": true
   },
@@ -94,6 +103,10 @@
       "paper": "https://arxiv.org/abs/2503.16188",
       "code": "https://github.com/minglllli/CLS-RL"
     },
+    "highlights": [
+      "To think or not to think? It's a question.",
+      "Reasoning with thinking is not always beneficial."
+    ],
     "year": 2025,
     "show": true
   },

@@ -172,6 +172,8 @@ function createPublicationHTMLDesktop(pub) {
     ? `<a href="${primaryTitleLink}" class="papertitle" target="_blank" rel="noopener noreferrer">${pub.title}</a>`
     : `<span class="papertitle">${pub.title}</span>`;
 
+  const highlightsHTML = createHighlightsHTML(pub.highlights);
+
   return `
         <div class="paper-container fade-in delay-2">
           <div class="paper-sidebar">
@@ -184,8 +186,27 @@ function createPublicationHTMLDesktop(pub) {
           </div>
           <div class="paper-image">
             <img src='${pub.image}' alt="${pub.id}">
-          </div>
+          </div>${highlightsHTML}
         </div>`;
+}
+
+function createHighlightsHTML(highlights) {
+  if (!Array.isArray(highlights) || highlights.length === 0) {
+    return '';
+  }
+
+  const items = highlights
+    .map(function(item) {
+      return `<li>${item}</li>`;
+    })
+    .join('\n              ');
+
+  return `
+          <div class="paper-aside">
+            <ul class="paper-highlights">
+              ${items}
+            </ul>
+          </div>`;
 }
 
 function createPublicationHTML(pub) {
