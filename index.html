@@ -107,8 +107,15 @@
       </section>
 
       <section id="Research" class="fade-in delay-2">
-        <h2><strong>Research</strong></h2>
-        <!-- <div style="padding: 20px;"> Selected publications are shown below. Full list is available <a href="https://scholar.google.com/citations?user=VUboP9QAAAAJ&hl=en-US">here</a>.</div> -->
+        <div class="research-heading">
+          <h2><strong>Research</strong></h2>
+          <div class="research-filter" role="group" aria-label="Filter research by topic">
+            <span class="research-filter__indicator" aria-hidden="true"></span>
+            <button type="button" class="research-filter__btn is-active" data-filter="selected" aria-pressed="true">Selected</button>
+            <button type="button" class="research-filter__btn" data-filter="agentic-vision" aria-pressed="false">Agentic Vision</button>
+            <button type="button" class="research-filter__btn" data-filter="visual-generation" aria-pressed="false">Visual Generation</button>
+          </div>
+        </div>
         <div id="publications-container">
           <!-- Publications will be dynamically loaded here -->
         </div>

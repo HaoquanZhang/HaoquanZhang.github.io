@@ -57,6 +57,70 @@ h2 {
   border-bottom: 1px solid #dcdcdc;
 }
 
+.research-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 20px 0 8px;
+  margin: 0 20px 6px;
+  border-bottom: 1px solid #dcdcdc;
+}
+
+.research-heading h2 {
+  margin: 0;
+  padding: 0;
+  border: none;
+}
+
+.research-filter {
+  position: relative;
+  display: inline-flex;
+  flex-shrink: 0;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: flex-end;
+  gap: 16px;
+  margin: 0;
+  padding-top: 9px;
+  border: none;
+}
+
+.research-filter__indicator {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 6px solid #222;
+  transform: translateX(-50%);
+  transition: left 0.25s ease;
+  pointer-events: none;
+}
+
+.research-filter__btn {
+  border: none;
+  background: none;
+  color: #999;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1.4;
+  padding: 0;
+  cursor: pointer;
+  transition: color 0.15s ease;
+}
+
+.research-filter__btn.is-active {
+  color: #111;
+}
+
+.research-filter__btn:hover {
+  color: #444;
+}
+
 /* Bio section: remove extra top padding, main-content already handles nav clearance */
 #Top {
   padding-top: 16px;

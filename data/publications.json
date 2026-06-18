@@ -23,9 +23,38 @@
     },
     "highlights": [
       "The first thinking-with-images benchmark for agentic AI.",
-      "Tool using is quite necessary in our benchmark.",
-      "Public leaderboard tracks frontier model progress."
+      "Tool using is quite necessary in our benchmark."
     ],
+    "topics": ["selected", "agentic-vision"],
+    "year": 2026,
+    "show": true
+  },
+  {
+    "id": "pyvision-rl-2026",
+    "title": "PyVision-RL: Forging Open Agentic Vision Models via RL",
+    "authors": [
+      {"name": "Shitian Zhao", "isCoFirst": true},
+      {"name": "Shaoheng Lin", "isCoFirst": true},
+      {"name": "Ming Li"},
+      {"name": "Haoquan Zhang", "isHighlight": true},
+      {"name": "Wenshuo Peng"},
+      {"name": "Kaipeng Zhang"},
+      {"name": "Chen Wei"}
+    ],
+    "venue": "ICML 2026",
+    "venueType": "conference",
+    "image": "images/agentic-video.jpg",
+    "links": {
+      "paper": "https://arxiv.org/abs/2602.20739",
+      "project": "https://agent-x.space/pyvision-rl/",
+      "code": "https://github.com/agents-x-project/PyVision-RL"
+    },
+    "highlights": [
+      "Sota model for agentic vision.",
+      "PyVision-Video with on-demand frame sampling.",
+      "Accumulative tool reward for sustained multi-turn tool generate."
+    ],
+    "topics": ["agentic-vision"],
     "year": 2026,
     "show": true
   },
@@ -53,6 +82,37 @@
       "Training LLMs to generate SVG by RLVR with CLIP reward.",
       "SGP-GenBench benchmark SVG generation in 3 aspects"
     ],
+    "topics": ["selected", "visual-generation"],
+    "year": 2025,
+    "show": true
+  },
+  {
+    "id": "image-gen-cot-2025",
+    "title": "Can We Generate Images with CoT? Let's Verify and Reinforce Image Generation Step by Step",
+    "authors": [
+      {"name": "Ziyu Guo"},
+      {"name": "Renrui Zhang"},
+      {"name": "Chengzhuo Tong"},
+      {"name": "Zhizheng Zhao"},
+      {"name": "Rui Huang"},
+      {"name": "Haoquan Zhang", "isHighlight": true},
+      {"name": "Manyuan Zhang"},
+      {"name": "Jiaming Liu"},
+      {"name": "Shanghang Zhang"},
+      {"name": "Peng Gao"},
+      {"name": "Hongsheng Li"},
+      {"name": "Pheng-Ann Heng"}
+    ],
+    "venue": "CVPR 2025",
+    "venueType": "conference",
+    "links": {
+      "paper": "https://arxiv.org/abs/2501.13926",
+      "code": "https://github.com/ZiyuGuo99/Image-Generation-CoT"
+    },
+    "highlights": [
+      "First study of CoT reasoning for autoregressive image generation."
+    ],
+    "topics": ["visual-generation"],
     "year": 2025,
     "show": true
   },
@@ -81,6 +141,7 @@
       "Let MLLM write python code on the fly to solve visual tasks.",
       "No hand-crafted tools, no hard-coded rules."
     ],
+    "topics": ["selected", "agentic-vision"],
     "year": 2025,
     "show": true
   },
@@ -107,6 +168,7 @@
       "To think or not to think? It's a question.",
       "Reasoning with thinking is not always beneficial."
     ],
+    "topics": ["selected"],
     "year": 2025,
     "show": true
   },
@@ -131,6 +193,7 @@
       "code": "",
       "benchmark": ""
     },
+    "topics": ["selected", "agentic-vision"],
     "year": 2025,
     "show": false
   }

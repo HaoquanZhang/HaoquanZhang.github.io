@@ -32,8 +32,9 @@ document.querySelectorAll('.mobile-component ul li a, .desktop-component ul li a
   });
 });
 
-// Global variable to store author links
+// Global variables
 let authorLinks = {};
+let allPublications = [];
 
 // Function to load author links
 async function loadAuthorLinks() {
@@ -45,20 +46,102 @@ async function loadAuthorLinks() {
   }
 }
 
+function publicationMatchesFilter(publication, filter) {
+  if (!publication.show) {
+    return false;
+  }
+  const topics = publication.topics || [];
+  return topics.includes(filter);
+}
+
+function renderPublicationList(publications) {
+  const container = document.getElementById('publications-container');
+  if (!container) {
+    return;
+  }
+
+  container.innerHTML = publications
+    .map(function(publication) {
+      return createPublicationHTML(publication);
+    })
+    .join('');
+}
+
+function updateResearchFilterIndicator() {
+  const filter = document.querySelector('.research-filter');
+  if (!filter || window.innerWidth <= 600) {
+    return;
+  }
+
+  const indicator = filter.querySelector('.research-filter__indicator');
+  const activeButton = filter.querySelector('.research-filter__btn.is-active');
+  if (!indicator || !activeButton) {
+    return;
+  }
+
+  const filterRect = filter.getBoundingClientRect();
+  const buttonRect = activeButton.getBoundingClientRect();
+  const centerX = buttonRect.left + buttonRect.width / 2 - filterRect.left;
+  indicator.style.left = centerX + 'px';
+}
+
+function setResearchFilter(filter) {
+  const normalized = filter || 'selected';
+  const filteredPublications = allPublications.filter(function(publication) {
+    return publicationMatchesFilter(publication, normalized);
+  });
+
+  renderPublicationList(filteredPublications);
+
+  document.querySelectorAll('.research-filter__btn').forEach(function(button) {
+    const isActive = button.dataset.filter === normalized;
+    button.classList.toggle('is-active', isActive);
+    button.setAttribute('aria-pressed', isActive ? 'true' : 'false');
+  });
+
+  requestAnimationFrame(updateResearchFilterIndicator);
+
+  try {
+    localStorage.setItem('research-filter', normalized);
+  } catch (error) {
+    // Ignore storage errors in private browsing.
+  }
+}
+
+function initResearchFilter() {
+  const validFilters = Array.from(document.querySelectorAll('.research-filter__btn'))
+    .map(function(button) {
+      return button.dataset.filter;
+    });
+
+  let savedFilter = 'selected';
+  try {
+    const stored = localStorage.getItem('research-filter');
+    if (stored && validFilters.includes(stored)) {
+      savedFilter = stored;
+    }
+  } catch (error) {
+    // Ignore storage errors in private browsing.
+  }
+
+  document.querySelectorAll('.research-filter__btn').forEach(function(button) {
+    button.addEventListener('click', function() {
+      setResearchFilter(button.dataset.filter);
+    });
+  });
+
+  window.addEventListener('resize', updateResearchFilterIndicator);
+
+  setResearchFilter(savedFilter);
+}
+
 // Function to render publications from JSON data
 async function renderPublications() {
   try {
-    // Load both publications and author links
     await loadAuthorLinks();
     const response = await fetch('data/publications.json');
-    const publications = await response.json();
-    const filteredPublications = publications.filter(publication => publication.show);
-    const container = document.getElementById('publications-container');
-    
-    filteredPublications.forEach(publication => {
-      const publicationHTML = createPublicationHTML(publication);
-      container.innerHTML += publicationHTML;
-    });
+    allPublications = await response.json();
+    initResearchFilter();
   } catch (error) {
     console.error('Error loading publications:', error);
   }
@@ -88,11 +171,15 @@ function createPublicationHTMLMobile(pub) {
     : '';
   const staticClass = cardLink ? '' : ' paper-card--static';
 
-  return `
-        <${tag}${hrefAttr} class="paper-card fade-in delay-2${staticClass}">
-          <div class="paper-card__media">
+  const mediaHTML = pub.image
+    ? `<div class="paper-card__media">
             <img src="${pub.image}" alt="${pub.title}">
-          </div>
+          </div>`
+    : '';
+
+  return `
+        <${tag}${hrefAttr} class="paper-card fade-in delay-2${staticClass}${pub.image ? '' : ' paper-card--no-media'}">
+          ${mediaHTML}
           <div class="paper-card__body">
             <p class="paper-card__title">${pub.title}</p>
             <p class="paper-card__meta">${pub.venue}</p>
@@ -173,9 +260,14 @@ function createPublicationHTMLDesktop(pub) {
     : `<span class="papertitle">${pub.title}</span>`;
 
   const highlightsHTML = createHighlightsHTML(pub.highlights);
+  const imageHTML = pub.image
+    ? `<div class="paper-image">
+            <img src='${pub.image}' alt="${pub.id}">
+          </div>`
+    : '';
 
   return `
-        <div class="paper-container fade-in delay-2">
+        <div class="paper-container fade-in delay-2${pub.image ? '' : ' paper-container--no-image'}">
           <div class="paper-sidebar">
             <span class="${pub.venueType}"><strong>${venueText}</strong></span>
             ${sidebarLinksHTML}
@@ -183,10 +275,7 @@ function createPublicationHTMLDesktop(pub) {
           <div class="paper-main">
             ${titleHTML}
             <p class="paper-authors">${authorsHTML}</p>
-          </div>
-          <div class="paper-image">
-            <img src='${pub.image}' alt="${pub.id}">
-          </div>${highlightsHTML}
+          </div>${imageHTML}${highlightsHTML}
         </div>`;
 }
 
