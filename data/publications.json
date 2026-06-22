@@ -23,7 +23,7 @@
     },
     "highlights": [
       "The first thinking-with-images benchmark for agentic AI.",
-      "Tool using is quite necessary in our benchmark."
+      "Tool use is quite necessary in our benchmark."
     ],
     "topics": ["selected", "agentic-vision"],
     "year": 2026,
@@ -50,9 +50,9 @@
       "code": "https://github.com/agents-x-project/PyVision-RL"
     },
     "highlights": [
-      "Sota model for agentic vision.",
+      "SOTA model for agentic vision.",
       "PyVision-Video with on-demand frame sampling.",
-      "Accumulative tool reward for sustained multi-turn tool generate."
+      "Accumulative tool reward for sustained multi-turn tool use."
     ],
     "topics": ["agentic-vision"],
     "year": 2026,
@@ -70,7 +70,7 @@
       {"name": "Yandong Wen"},
       {"name": "Weiyang Liu"}
     ],
-    "venue": "Arxiv 2025",
+    "venue": "arXiv 2025",
     "venueType": "arxiv",
     "image": "images/teaser.png",
     "links": {
@@ -80,7 +80,7 @@
     },
     "highlights": [
       "Training LLMs to generate SVG by RLVR with CLIP reward.",
-      "SGP-GenBench benchmark SVG generation in 3 aspects"
+      "SGP-GenBench benchmarks SVG generation in 3 aspects."
     ],
     "topics": ["selected", "visual-generation"],
     "year": 2025,
@@ -128,7 +128,7 @@
       {"name": "Kaipeng Zhang"},
       {"name": "Chen Wei"}
     ],
-    "venue": "Arxiv 2025",
+    "venue": "arXiv 2025",
     "venueType": "arxiv",
     "image": "images/pyvision.png",
     "links": {
@@ -138,7 +138,7 @@
       "PyVision-RL": "https://agent-x.space/pyvision-rl/"
     },
     "highlights": [
-      "Let MLLM write python code on the fly to solve visual tasks.",
+      "Let MLLMs write Python code on the fly to solve visual tasks.",
       "No hand-crafted tools, no hard-coded rules."
     ],
     "topics": ["selected", "agentic-vision"],
@@ -184,7 +184,7 @@
       {"name": "Zheng Wang"},
       {"name": "Kaipeng Zhang"}
     ],
-    "venue": "Arxiv 2025",
+    "venue": "arXiv 2025",
     "venueType": "arxiv",
     "image": "images/ideabench.jpg",
     "links": {
