@@ -130,7 +130,7 @@
     ],
     "venue": "arXiv 2025",
     "venueType": "arxiv",
-    "image": "images/pyvision.png",
+    "image": "images/pyvision-2.png",
     "links": {
       "paper": "https://arxiv.org/abs/2507.07998",
       "code": "https://github.com/agents-x-project/PyVision",
