@@ -108,56 +108,6 @@ section {
   padding-top: 0;
 }
 
-.desktop-component ul,
-.mobile-component ul {
-  width: 100%;
-  position: fixed;
-  list-style: none;
-  background-color: #ffffff;
-  text-align:center;
-  padding-inline-start: 0%;
-  margin-block-start: 0%;
-  z-index: 999;
-}
-
-.desktop-component ul li,
-.mobile-component ul li {
-  display: inline-block;
-}
-
-.desktop-component ul li a,
-.mobile-component ul li a {
-  padding: 10px;
-  display: block;
-  color: #616161;
-}
-
-.desktop-component ul li a:hover,
-.mobile-component ul li a:hover {
-  color: #ff7700;
-}
-
-@media (max-width: 1240px) {
-  .desktop-component {
-      display: none;
-  }
-
-  .mobile-component {
-      display: block;
-  }
-}
-
-/* 在屏幕宽度大于 1240px 时，显示电脑组件，隐藏手机组件 */
-@media (min-width: 769px) {
-  .desktop-component {
-      display: block;
-  }
-
-  .mobile-component {
-      display: none;
-  }
-}
-
 .CVPR {
   background-color: #4192e8; 
   padding: 6px 12px; 
@@ -534,27 +484,6 @@ hr {
   margin: 0;
 }
 
-.bio-internship-bar {
-  margin-top: 8px;
-  padding: 5px 8px;
-  background-color: #e8f2fc;
-  border-left: 3px solid #1a56a8;
-  box-sizing: border-box;
-  width: 100%;
-  min-width: 0;
-}
-
-.bio-internship-bar__text {
-  margin: 0;
-  font-size: 13px;
-  line-height: 1.4;
-  font-weight: 700;
-  color: #111;
-  overflow-wrap: anywhere;
-  word-break: break-word;
-  hyphens: auto;
-}
-
 /* News section styling */
 .news-container {
   margin: 0 20px;
@@ -601,81 +530,7 @@ hr {
   text-decoration: none;
 }
 
-/* Service section styling */
-.service-container {
-  margin: 0 20px;
-  padding: 0;
-}
-
-.service-item {
-  background-color: #ffffff;
-  border: 1px solid #efeeee;
-  padding: 20px;
-  margin-bottom: 12px;
-  transition: background-color 0.3s ease;
-}
-
-.service-item:hover {
-  background-color: #efeeee;
-}
-
-.service-title {
-  font-weight: bold;
-  font-size: 18px;
-  margin-bottom: 10px;
-  color: #666666;
-}
-
-.service-content {
-  font-size: 14px;
-  line-height: 1.5;
-}
-
-.service-list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-}
-
-.service-badge {
-  display: inline-flex;
-  align-items: center;
-  /* gap: 8px; */
-}
-
-.service-tag {
-  display: inline-block;
-  padding: 6px 10px;
-  /* border-radius: 8px; */
-  font-weight: 700;
-  background: #026dab;
-  color: #ffffff;
-}
-
-.service-year {
-  display: inline-block;
-  padding: 6px 10px;
-  /* border-radius: 8px; */
-  background: #d8efff;
-  color: #4a4a4a;
-  font-weight: 700;
-}
-
-.service-content ul {
-  margin-left: 0;
-  /* padding-left: 20px; */
-}
-
-.service-content ul li {
-  margin-bottom: 4px;
-  font-size: 14px;
-  line-height: 1.4;
-}
-
-.buttom {
+.button {
   display: inline-block;
   padding: 6px 12px;
   background-color: #e5e5e5;
@@ -691,7 +546,7 @@ hr {
   flex-shrink: 0;
 }
 
-.buttom:hover {
+.button:hover {
   background-color: #666666;
   color: #ffffff;
 }

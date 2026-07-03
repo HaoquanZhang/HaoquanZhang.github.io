@@ -152,94 +152,6 @@ footer hr {
   color: rgb(143, 143, 143);
 }
 
-/* Nav dot color indicators */
-.nav-dot {
-  font-size: 1.6em;
-}
-
-.nav-dot--brown { color: #8B4513; }
-.nav-dot--gold  { color: #FFD700; }
-.nav-dot--blue  { color: #0000FF; }
-
-/* Spotlight highlight in news */
-.highlight-spotlight {
-  color: rgb(255, 170, 0);
-}
-
-/* Link icons in bio buttons */
-.link-icon {
-  vertical-align: text-bottom;
-}
-
-/* Scroll-to-top button */
-.scroll-to-top {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  display: none;
-  background-color: rgba(0, 0, 0, 0.5);
-  color: white;
-  width: 40px;
-  height: 40px;
-  text-align: center;
-  line-height: 40px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  z-index: 1000;
-  border: none;
-  padding: 0;
-}
-
-.desktop-component ul,
-.mobile-component ul {
-  width: 100%;
-  position: fixed;
-  list-style: none;
-  background-color: #ffffff;
-  text-align:center;
-  padding-inline-start: 0%;
-  margin-block-start: 0%;
-  z-index: 999;
-}
-
-.desktop-component ul li,
-.mobile-component ul li {
-  display: inline-block;
-}
-
-.desktop-component ul li a,
-.mobile-component ul li a {
-  padding: 10px;
-  display: block;
-  color: #454545;
-}
-
-.desktop-component ul li a:hover,
-.mobile-component ul li a:hover {
-  color: #6493df;
-}
-
-@media (max-width: 1240px) {
-  .desktop-component {
-      display: none;
-  }
-
-  .mobile-component {
-      display: block;
-  }
-}
-
-/* 在屏幕宽度大于 1240px 时，显示电脑组件，隐藏手机组件 */
-@media (min-width: 769px) {
-  .desktop-component {
-      display: block;
-  }
-
-  .mobile-component {
-      display: none;
-  }
-}
-
 /* Shared styles for all venue badge types */
 .CVPR, .insub, .arxiv, .accepted, .award, .conference {
   padding: 6px 12px;
@@ -312,7 +224,7 @@ hr {
 .paper-sidebar .conference { color: #2563a8; }
 .paper-sidebar .insub   { color: #666; }
 
-.paper-sidebar .buttom {
+.paper-sidebar .button {
   display: inline-block;
   background: #ffffff;
   color: #777;
@@ -325,7 +237,7 @@ hr {
   transition: all 0.2s ease;
 }
 
-.paper-sidebar .buttom:hover {
+.paper-sidebar .button:hover {
   background: #f0f0f0;
   color: #222;
 }
@@ -633,22 +545,6 @@ hr {
   margin: 0;
 }
 
-/* Announcement-style internship callout */
-.bio-internship-bar {
-  margin-top: 10px;
-  padding: 6px 10px;
-  background-color: #e8f2fc;
-  border-left: 3px solid #1a56a8;
-  box-sizing: border-box;
-}
-
-.bio-internship-bar__text {
-  margin: 0;
-  font-size: 13px;
-  line-height: 1.45;
-  font-weight: 700;
-  color: #111;
-}
 /* News section styling */
 .news-container {
   padding: 0 20px;
@@ -685,82 +581,7 @@ hr {
   object-fit: contain;
 }
 
-/* Service section styling */
-.service-container {
-  max-width: 900px;
-  margin: 0 auto;
-  padding: 0 20px;
-}
-
-.service-item {
-  background-color: #ffffff;
-  border: 1px solid #efeeee;
-  padding: 20px;
-  margin-bottom: 12px;
-  transition: background-color 0.3s ease;
-}
-
-.service-item:hover {
-  background-color: #f1f1f1;
-}
-
-.service-title {
-  font-weight: bold;
-  font-size: 20px;
-  margin-bottom: 12px;
-  color: #666666;
-}
-
-.service-content {
-  font-size: 16px;
-  line-height: 1.5;
-}
-
-.service-list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-}
-
-.service-badge {
-  display: inline-flex;
-  align-items: center;
-  /* gap: 8px; */
-}
-
-.service-tag {
-  display: inline-block;
-  padding: 6px 10px;
-  /* border-radius: 8px; */
-  font-weight: 700;
-  background: #026dab;
-  color: #ffffff;
-}
-
-.service-year {
-  display: inline-block;
-  padding: 6px 10px;
-  /* border-radius: 8px; */
-  background: #d8efff;
-  color: #4a4a4a;
-  font-weight: 700;
-}
-
-.service-content ul {
-  margin-left: 0;
-  /* padding-left: 20px; */
-}
-
-.service-content ul li {
-  margin-bottom: 4px;
-  font-size: 16px;
-  line-height: 1.4;
-}
-
-.buttom {
+.button {
   display: inline-block;
   padding: 6px 10px;
   background-color: #8c8c8c;
@@ -775,7 +596,7 @@ hr {
   flex-shrink: 0;
 }
 
-.buttom:hover {
+.button:hover {
   background-color: #ffffff;
   color: #000000;
 }
@@ -830,12 +651,6 @@ hr {
   }
 
   .paper-aside {
-    display: none !important;
-  }
-
-  /* Hide navigation and other non-essential elements for print */
-  .mobile-component,
-  .desktop-component {
     display: none !important;
   }
 

@@ -1,40 +1,44 @@
 // Main JavaScript file for the website
 
-// Read navigation height safely because mobile nav can be removed.
-function getVisibleNavbarHeight() {
-  const desktopNav = document.querySelector('.desktop-component ul');
-  const mobileNav = document.querySelector('.mobile-component ul');
-
-  if (window.innerWidth < 768) {
-    return mobileNav ? mobileNav.offsetHeight : 0;
-  }
-  return desktopNav ? desktopNav.offsetHeight : 0;
-}
-
-// Add click event listeners to navigation links.
-document.querySelectorAll('.mobile-component ul li a, .desktop-component ul li a').forEach(function(anchor) {
-  anchor.addEventListener('click', function(event) {
-    event.preventDefault(); // Prevent the default navigation behavior
-
-    var targetId = this.getAttribute('href'); // Get the target section's ID from the link's href
-    var targetElement = document.querySelector(targetId); // Find the target element using its ID
-    if (!targetElement) {
-      return;
-    }
-    var targetOffsetTop = targetElement.offsetTop; // Get the target's top offset relative to the document
-
-    // Calculate scroll position considering the navigation bar height to avoid overlap.
-    var navbarHeight = getVisibleNavbarHeight();
-    window.scrollTo({
-      top: targetOffsetTop - navbarHeight,
-      behavior: 'smooth' // Smooth scroll to the target position
-    });
-  });
-});
-
 // Global variables
 let authorLinks = {};
 let allPublications = [];
+let currentPublicationLayoutMode = 'desktop';
+let researchResizeRafId = null;
+
+function getPublicationLayoutMode() {
+  return window.innerWidth <= 600 ? 'mobile' : 'desktop';
+}
+
+function getActiveResearchFilter() {
+  const activeButton = document.querySelector('.research-filter__btn.is-active');
+  return activeButton ? activeButton.dataset.filter : 'selected';
+}
+
+function syncPublicationLayoutMode() {
+  const nextMode = getPublicationLayoutMode();
+  if (nextMode === currentPublicationLayoutMode) {
+    return false;
+  }
+
+  currentPublicationLayoutMode = nextMode;
+  setResearchFilter(getActiveResearchFilter());
+  return true;
+}
+
+function handleResearchResize() {
+  if (researchResizeRafId !== null) {
+    return;
+  }
+
+  researchResizeRafId = requestAnimationFrame(function() {
+    researchResizeRafId = null;
+    const layoutChanged = syncPublicationLayoutMode();
+    if (!layoutChanged) {
+      updateResearchFilterIndicator();
+    }
+  });
+}
 
 // Function to load author links
 async function loadAuthorLinks() {
@@ -130,7 +134,8 @@ function initResearchFilter() {
     });
   });
 
-  window.addEventListener('resize', updateResearchFilterIndicator);
+  currentPublicationLayoutMode = getPublicationLayoutMode();
+  window.addEventListener('resize', handleResearchResize);
 
   setResearchFilter(savedFilter);
 }
@@ -237,7 +242,7 @@ function createPublicationHTMLDesktop(pub) {
   linkItems.sort((a, b) => b.text.length - a.text.length);
 
   let sidebarLinksHTML = linkItems.map(item => {
-    const cls = item.isMisc ? 'buttom misc-button' : 'buttom';
+    const cls = item.isMisc ? 'button misc-button' : 'button';
     const target = item.isMisc ? ' target="_blank"' : '';
     return `<a href="${item.url}" class="${cls}"${target}>${item.text}</a>`;
   }).join('\n            ');
