@@ -70,8 +70,8 @@
       {"name": "Yandong Wen"},
       {"name": "Weiyang Liu"}
     ],
-    "venue": "arXiv 2025",
-    "venueType": "arxiv",
+    "venue": "TMLR 2026",
+    "venueType": "conference",
     "image": "images/teaser.png",
     "links": {
       "paper": "https://arxiv.org/abs/2509.05208",

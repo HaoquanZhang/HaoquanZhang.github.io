@@ -5,6 +5,20 @@ let authorLinks = {};
 let allPublications = [];
 let currentPublicationLayoutMode = 'desktop';
 let researchResizeRafId = null;
+let researchTransitionTimer = null;
+const showResearchLineDescriptions = false;
+
+const researchLineContent = {
+  selected: {
+    description: 'A selection of projects exploring how intelligent systems perceive, reason, create, and interact with the visual world.'
+  },
+  'agentic-vision': {
+    description: 'We believe the future of AI lies in agents that learn through interaction rather than predefined workflows. Guided by the Bitter Lesson, we supervise only outcomes instead of prescribing tools or execution processes, allowing models to write code, invent reusable tool primitives, and discover their own strategies autonomously.\n\nWe explore this paradigm in visual intelligence by building visual agents that interact with vision-centric environments. Our research spans benchmarking, reinforcement learning, and reasoning over both images and videos.'
+  },
+  'visual-generation': {
+    description: 'We study generative models that turn ideas into expressive visual content with greater quality, control, and consistency.'
+  }
+};
 
 function getPublicationLayoutMode() {
   return window.innerWidth <= 600 ? 'mobile' : 'desktop';
@@ -22,7 +36,7 @@ function syncPublicationLayoutMode() {
   }
 
   currentPublicationLayoutMode = nextMode;
-  setResearchFilter(getActiveResearchFilter());
+  setResearchFilter(getActiveResearchFilter(), true);
   return true;
 }
 
@@ -85,17 +99,53 @@ function updateResearchFilterIndicator() {
 
   const filterRect = filter.getBoundingClientRect();
   const buttonRect = activeButton.getBoundingClientRect();
-  const centerX = buttonRect.left + buttonRect.width / 2 - filterRect.left;
-  indicator.style.left = centerX + 'px';
+  indicator.style.left = buttonRect.left - filterRect.left + 'px';
+  indicator.style.width = buttonRect.width + 'px';
 }
 
-function setResearchFilter(filter) {
+function updateResearchContent(normalized, filteredPublications) {
+  const container = document.getElementById('publications-container');
+  const lineContent = researchLineContent[normalized] || researchLineContent.selected;
+  const intro = document.querySelector('.research-line-intro');
+  const introDescription = document.getElementById('research-line-description');
+
+  if (intro && introDescription) {
+    const showIntro = showResearchLineDescriptions && normalized !== 'selected';
+    introDescription.textContent = lineContent.description;
+    intro.classList.toggle('is-visible', showIntro);
+    intro.setAttribute('aria-hidden', showIntro ? 'false' : 'true');
+
+    if (showIntro) {
+      introDescription.classList.remove('is-entering');
+      void introDescription.offsetWidth;
+      introDescription.classList.add('is-entering');
+    }
+  }
+
+  renderPublicationList(filteredPublications);
+
+  if (container) {
+    void container.offsetWidth;
+    container.classList.remove('is-leaving');
+  }
+  if (intro) {
+    intro.classList.remove('is-leaving');
+  }
+}
+
+function setResearchFilter(filter, skipTransition = false) {
   const normalized = filter || 'selected';
   const filteredPublications = allPublications.filter(function(publication) {
     return publicationMatchesFilter(publication, normalized);
   });
 
-  renderPublicationList(filteredPublications);
+  const container = document.getElementById('publications-container');
+  const intro = document.querySelector('.research-line-intro');
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const shouldFadeOut = !skipTransition
+    && !prefersReducedMotion
+    && container
+    && container.children.length > 0;
 
   document.querySelectorAll('.research-filter__btn').forEach(function(button) {
     const isActive = button.dataset.filter === normalized;
@@ -110,6 +160,26 @@ function setResearchFilter(filter) {
   } catch (error) {
     // Ignore storage errors in private browsing.
   }
+
+  if (researchTransitionTimer !== null) {
+    clearTimeout(researchTransitionTimer);
+    researchTransitionTimer = null;
+  }
+
+  if (!shouldFadeOut) {
+    updateResearchContent(normalized, filteredPublications);
+    return;
+  }
+
+  container.classList.add('is-leaving');
+  if (intro && intro.classList.contains('is-visible')) {
+    intro.classList.add('is-leaving');
+  }
+
+  researchTransitionTimer = setTimeout(function() {
+    researchTransitionTimer = null;
+    updateResearchContent(normalized, filteredPublications);
+  }, 160);
 }
 
 function initResearchFilter() {
@@ -137,7 +207,7 @@ function initResearchFilter() {
   currentPublicationLayoutMode = getPublicationLayoutMode();
   window.addEventListener('resize', handleResearchResize);
 
-  setResearchFilter(savedFilter);
+  setResearchFilter(savedFilter, true);
 }
 
 // Function to render publications from JSON data
