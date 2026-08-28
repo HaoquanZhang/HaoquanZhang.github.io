@@ -6,6 +6,7 @@ let allPublications = [];
 let currentPublicationLayoutMode = 'desktop';
 let researchResizeRafId = null;
 let researchTransitionTimer = null;
+let navScrollRafId = null;
 const showResearchLineDescriptions = false;
 
 const researchLineContent = {
@@ -19,6 +20,29 @@ const researchLineContent = {
     description: 'We study generative models that turn ideas into expressive visual content with greater quality, control, and consistency.'
   }
 };
+
+function updateSiteNav() {
+  const nav = document.getElementById('site-nav');
+  if (nav) {
+    nav.classList.toggle('is-floating', window.scrollY > 20);
+  }
+}
+
+function handleSiteNavScroll() {
+  if (navScrollRafId !== null) {
+    return;
+  }
+
+  navScrollRafId = requestAnimationFrame(function() {
+    navScrollRafId = null;
+    updateSiteNav();
+  });
+}
+
+function initSiteNav() {
+  updateSiteNav();
+  window.addEventListener('scroll', handleSiteNavScroll, { passive: true });
+}
 
 function getPublicationLayoutMode() {
   return window.innerWidth <= 600 ? 'mobile' : 'desktop';
@@ -256,7 +280,7 @@ function createPublicationHTMLMobile(pub) {
         <${tag}${hrefAttr} class="paper-card fade-in delay-2${staticClass}${pub.image ? '' : ' paper-card--no-media'}">
           ${mediaHTML}
           <div class="paper-card__body">
-            <p class="paper-card__title">${pub.title}</p>
+            <p class="paper-card__title${pub.isPlaceholder ? ' paper-card__title--placeholder' : ''}">${pub.title}</p>
             <p class="paper-card__meta">${pub.venue}</p>
           </div>
         </${tag}>`;
@@ -330,9 +354,10 @@ function createPublicationHTMLDesktop(pub) {
   }
 
   const primaryTitleLink = getPublicationTitleLink(pub.links);
+  const titleClass = `papertitle${pub.isPlaceholder ? ' papertitle--placeholder' : ''}`;
   const titleHTML = primaryTitleLink
-    ? `<a href="${primaryTitleLink}" class="papertitle" target="_blank" rel="noopener noreferrer">${pub.title}</a>`
-    : `<span class="papertitle">${pub.title}</span>`;
+    ? `<a href="${primaryTitleLink}" class="${titleClass}" target="_blank" rel="noopener noreferrer">${pub.title}</a>`
+    : `<span class="${titleClass}">${pub.title}</span>`;
 
   const highlightsHTML = createHighlightsHTML(pub.highlights);
   const imageHTML = pub.image
@@ -379,6 +404,8 @@ function createPublicationHTML(pub) {
   }
   return createPublicationHTMLDesktop(pub);
 }
+
+initSiteNav();
 
 // Run when DOM is loaded
 if (document.readyState === "loading") {

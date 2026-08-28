@@ -1,5 +1,22 @@
 [
   {
+    "id": "something-new-2026",
+    "title": "Something New",
+    "isPlaceholder": true,
+    "authors": [
+      {"name": "Haoquan Zhang", "isHighlight": true},
+      {"name": "and his friends"}
+    ],
+    "venue": "Coming Soon",
+    "venueType": "insub",
+    "image": "",
+    "links": {},
+    "highlights": [],
+    "topics": ["selected", "visual-generation"],
+    "year": 2026,
+    "show": true
+  },
+  {
     "id": "tir-bench-2025",
     "title": "TIR-Bench: A Comprehensive Benchmark for Agentic Thinking-with-Images Reasoning",
     "authors": [
@@ -82,7 +99,7 @@
       "Training LLMs to generate SVG by RLVR with CLIP reward.",
       "SGP-GenBench benchmarks SVG generation in 3 aspects."
     ],
-    "topics": ["selected", "visual-generation"],
+    "topics": ["visual-generation"],
     "year": 2025,
     "show": true
   },

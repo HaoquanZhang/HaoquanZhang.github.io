@@ -23,6 +23,99 @@ a:hover {
 body{
   margin: 0;
 }
+
+.site-nav {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  box-sizing: border-box;
+  width: 100%;
+  padding: 0 8px;
+  transition: top 0.2s ease;
+}
+
+.site-nav__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-sizing: border-box;
+  width: 100%;
+  height: 44px;
+  margin: 0 auto;
+  padding: 0 10px;
+  border: 1px solid transparent;
+  border-bottom-color: #e3e3e3;
+  background: rgb(255 255 255 / 96%);
+  transition:
+    width 0.2s ease,
+    border-color 0.2s ease,
+    border-radius 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.site-nav.is-floating {
+  top: 8px;
+}
+
+.site-nav.is-floating .site-nav__inner {
+  width: calc(100% - 20px);
+  border-color: #dedede;
+  border-radius: 22px;
+  box-shadow: 0 5px 20px rgb(0 0 0 / 10%);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.site-nav__brand {
+  color: #222;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  text-decoration: none;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(3px);
+  transition:
+    color 0.2s ease,
+    opacity 0.2s ease,
+    transform 0.2s ease,
+    visibility 0s linear 0.2s;
+}
+
+.site-nav.is-floating .site-nav__brand {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+  transition-delay: 0s;
+}
+
+.site-nav__brand-full {
+  display: none;
+}
+
+.site-nav__links {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  width: auto;
+  gap: 14px;
+}
+
+.site-nav__links a {
+  color: #666;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.site-nav__links a:hover,
+.site-nav__links a:focus {
+  color: #111;
+  text-decoration: none;
+}
+
 td,
 th,
 tr,
@@ -155,6 +248,7 @@ h2 strong {
 }
 
 section {
+  scroll-margin-top: 64px;
   padding-top: 0;
 }
 
@@ -320,6 +414,10 @@ hr {
   -webkit-line-clamp: 3;
   line-clamp: 3;
   overflow: hidden;
+}
+
+.paper-card__title--placeholder {
+  font-style: italic;
 }
 
 .paper-card__meta {

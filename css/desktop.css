@@ -1,5 +1,9 @@
 /* Using Helvetica font family for clean, modern typography */
 
+:root {
+  --publication-hover-duration: 0.2s;
+}
+
 a {
   color: rgb(0, 0, 0);
   text-decoration: underline;
@@ -25,6 +29,94 @@ body {
   font-size: 16px;
 }
 
+.site-nav {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  box-sizing: border-box;
+  width: 100%;
+  padding: 0 12px;
+  transition: top 0.2s ease;
+}
+
+.site-nav__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 640px;
+  height: 48px;
+  margin: 0 auto;
+  padding: 0 12px;
+  border: 1px solid transparent;
+  border-bottom-color: #e3e3e3;
+  background: rgb(255 255 255 / 96%);
+  transition:
+    max-width 0.2s ease,
+    border-color 0.2s ease,
+    border-radius 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.site-nav.is-floating {
+  top: 12px;
+}
+
+.site-nav.is-floating .site-nav__inner {
+  max-width: 620px;
+  border-color: #dedede;
+  border-radius: 24px;
+  box-shadow: 0 6px 24px rgb(0 0 0 / 10%);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.site-nav__brand,
+.site-nav__links a {
+  color: #777;
+  font-size: 12px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.site-nav__brand {
+  color: #222;
+  font-weight: 700;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(3px);
+  transition:
+    color 0.2s ease,
+    opacity 0.2s ease,
+    transform 0.2s ease,
+    visibility 0s linear 0.2s;
+}
+
+.site-nav.is-floating .site-nav__brand {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+  transition-delay: 0s;
+}
+
+.site-nav__brand-short {
+  display: none;
+}
+
+.site-nav__links {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.site-nav__brand:hover,
+.site-nav__links a:hover {
+  color: #111;
+  text-decoration: none;
+}
+
 h2 {
   margin: 0;
   font-family: 'Source Serif 4', Georgia, 'Times New Roman', serif;
@@ -46,7 +138,7 @@ h2 {
 
 /* Sections spacing */
 .main-content section {
-  scroll-margin-top: 10px;
+  scroll-margin-top: 72px;
   padding-top: 10px;
 }
 
@@ -164,12 +256,17 @@ h2 {
 }
 
 .paper-container {
-  animation: research-content-enter 0.3s ease both;
+  animation: research-content-enter 0.3s ease backwards;
+  transition: opacity var(--publication-hover-duration) ease;
 }
 
 .paper-container:nth-child(2) { animation-delay: 0.035s; }
 .paper-container:nth-child(3) { animation-delay: 0.07s; }
 .paper-container:nth-child(4) { animation-delay: 0.105s; }
+
+#publications-container:has(.paper-container:hover) .paper-container:not(:hover) {
+  opacity: 0.68;
+}
 
 @keyframes research-content-enter {
   from {
@@ -305,7 +402,9 @@ hr {
   line-height: 1.4;
   text-decoration: none;
   /* border-radius: 4px; */
-  transition: all 0.2s ease;
+  transition:
+    background-color var(--publication-hover-duration) ease,
+    color var(--publication-hover-duration) ease;
 }
 
 .paper-sidebar .button:hover {
@@ -357,7 +456,9 @@ hr {
   box-sizing: border-box;
   opacity: 0;
   visibility: hidden;
-  transition: opacity 0.15s ease, visibility 0.15s ease;
+  transition:
+    opacity var(--publication-hover-duration) ease,
+    visibility var(--publication-hover-duration) ease;
 }
 
 .paper-container:hover .paper-aside {
@@ -389,13 +490,19 @@ hr {
   display: block;
   color: #222;
   margin-bottom: 6px;
-  text-decoration: none;
-}
-
-.paper-main:hover .papertitle {
-  text-decoration: underline;
+  text-decoration-line: underline;
+  text-decoration-color: transparent;
   text-decoration-thickness: 2.5px;
   text-underline-offset: 3px;
+  transition: text-decoration-color var(--publication-hover-duration) ease;
+}
+
+.papertitle--placeholder {
+  font-style: italic;
+}
+
+.paper-container:hover .papertitle {
+  text-decoration-color: currentColor;
 }
 
 .paper-main .paper-authors {
