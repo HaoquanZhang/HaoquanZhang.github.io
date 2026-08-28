@@ -8,6 +8,36 @@ let researchResizeRafId = null;
 let researchTransitionTimer = null;
 let navScrollRafId = null;
 const showResearchLineDescriptions = false;
+let placeholderTitleTimer = null;
+let activePlaceholderTitle = null;
+
+const navAnchorOffset = {
+  desktop: 40,
+  mobile: 76
+};
+
+const placeholderTitleIdeas = [
+  'Training Dynamics',
+  'Physics of AI',
+  'Agentic Vision',
+  'Pretraining Mechanisms',
+  'Reward Design',
+  'Outcome Supervision',
+  'Emergent Tool Use',
+  'Visual Reasoning',
+  'Interactive Learning',
+  'World Models',
+  'Representation Learning',
+  'Self-Improvement',
+  'Generalist Agents',
+  'Test-Time Learning',
+  'Scaling Laws',
+  'Embodied Intelligence',
+  'Generative Models',
+  'Machine Creativity',
+  'Autonomous Discovery',
+  'Open-Ended Learning'
+];
 
 const researchLineContent = {
   selected: {
@@ -40,8 +70,35 @@ function handleSiteNavScroll() {
 }
 
 function initSiteNav() {
+  const nav = document.getElementById('site-nav');
   updateSiteNav();
   window.addEventListener('scroll', handleSiteNavScroll, { passive: true });
+
+  if (!nav) {
+    return;
+  }
+
+  nav.querySelectorAll('a[href^="#"]').forEach(function(link) {
+    link.addEventListener('click', function(event) {
+      const target = document.querySelector(link.getAttribute('href'));
+      if (!target) {
+        return;
+      }
+
+      event.preventDefault();
+      const layout = window.innerWidth <= 600 ? 'mobile' : 'desktop';
+      const targetTop = target.getBoundingClientRect().top
+        + window.scrollY
+        - navAnchorOffset[layout];
+      const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      window.scrollTo({
+        top: Math.max(0, targetTop),
+        behavior: prefersReducedMotion ? 'auto' : 'smooth'
+      });
+      history.pushState(null, '', link.getAttribute('href'));
+    });
+  });
 }
 
 function getPublicationLayoutMode() {
@@ -102,11 +159,94 @@ function renderPublicationList(publications) {
     return;
   }
 
+  stopPlaceholderTitleCycle(false);
   container.innerHTML = publications
     .map(function(publication) {
       return createPublicationHTML(publication);
     })
     .join('');
+  initPlaceholderTitleEffects(container);
+}
+
+function stopPlaceholderTitleCycle(restoreTitle = true) {
+  if (placeholderTitleTimer !== null) {
+    clearTimeout(placeholderTitleTimer);
+    placeholderTitleTimer = null;
+  }
+
+  const title = activePlaceholderTitle;
+  activePlaceholderTitle = null;
+  if (!title) {
+    return;
+  }
+
+  title.classList.remove('is-typing');
+  if (restoreTitle) {
+    title.textContent = title.dataset.originalTitle;
+  }
+}
+
+function startPlaceholderTitleCycle(title) {
+  stopPlaceholderTitleCycle(false);
+  title.textContent = title.dataset.originalTitle;
+  title.classList.remove('is-typing');
+  activePlaceholderTitle = title;
+  let ideaIndex = 0;
+
+  function typeFinalTitle(characterIndex = 0) {
+    if (activePlaceholderTitle !== title) {
+      return;
+    }
+
+    const finalTitle = title.dataset.originalTitle;
+    title.classList.add('is-typing');
+    title.textContent = finalTitle.slice(0, characterIndex);
+
+    if (characterIndex < finalTitle.length) {
+      const nextCharacterDelay = characterIndex === 'Something'.length ? 450 : 65;
+      placeholderTitleTimer = setTimeout(function() {
+        typeFinalTitle(characterIndex + 1);
+      }, nextCharacterDelay);
+      return;
+    }
+
+    title.classList.remove('is-typing');
+    placeholderTitleTimer = null;
+  }
+
+  function showNextIdea() {
+    if (activePlaceholderTitle !== title) {
+      return;
+    }
+
+    if (ideaIndex < placeholderTitleIdeas.length) {
+      title.textContent = placeholderTitleIdeas[ideaIndex];
+      ideaIndex += 1;
+      placeholderTitleTimer = setTimeout(showNextIdea, 85);
+      return;
+    }
+
+    typeFinalTitle();
+  }
+
+  placeholderTitleTimer = setTimeout(showNextIdea, 240);
+}
+
+function initPlaceholderTitleEffects(container) {
+  container.querySelectorAll('.paper-container').forEach(function(publication) {
+    const title = publication.querySelector('.papertitle--placeholder');
+    if (!title) {
+      return;
+    }
+
+    title.dataset.originalTitle = title.textContent;
+    publication.addEventListener('mouseenter', function() {
+      startPlaceholderTitleCycle(title);
+    });
+    publication.addEventListener('mouseleave', function() {
+      stopPlaceholderTitleCycle(true);
+    });
+  });
 }
 
 function updateResearchFilterIndicator() {

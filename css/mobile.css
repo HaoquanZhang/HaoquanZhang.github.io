@@ -34,7 +34,26 @@ body{
   transition: top 0.2s ease;
 }
 
+.site-nav::before {
+  content: "";
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 0;
+  height: 100vh;
+  background: linear-gradient(
+    to bottom,
+    #ffffff 0,
+    #ffffff calc(100% - 24px),
+    rgb(255 255 255 / 0%) 100%
+  );
+  pointer-events: none;
+}
+
 .site-nav__inner {
+  position: relative;
+  z-index: 1;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -48,6 +67,7 @@ body{
   background: rgb(255 255 255 / 96%);
   transition:
     width 0.2s ease,
+    padding 0.2s ease,
     border-color 0.2s ease,
     border-radius 0.2s ease,
     box-shadow 0.2s ease;
@@ -58,7 +78,9 @@ body{
 }
 
 .site-nav.is-floating .site-nav__inner {
-  width: calc(100% - 20px);
+  width: calc(100% - 24px);
+  padding-right: 14px;
+  padding-left: 14px;
   border-color: #dedede;
   border-radius: 22px;
   box-shadow: 0 5px 20px rgb(0 0 0 / 10%);
@@ -131,8 +153,9 @@ strong {
 
 h2 {
   margin: 0 20px 4px;
-  font-weight: 700;
-  font-family: 'Source Serif 4', Georgia, 'Times New Roman', serif;
+  color: #000000;
+  font-weight: 400;
+  font-family: 'DM Serif Display', Georgia, 'Times New Roman', serif;
   font-size: 24px;
   padding: 20px 0 8px;
   border-bottom: 1px solid #dcdcdc;
@@ -248,7 +271,7 @@ h2 strong {
 }
 
 section {
-  scroll-margin-top: 64px;
+  scroll-margin-top: 76px;
   padding-top: 0;
 }
 
@@ -444,7 +467,7 @@ hr {
 }
 
 .experience-item {
-  padding: 12px 0;
+  padding: 15px 0;
   border-bottom: none;
 }
 
@@ -467,34 +490,37 @@ hr {
 }
 
 .exp-logo {
-  width: 36px;
-  height: 36px;
+  width: 44px;
+  height: 44px;
   object-fit: contain;
   flex-shrink: 0;
 }
 
 .exp-info {
+  display: flex;
+  flex-direction: column;
   flex: 1;
+  gap: 4px;
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 
 .exp-title {
   font-weight: 800;
-  font-size: 14px;
+  font-size: 15px;
   line-height: 1.4;
   color: #000000;
   font-family: inherit;
 }
 
 .exp-position {
-  font-size: 14px;
+  font-size: 15px;
   color: #7f7f7f;
   font-weight: 400;
   font-family: inherit;
 }
 
 .exp-mentor {
-  font-size: 14px;
+  font-size: 15px;
   line-height: 1.4;
   color: #7f7f7f;
   font-family: inherit;
