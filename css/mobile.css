@@ -467,7 +467,7 @@ hr {
 }
 
 .experience-item {
-  padding: 15px 0;
+  padding: 14px 0;
   border-bottom: none;
 }
 
@@ -490,39 +490,36 @@ hr {
 }
 
 .exp-logo {
-  width: 44px;
-  height: 44px;
+  width: 36px;
+  height: 36px;
   object-fit: contain;
   flex-shrink: 0;
 }
 
 .exp-info {
-  display: flex;
-  flex-direction: column;
   flex: 1;
-  gap: 4px;
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 
 .exp-title {
-  font-weight: 800;
-  font-size: 15px;
+  font-weight: 700;
+  font-size: 16px;
   line-height: 1.4;
   color: #000000;
   font-family: inherit;
 }
 
 .exp-position {
-  font-size: 15px;
-  color: #7f7f7f;
+  font-size: 14px;
+  color: #999;
   font-weight: 400;
   font-family: inherit;
 }
 
 .exp-mentor {
-  font-size: 15px;
+  font-size: 14px;
   line-height: 1.4;
-  color: #7f7f7f;
+  color: #999;
   font-family: inherit;
 }
 
@@ -539,16 +536,16 @@ hr {
   flex-shrink: 0;
 }
 
-.exp-title a,
 .exp-mentor a {
   font-family: inherit;
-  color: inherit !important;
-  text-decoration: underline !important;
+  color: #999 !important;
+  text-decoration: none !important;
+  transition: color 0.2s ease;
 }
 
-.exp-title a:hover,
 .exp-mentor a:hover {
-  color: #9a9a9a !important;
+  color: #000 !important;
+  text-decoration: none !important;
 }
 
 
