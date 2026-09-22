@@ -123,10 +123,6 @@ body {
   transition-delay: 0s;
 }
 
-.site-nav__brand-short {
-  display: none;
-}
-
 .site-nav__links {
   display: flex;
   align-items: center;

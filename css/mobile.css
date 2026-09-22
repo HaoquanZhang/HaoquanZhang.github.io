@@ -111,10 +111,6 @@ body{
   transition-delay: 0s;
 }
 
-.site-nav__brand-full {
-  display: none;
-}
-
 .site-nav__links {
   display: flex;
   align-items: center;
@@ -290,7 +286,7 @@ section {
 }
 
 .insub {
-  background-color: #858585; 
+  background-color: #858585;
   padding: 6px 12px; 
   display: inline-block; 
   color: #ffffff;
