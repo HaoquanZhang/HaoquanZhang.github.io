@@ -775,6 +775,19 @@ hr {
   margin: 0;
 }
 
+.bio-text a {
+  color: inherit;
+  text-decoration-color: #b3b3b3;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 2px;
+  transition: color 0.2s ease;
+}
+
+.bio-text a:hover {
+  color: #8e8e8e;
+  text-decoration-color: #b3b3b3;
+}
+
 /* News section styling */
 .news-container {
   padding: 0 20px;
@@ -801,6 +814,23 @@ hr {
 .news-content {
   font-size: 15px;
   line-height: 1.5;
+}
+
+.news-content strong {
+  font-weight: 400;
+}
+
+.news-content a {
+  color: inherit;
+  text-decoration-color: #b3b3b3;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 2px;
+  transition: color 0.2s ease;
+}
+
+.news-content a:hover {
+  color: #8e8e8e;
+  text-decoration-color: #b3b3b3;
 }
 
 .news-content .exp-mentor-logo {

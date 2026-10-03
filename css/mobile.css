@@ -668,6 +668,20 @@ hr {
   margin: 0;
 }
 
+.bio-text a {
+  color: inherit;
+  text-decoration-color: #b3b3b3;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 2px;
+  transition: color 0.2s ease;
+}
+
+.bio-text a:hover,
+.bio-text a:focus {
+  color: #9a9a9a;
+  text-decoration-color: #b3b3b3;
+}
+
 /* News section styling */
 .news-container {
   margin: 0 20px;
@@ -691,6 +705,24 @@ hr {
   font-size: 14px;
   line-height: 1.5;
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+.news-content strong {
+  font-weight: 400;
+}
+
+.news-content a {
+  color: inherit;
+  text-decoration-color: #b3b3b3;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 2px;
+  transition: color 0.2s ease;
+}
+
+.news-content a:hover,
+.news-content a:focus {
+  color: #9a9a9a;
+  text-decoration-color: #b3b3b3;
 }
 
 .news-content .exp-mentor-logo {
