@@ -525,23 +525,6 @@ hr {
   font-style: italic;
 }
 
-.papertitle--placeholder.is-typing::after {
-  content: "";
-  display: inline-block;
-  width: 1px;
-  height: 0.9em;
-  margin-left: 2px;
-  background: currentColor;
-  vertical-align: -0.05em;
-  animation: placeholder-caret-blink 0.55s step-end infinite;
-}
-
-@keyframes placeholder-caret-blink {
-  50% {
-    opacity: 0;
-  }
-}
-
 .paper-container:hover .papertitle {
   text-decoration-color: currentColor;
 }

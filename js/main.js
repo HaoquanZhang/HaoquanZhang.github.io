@@ -180,7 +180,6 @@ function stopPlaceholderTitleCycle(restoreTitle = true) {
     return;
   }
 
-  title.classList.remove('is-typing');
   if (restoreTitle) {
     title.textContent = title.dataset.originalTitle;
   }
@@ -188,48 +187,20 @@ function stopPlaceholderTitleCycle(restoreTitle = true) {
 
 function startPlaceholderTitleCycle(title) {
   stopPlaceholderTitleCycle(false);
-  title.textContent = title.dataset.originalTitle;
-  title.classList.remove('is-typing');
   activePlaceholderTitle = title;
   let ideaIndex = 0;
-
-  function typeFinalTitle(characterIndex = 0) {
-    if (activePlaceholderTitle !== title) {
-      return;
-    }
-
-    const finalTitle = title.dataset.originalTitle;
-    title.classList.add('is-typing');
-    title.textContent = finalTitle.slice(0, characterIndex);
-
-    if (characterIndex < finalTitle.length) {
-      const nextCharacterDelay = characterIndex === 'Something'.length ? 450 : 65;
-      placeholderTitleTimer = setTimeout(function() {
-        typeFinalTitle(characterIndex + 1);
-      }, nextCharacterDelay);
-      return;
-    }
-
-    title.classList.remove('is-typing');
-    placeholderTitleTimer = null;
-  }
 
   function showNextIdea() {
     if (activePlaceholderTitle !== title) {
       return;
     }
 
-    if (ideaIndex < placeholderTitleIdeas.length) {
-      title.textContent = placeholderTitleIdeas[ideaIndex];
-      ideaIndex += 1;
-      placeholderTitleTimer = setTimeout(showNextIdea, 85);
-      return;
-    }
-
-    typeFinalTitle();
+    title.textContent = placeholderTitleIdeas[ideaIndex];
+    ideaIndex = (ideaIndex + 1) % placeholderTitleIdeas.length;
+    placeholderTitleTimer = setTimeout(showNextIdea, 90);
   }
 
-  placeholderTitleTimer = setTimeout(showNextIdea, 240);
+  showNextIdea();
 }
 
 function initPlaceholderTitleEffects(container) {
