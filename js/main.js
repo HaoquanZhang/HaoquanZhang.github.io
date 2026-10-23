@@ -382,8 +382,9 @@ function createPublicationHTMLMobile(pub) {
   const staticClass = cardLink ? '' : ' paper-card--static';
 
   const mediaHTML = pub.image
-    ? `<div class="paper-card__media">
-            <img src="${pub.image}" alt="${pub.title}">
+    ? `<div class="paper-card__media${pub.hoverImage ? ' paper-preview' : ''}">
+            <img src="${pub.image}" alt="${pub.imageAlt || pub.title}">
+            ${pub.hoverImage ? `<img class="paper-preview__indices" src="${pub.hoverImage}" alt="" aria-hidden="true">` : ''}
           </div>`
     : '';
 
@@ -472,8 +473,9 @@ function createPublicationHTMLDesktop(pub) {
 
   const highlightsHTML = createHighlightsHTML(pub.highlights);
   const imageHTML = pub.image
-    ? `<div class="paper-image">
-            <img src='${pub.image}' alt="${pub.id}">
+    ? `<div class="paper-image${pub.hoverImage ? ' paper-preview' : ''}">
+            <img src='${pub.image}' alt="${pub.imageAlt || pub.id}">
+            ${pub.hoverImage ? `<img class="paper-preview__indices" src="${pub.hoverImage}" alt="" aria-hidden="true">` : ''}
           </div>`
     : '';
 

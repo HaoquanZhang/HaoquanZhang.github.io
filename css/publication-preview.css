@@ -1,0 +1,47 @@
+/* Keep the pixel preview edge-to-edge in both publication layouts. */
+.paper-image.paper-preview,
+.paper-card__media.paper-preview {
+  position: relative;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+.paper-preview img {
+  width: 100%;
+  border: 0;
+  border-radius: 0;
+}
+
+.paper-preview img:first-child {
+  image-rendering: pixelated;
+}
+
+.paper-preview .paper-preview__indices {
+  position: absolute;
+  inset: 0;
+  height: 100%;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.15s ease;
+}
+
+@media (hover: hover) {
+  .paper-container:hover .paper-preview__indices,
+  .paper-card:hover .paper-preview__indices {
+    opacity: 1;
+  }
+}
+
+.paper-container:focus-within .paper-preview__indices,
+.paper-card:focus-visible .paper-preview__indices {
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .paper-preview .paper-preview__indices {
+    transition: none;
+  }
+}
