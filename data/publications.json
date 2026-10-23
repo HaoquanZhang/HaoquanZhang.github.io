@@ -36,8 +36,8 @@
       "project": "pixelbench/"
     },
     "highlights": [
-      "Can LLMs generate and understand images directly as grids of pixels?",
-      "Benchmarking pixel generation, reconstruction, and recognition."
+      "Benchmarking pixel generation and understanding.",
+      "Training vision-language models with pixel reconstruction is beneficial."
     ],
     "topics": ["selected", "visual-generation"],
     "year": 2026,
