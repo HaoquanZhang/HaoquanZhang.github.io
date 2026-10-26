@@ -10,7 +10,8 @@
   const switcher = document.querySelector('#language-switcher');
   const buttons = [...switcher.querySelectorAll('[data-language]')];
   let lang = 'en';
-  try { lang = new URLSearchParams(location.search).get('lang') || localStorage.getItem('pixelbench-language') || 'en'; } catch {}
+  // Bare links always open in English; explicit language links remain shareable.
+  try { lang = new URLSearchParams(location.search).get('lang') || 'en'; } catch {}
   const t = (en, zh) => root.lang === 'zh-CN' ? zh : en;
   function translate(scope=document) {
     scope.querySelectorAll('[data-en][data-zh]').forEach(el => { el.textContent=t(el.dataset.en,el.dataset.zh); });
@@ -28,7 +29,6 @@
     document.dispatchEvent(new CustomEvent('languagechange'));
     if (preserve) {
       try {
-        localStorage.setItem('pixelbench-language',next);
         const url=new URL(location.href);url.searchParams.set('lang',next);
         url.hash=url.hash.replace(/(fn(?:ref\d*)?:)(en|zh)-/,`$1${next}-`);
         history.replaceState(null,'',url);

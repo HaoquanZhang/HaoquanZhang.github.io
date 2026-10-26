@@ -1,6 +1,7 @@
 """Compile the author's two Markdown drafts into one static, bilingual article."""
 from pathlib import Path
 import html
+import hashlib
 import json
 import re
 import markdown
@@ -240,6 +241,13 @@ def main():
             value=tag.get(attr)
             if value in translations:
                 tag['data-en-'+attr]=value;tag['data-zh-'+attr]=translations[value]
+    # Refresh cached styles and scripts whenever their contents change.
+    for node in soup.select('link[rel="stylesheet"], script[src]'):
+        attr = 'href' if node.name == 'link' else 'src'
+        asset = SITE / node[attr]
+        if asset.is_file():
+            version = hashlib.sha256(asset.read_bytes()).hexdigest()[:12]
+            node[attr] += f'?v={version}'
     (SITE/'index.html').write_text(str(soup))
     print('Compiled bilingual article from the two Markdown drafts.')
 

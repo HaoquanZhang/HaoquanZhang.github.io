@@ -27,9 +27,9 @@
       setTimeout(() => document.documentElement.classList.remove('intro-pending'), 6000);
     }
   </script>
-<link href="styles.css" rel="stylesheet"/>
-<script defer="True" src="i18n.js"></script><script defer="True" src="pixel-transition.js"></script><script defer="True" src="figures.js"></script><script defer="True" src="scaling.js"></script><script defer="True" src="sidenotes.js"></script><script defer="" src="hero.js"></script>
-<script defer="" src="article.js"></script>
+<link href="styles.css?v=8f19519c1e1c" rel="stylesheet"/>
+<script defer="True" src="i18n.js?v=b07d44f47f36"></script><script defer="True" src="pixel-transition.js?v=b1c24f6fe454"></script><script defer="True" src="figures.js?v=def316a93a1d"></script><script defer="True" src="scaling.js?v=871bda7b1702"></script><script defer="True" src="sidenotes.js?v=6fdc4d7d8925"></script><script defer="" src="hero.js?v=beed221e6b15"></script>
+<script defer="" src="article.js?v=d8f2d9e11227"></script>
 </head>
 <body id="top">
 <a class="skip-link" href="#overview"><span data-en="Skip to article" data-zh="跳至正文">Skip to article</span></a>
@@ -96,13 +96,13 @@
 <div class="prose reading-block"><div data-copy="en" lang="en"><h2 data-section-number="2">Making pixels practical to write: palette first, indices next</h2>
 <p>The next question was how to write those pixels.</p>
 <p>We could give every pixel its own RGB values, but that would introduce a lot of repetition. We wanted a compact representation that reduced the extra burden of long sequences, so the evaluation would focus more directly on the model's ability to handle visual content.<sup id="fnref:en-pixel-token-cost"><a aria-controls="fn:en-pixel-token-cost" aria-label="Note 3" class="footnote-ref" href="#fn:en-pixel-token-cost">3</a></sup> We therefore split the image into two parts: a palette of up to eight colors, followed by a two-dimensional grid of palette indices. Each cell only needs to specify which palette color it uses. The full RGB value is written once.</p><div class="paragraph-notes"><aside aria-label="Note 3" class="sidenote" data-note-key="pixel-token-cost" data-note-ref="fnref:en-pixel-token-cost" id="fn:en-pixel-token-cost" role="note" tabindex="-1"><details class="sidenote-details" open=""><summary>3 · Note</summary><div class="sidenote-content"><span aria-hidden="true" class="sidenote-number">3</span>
-<p>For a five-color, 16 × 16 mushroom image from this project, the Qwen3-VL tokenizer counts 2,855 tokens for per-pixel RGB values, versus 310 for a palette and indices—a reduction of about 89%. Both use compact JSON without extra spaces, including field names and punctuation. Our representation also includes the palette, with each row of indices written as a contiguous digit string. <a aria-label="Back to text" class="footnote-backref" href="#fnref:en-pixel-token-cost" title="Jump back to footnote 3 in the text">↩ Back to text</a></p>
+<p>For a five-color, 16 × 16 mushroom image from this project, the Qwen3-VL tokenizer counts 2,855 tokens for per-pixel RGB values, versus 310 for a palette and indices—a reduction of about 89%. <a aria-label="Back to text" class="footnote-backref" href="#fnref:en-pixel-token-cost" title="Jump back to footnote 3 in the text">↩ Back to text</a></p>
 </div></details></aside></div>
 <p>For example, the <span data-specimen-field="name">mushroom</span> below uses <span data-specimen-field="count">five</span> colors. Palette index <code data-specimen-field="index">2</code> refers to <code data-specimen-field="hex">#D62828</code>, so every <code data-specimen-field="index">2</code> in the grid becomes that color. Hover over a cell to see its index and color.</p>
 </div><div data-copy="zh" lang="zh-CN"><h2 data-section-number="2">先让像素适合文本输出</h2>
 <p><em>先定义颜色，再用索引表示像素</em></p>
 <p>那么像素应该被如何表达呢？最直接的办法，是给每个像素都写一组 RGB 数值。但这样会产生很多重复内容。我们希望把表示写得尽量紧凑，减少序列长度给评测带来的额外负担，让实验更多地反映模型处理视觉内容的能力。<sup id="fnref:zh-pixel-token-cost"><a aria-controls="fn:zh-pixel-token-cost" aria-label="注释 3" class="footnote-ref" href="#fn:zh-pixel-token-cost">3</a></sup>所以，我们把一张图拆成两部分：先定义一个最多包含八种颜色的调色板，再输出一个颜色索引组成的二维网格。每个格子只需要说明自己使用调色板里的哪一种颜色，完整的 RGB 色值只写一次。</p><div class="paragraph-notes"><aside aria-label="注释 3" class="sidenote" data-note-key="pixel-token-cost" data-note-ref="fnref:zh-pixel-token-cost" id="fn:zh-pixel-token-cost" role="note" tabindex="-1"><details class="sidenote-details" open=""><summary>3 · 注释</summary><div class="sidenote-content"><span aria-hidden="true" class="sidenote-number">3</span>
-<p>以本项目的一张 16 × 16 五色蘑菇图为例，用 Qwen3-VL 的 tokenizer 统计，逐像素写出 RGB 数值需要 2,855 tokens，而调色板加索引只需 310 tokens，减少约 89%。两者都使用无多余空格的 JSON，计入字段名和标点；我们的表示还计入调色板，索引则按行写成连续的数字字符串。 <a aria-label="返回正文" class="footnote-backref" href="#fnref:zh-pixel-token-cost" title="Jump back to footnote 3 in the text">↩ 返回正文</a></p>
+<p>以本项目的一张 16 × 16 五色蘑菇图为例，用 Qwen3-VL 的 tokenizer 统计，逐像素写出 RGB 数值需要 2,855 tokens，而调色板加索引只需 310 tokens，减少约 89%。 <a aria-label="返回正文" class="footnote-backref" href="#fnref:zh-pixel-token-cost" title="Jump back to footnote 3 in the text">↩ 返回正文</a></p>
 </div></details></aside></div>
 <p>例如，下面这张<span data-specimen-field="name">蘑菇</span>图用了<span data-specimen-field="count">五</span>种颜色。调色板中索引 <code data-specimen-field="index">2</code> 对应 <code data-specimen-field="hex">#D62828</code>，所以网格里的每一个 <code data-specimen-field="index">2</code> 都会被画成这一颜色。把鼠标移到某个格子上，就能看到它的索引和对应的颜色。</p>
 </div></div>

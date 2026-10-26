@@ -362,3 +362,32 @@ html[lang="zh-CN"] .prose p,html[lang="zh-CN"] .prose li{font-size:18px;line-hei
 @media(max-width:1100px){.language-switcher{top:7px;right:17px}}
 @media(prefers-reduced-motion:reduce){.language-switcher button{transition:none}}
 @media print{.language-switcher{display:none}}
+
+/* Compact reading rhythm on phones, with extra leading for Chinese text. */
+@media screen and (max-width:720px){
+  .hero{padding:32px 22px 24px}
+  .hero h1{font-size:clamp(32px,9.2vw,40px);line-height:1.12;letter-spacing:-1.1px;margin:18px 0 20px}
+  .author-list{font-size:14px;line-height:1.5;gap:4px 14px}
+  .author-affiliations{margin-top:8px;line-height:1.5}
+  .hero-figure{margin-bottom:32px}
+  .mobile-contents{margin-bottom:32px}
+  .prose h2{font-size:27px;line-height:1.22;margin-bottom:18px}
+  .prose h3{font-size:21px;line-height:1.35;margin:28px 0 16px}
+  .prose p,.prose li{font-size:16px;line-height:1.65}
+  .prose p{margin-bottom:16px}
+  .prose ul,.prose ol{margin:0 0 16px;padding-left:22px}
+  .prose li+li{margin-top:6px}
+  html[lang="zh-CN"] .prose h2{font-size:24px;line-height:1.4}
+  html[lang="zh-CN"] .prose h3{line-height:1.45}
+  html[lang="zh-CN"] .prose p,html[lang="zh-CN"] .prose li{font-size:16px;line-height:1.8;letter-spacing:0}
+  .essay-section{margin-bottom:52px}
+  .wide{margin:24px auto}
+  .figure-topline h3{font-size:20px}
+  .article-colophon,.endnotes{margin-bottom:48px}
+  .prose.endnotes h2{font-size:22px;line-height:1.4;margin-bottom:20px}
+  .prose .sidenote p,.prose .sidenote li,
+  html[lang="zh-CN"] .prose .sidenote p,html[lang="zh-CN"] .prose .sidenote li{font-size:13px;line-height:1.65;margin-bottom:8px}
+  html[lang="zh-CN"] .prose .sidenote p,html[lang="zh-CN"] .prose .sidenote li{line-height:1.75}
+  .prose .sidenote p:last-child{margin-bottom:0}
+  .endnotes .sidenote{margin-bottom:16px}
+}

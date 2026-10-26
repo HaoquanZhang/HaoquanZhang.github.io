@@ -20,7 +20,7 @@ html = (SITE / 'index.html').read_text()
 css = (SITE / 'styles.css').read_text()
 css = re.sub(r"url\('([^']+)'\)", lambda match: f"url('{data_url(SITE / match[1])}')", css)
 html = re.sub(r'\s*<link[^>]*rel="preload"[^>]*>', '', html)
-html = re.sub(r'<link[^>]*href="styles.css"[^>]*>', lambda _: f'<style>{css}</style>', html)
+html = re.sub(r'<link[^>]*href="styles\.css(?:\?[^\"]*)?"[^>]*>', lambda _: f'<style>{css}</style>', html)
 html = re.sub(r'(src|href)="(assets/[^\"]+\.(?:png|svg))"', lambda match: f'{match[1]}="{data_url(SITE / match[2])}"', html)
 json_assets = {str(path.relative_to(SITE)): json.loads(path.read_text()) for path in sorted((SITE / 'assets').rglob('*.json'))}
 image_assets = {str(path.relative_to(SITE)): data_url(path) for path in sorted((SITE / 'assets').rglob('*.png'))}
@@ -28,7 +28,7 @@ embedded = 'window.PIXEL_ASSETS=' + json.dumps(json_assets, separators=(',', ':'
 # Keep execution deferred until every article element exists, including in file:// mode.
 scripts = ['i18n.js', 'pixel-transition.js', 'hero.js', 'figures.js', 'scaling.js', 'sidenotes.js', 'article.js']
 for name in scripts:
-    html = re.sub(r'<script[^>]*src="' + re.escape(name) + r'"[^>]*></script>', '', html)
+    html = re.sub(r'<script[^>]*src="' + re.escape(name) + r'(?:\?[^\"]*)?"[^>]*></script>', '', html)
 script = (embedded + '\n' + '\n'.join((SITE / name).read_text() for name in scripts)).replace('</script', '<\\/script')
 html = html.replace('</body>', f'<script>{script}</script>\n</body>')
 offline = OUT / 'pixelbench-blog-offline.html'
