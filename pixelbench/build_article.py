@@ -100,6 +100,18 @@ SECTION_IDS=['overview','representation','reconstruction','resolution','understa
 
 def place_sidenotes(soup):
     """Keep one note per language, beside its paragraph, retaining existing links."""
+    reference_order = {
+        lang: list(dict.fromkeys(
+            ref['href'].split('-', 1)[1]
+            for ref in soup.select(f'[data-copy="{lang}"] a.footnote-ref')
+        ))
+        for lang in ['en', 'zh']
+    }
+    if reference_order['en'] != reference_order['zh']:
+        raise ValueError(
+            'Bilingual footnotes must match in first-reference order: '
+            f'en={reference_order["en"]}; zh={reference_order["zh"]}'
+        )
     for lang in ['en', 'zh']:
         for item in list(soup.select(f'[data-copy="{lang}"] .footnote li[id]')):
             note_id = item['id']
@@ -147,7 +159,10 @@ def blocks(lang):
     text=(DRAFTS/('01-zh.md' if lang=='zh' else '02-en.md')).read_text()
     # Explicit editorial directives never become public prose.
     text=re.sub(r'<!-- VISUAL REQUIREMENT:.*?-->', '', text, flags=re.S)
-    soup=BeautifulSoup(markdown.markdown(text, extensions=['tables','footnotes']), 'html.parser')
+    soup=BeautifulSoup(markdown.markdown(
+        text, extensions=['tables','footnotes'],
+        extension_configs={'footnotes': {'USE_DEFINITION_ORDER': False}},
+    ), 'html.parser')
     soup.h1.decompose()
     for tag in soup.select('[id], a[href]'):
         for attr in ['id','href']:
