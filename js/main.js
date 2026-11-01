@@ -439,7 +439,7 @@ function createPublicationHTMLDesktop(pub) {
         case 'benchmark': linkText = 'Benchmark'; break;
         default: linkText = linkType.charAt(0).toUpperCase() + linkType.slice(1);
       }
-      linkItems.push({ url, text: linkText });
+      linkItems.push({ url, text: pub.linkLabels?.[linkType] || linkText });
     }
   }
   if (pub.misc && pub.misc.text && pub.misc.link && pub.misc.link !== '') {

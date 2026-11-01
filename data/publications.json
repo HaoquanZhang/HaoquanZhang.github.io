@@ -36,6 +36,9 @@
       "project": "pixelbench/",
       "code": "https://github.com/HaoquanZhang/PixelBench"
     },
+    "linkLabels": {
+      "code": "Code & Benchmark"
+    },
     "highlights": [
       "Benchmarking pixel generation and understanding.",
       "Training vision-language models with pixel reconstruction is beneficial."
