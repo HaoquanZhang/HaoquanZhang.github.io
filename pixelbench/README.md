@@ -32,3 +32,17 @@ python3 build_article.py
 Commit the updated `index.html` along with any edited sources. To additionally
 create an offline HTML and a portable ZIP in the ignored `dist/` directory,
 run `python3 build.py`.
+
+## Promotional assets
+
+PR cards, social images, rendering scripts, the visual blog, post drafts, and PR
+kits are maintained in the separate local workspace `../../pixelbench-pr-assets/`
+(a sibling of this website repository, under the local `code` directory).
+That workspace includes a dated ZIP, a checksum manifest, and copies of the
+rendering inputs, preserving local edits made before the 2026-11-06 cleanup.
+See its README for rendering instructions; it is not deployed by GitHub Pages.
+
+Keep the interactive page's `assets/raw/`, `assets/scaling/`, `assets/study/`,
+JSON data, and fonts here: the page loads them dynamically. The homepage also
+uses `../images/pixelbench-owl.png`, `../images/pixelbench-owl-indices.svg`, and
+the pixel title font. These are website dependencies, not promotional exports.

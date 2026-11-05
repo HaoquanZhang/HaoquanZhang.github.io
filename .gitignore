@@ -2,3 +2,23 @@
 /pixelbench/.venv/
 /pixelbench/__pycache__/
 /pixelbench/dist/
+
+# Promotional sources and exports live in ../pixelbench-pr-assets/.
+/pixelbench/*-card.html
+/pixelbench/build_*card*.py
+/pixelbench/build_astra_gallery.py
+/pixelbench/twitter-thread.md
+/pixelbench/*kit.zip
+/pixelbench/pr-kit/
+/pixelbench/visual-blog/
+/pixelbench/assets/t2p-16x9.png
+/pixelbench/assets/teaser-16x9.png
+/images/pixelbench-i2p.png
+/images/pixelbench-prt.png
+/images/pixelbench-scaling.png
+/images/pixelbench-t2p.png
+/images/pixelbench-teaser.png
+/images/pixelbench-astra-gallery*.png
+/images/pixelbench-base-*.png
+/images/pixelbench-representation.png
+/images/pixelbench-understanding.png
