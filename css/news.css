@@ -1,0 +1,15 @@
+@font-face {
+  font-family: 'PixelBench Title';
+  src: url('../pixelbench/assets/fonts/pixel-title.woff2') format('woff2');
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+
+.news-content a.pixelbench-wordmark {
+  font-family: 'PixelBench Title', monospace;
+  font-size: 1em;
+  font-weight: 400;
+  letter-spacing: 0;
+  white-space: nowrap;
+}

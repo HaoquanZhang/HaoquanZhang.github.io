@@ -35,10 +35,12 @@
     "links": {
       "paper": "https://arxiv.org/abs/2611.02540",
       "project": "pixelbench/",
-      "code": "https://github.com/HaoquanZhang/PixelBench"
+      "code": "https://github.com/HaoquanZhang/PixelBench",
+      "x": "https://x.com/Haoquan03/status/2117657081981685860"
     },
     "linkLabels": {
-      "code": "Code & Benchmark"
+      "code": "Code & Benchmark",
+      "x": "X Post"
     },
     "highlights": [
       "Benchmarking pixel generation and understanding.",
