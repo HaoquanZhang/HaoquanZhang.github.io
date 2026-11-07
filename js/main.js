@@ -373,6 +373,33 @@ function getPublicationTitleLink(links) {
   return links.project || links.paper || '';
 }
 
+function createPublicationMedia(pub, className) {
+  if (!pub.image) {
+    return '';
+  }
+
+  const alt = pub.imageAlt || pub.title;
+  if (pub.hoverEffect === 'layers') {
+    const layers = ['base', 'bike', 'rider'];
+    return `<div class="${className} sgp-preview">
+      <img class="sgp-preview__flat" src="${pub.image}" alt="${alt}">
+      <span class="sgp-scene" aria-hidden="true">
+        ${layers.map((layer, index) => `<span class="sgp-plane" style="--layer: ${index - 1}">
+          <svg viewBox="0 0 400 400" focusable="false">
+            <rect class="sgp-plane__guide" x="1" y="1" width="398" height="398" rx="3"/>
+            <use href="${pub.image}#sgp-${layer}"/>
+          </svg>
+        </span>`).join('')}
+      </span>
+    </div>`;
+  }
+
+  return `<div class="${className}${pub.hoverImage ? ' paper-preview' : ''}">
+    <img src="${pub.image}" alt="${alt}">
+    ${pub.hoverImage ? `<img class="paper-preview__overlay" src="${pub.hoverImage}" alt="" aria-hidden="true">` : ''}
+  </div>`;
+}
+
 function createPublicationHTMLMobile(pub) {
   const cardLink = getPublicationCardLink(pub.links);
   const tag = cardLink ? 'a' : 'div';
@@ -381,12 +408,7 @@ function createPublicationHTMLMobile(pub) {
     : '';
   const staticClass = cardLink ? '' : ' paper-card--static';
 
-  const mediaHTML = pub.image
-    ? `<div class="paper-card__media${pub.hoverImage ? ' paper-preview' : ''}">
-            <img src="${pub.image}" alt="${pub.imageAlt || pub.title}">
-            ${pub.hoverImage ? `<img class="paper-preview__indices" src="${pub.hoverImage}" alt="" aria-hidden="true">` : ''}
-          </div>`
-    : '';
+  const mediaHTML = createPublicationMedia(pub, 'paper-card__media');
 
   return `
         <${tag}${hrefAttr} class="paper-card fade-in delay-2${staticClass}${pub.image ? '' : ' paper-card--no-media'}">
@@ -472,12 +494,7 @@ function createPublicationHTMLDesktop(pub) {
     : `<span class="${titleClass}">${pub.title}</span>`;
 
   const highlightsHTML = createHighlightsHTML(pub.highlights);
-  const imageHTML = pub.image
-    ? `<div class="paper-image${pub.hoverImage ? ' paper-preview' : ''}">
-            <img src='${pub.image}' alt="${pub.imageAlt || pub.id}">
-            ${pub.hoverImage ? `<img class="paper-preview__indices" src="${pub.hoverImage}" alt="" aria-hidden="true">` : ''}
-          </div>`
-    : '';
+  const imageHTML = createPublicationMedia(pub, 'paper-image');
 
   return `
         <div class="paper-container fade-in delay-2${pub.image ? '' : ' paper-container--no-image'}">
@@ -520,12 +537,47 @@ function createPublicationHTML(pub) {
 
 initSiteNav();
 
+function initNews() {
+  const container = document.getElementById('news-items');
+  if (!container) {
+    return;
+  }
+
+  const olderItems = Array.from(container.querySelectorAll('.news-item')).slice(4);
+  if (olderItems.length === 0) {
+    return;
+  }
+
+  const toggle = document.createElement('button');
+  toggle.type = 'button';
+  toggle.className = 'news-toggle';
+  toggle.setAttribute('aria-controls', container.id);
+  let expanded = false;
+
+  function updateNews() {
+    olderItems.forEach(function(item) {
+      item.hidden = !expanded;
+    });
+    toggle.textContent = expanded ? 'Show less' : 'Show more';
+    toggle.setAttribute('aria-expanded', String(expanded));
+  }
+
+  toggle.addEventListener('click', function() {
+    expanded = !expanded;
+    updateNews();
+  });
+  updateNews();
+  container.after(toggle);
+}
+
 // Run when DOM is loaded
 if (document.readyState === "loading") {
   document.addEventListener("DOMContentLoaded", function() {
+    initNews();
     renderPublications();
   });
 } else {
   // DOM already loaded, run now
+  initNews();
   renderPublications();
 }

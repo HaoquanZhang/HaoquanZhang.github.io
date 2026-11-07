@@ -123,7 +123,9 @@
     ],
     "venue": "TMLR 2026",
     "venueType": "conference",
-    "image": "images/teaser.png",
+    "image": "images/sgp-gen.svg",
+    "hoverEffect": "layers",
+    "imageAlt": "A geometric SVG illustration of a rider on a motorcycle",
     "links": {
       "paper": "https://arxiv.org/abs/2509.05208",
       "code": "https://github.com/Sphere-AI-Lab/SGP-RL",
@@ -133,7 +135,7 @@
       "Training LLMs to generate SVG by RLVR with CLIP reward.",
       "SGP-GenBench benchmarks SVG generation in 3 aspects."
     ],
-    "topics": ["visual-generation"],
+    "topics": ["selected", "visual-generation"],
     "year": 2025,
     "show": true
   },

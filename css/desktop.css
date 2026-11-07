@@ -758,6 +758,14 @@ hr {
   margin: 0;
 }
 
+.bio-note {
+  margin: 12px 0 0;
+  color: #888;
+  font-size: 14px;
+  font-style: italic;
+  line-height: 1.5;
+}
+
 .bio-text a {
   color: inherit;
   text-decoration-color: #b3b3b3;

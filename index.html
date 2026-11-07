@@ -17,25 +17,25 @@
     <meta name="author" content="HaoquanZhang">
     <meta name="google-site-verification" content="vJ_pZMsbGuDnzTd88nb-RQcqes9CnJjFV7_vN4YtXwU" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Haoquan Zhang's personal homepage: research in agentic AI and visual generation, with publications, news, and experiences.">
+    <meta name="description" content="Haoquan Zhang's personal homepage: research in vision as text, multimodal learning, and agentic and active vision.">
     <link rel="canonical" href="https://haoquanzhang.github.io/">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Haoquan Zhang">
     <meta property="og:title" content="Haoquan Zhang 张皓泉">
-    <meta property="og:description" content="Research in agentic AI and visual generation. Publications, news, and experiences.">
+    <meta property="og:description" content="Research in vision as text, multimodal learning, and agentic and active vision.">
     <meta property="og:url" content="https://haoquanzhang.github.io/">
     <meta property="og:image" content="https://haoquanzhang.github.io/images/face.jpg">
     <meta property="og:image:alt" content="Portrait of Haoquan Zhang">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Haoquan Zhang 张皓泉">
-    <meta name="twitter:description" content="A Vision Researcher.">
+    <meta name="twitter:description" content="Research in vision as text, multimodal learning, and agentic and active vision.">
     <meta name="twitter:image" content="https://haoquanzhang.github.io/images/face.jpg">
     <link rel="shortcut icon" href="images/favicon/iris.webp" type="image/x-icon">
-    <link rel="stylesheet" href="css/desktop.css?v=20261106-cambria" media="screen and (min-width: 601px)">
-    <link rel="stylesheet" href="css/mobile.css?v=20261106-cambria" media="screen and (max-width: 600px)">
-    <link rel="stylesheet" href="css/desktop.css?v=20261106-cambria" media="print">
-    <link rel="stylesheet" href="css/publication-preview.css?v=owl-zoom">
-    <link rel="stylesheet" href="css/news.css?v=20261106-pixelbench">
+    <link rel="stylesheet" href="css/desktop.css?v=20261107-bio-note" media="screen and (min-width: 601px)">
+    <link rel="stylesheet" href="css/mobile.css?v=20261107-bio-note" media="screen and (max-width: 600px)">
+    <link rel="stylesheet" href="css/desktop.css?v=20261107-bio-note" media="print">
+    <link rel="stylesheet" href="css/publication-preview.css?v=20261108-svg-parallel">
+    <link rel="stylesheet" href="css/news.css?v=20261107-collapse">
     <!-- Google Fonts: Source Serif 4 -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -72,8 +72,7 @@
             </h1>
             <div class="bio-links">
               <a href="https://scholar.google.com/citations?user=VUboP9QAAAAJ&hl=en-US">Google Scholar</a>
-              <a href="https://www.xiaohongshu.com/user/profile/6325ef2a0000000023027921">XiaoHongShu</a>
-              <a class="bio-link--desktop-only" href="https://agent-x.space">Agent-X</a>
+              <a href="https://www.xiaohongshu.com/user/profile/6325ef2a0000000023027921">RedNote</a>
               <a class="bio-link--desktop-only" href="https://github.com/HaoquanZhang">GitHub</a>
               <a class="bio-link--desktop-only" href="mailto:haoquanzhang@outlook.com">Email</a>
               <a href="https://www.x.com/haoquan03">X</a>
@@ -84,19 +83,20 @@
             <div class="bio-main-top">
               <img src="images/face.jpg" alt="profile photo" class="profile-img">
               <p class="bio-text">
-                Hi, I'm Haoquan. I currently do evaluation research at <a href="https://seed.bytedance.com/">ByteDance Seed</a>, working with Haodong Duan.
-                I'm a second-year PhD student at CUHK, advised by <a href="https://wyliu.com/">Weiyang Liu</a>.
+                Hi, I'm Haoquan, a second-year PhD student at <a href="https://www.cuhk.edu.hk/">The Chinese University of Hong Kong</a>, advised by <a href="https://wyliu.com/">Weiyang Liu</a>.
+                I'm also a research intern at <a href="https://seed.bytedance.com/">ByteDance Seed</a>, working with <a href="https://kennymckormick.github.io">Haodong Duan</a> on understanding foundation models through rigorous evaluation.
                 Previously, I was an intern at <a href="https://www.shlab.org.cn/">Shanghai AI Lab</a>.
               </p>
             </div>
   
             <div class="bio-rest">
               <p class="bio-text">
-                My research interests are Agentic AI and visual generation. In Agentic AI, I explore environment and reward design to equip agents with more general capabilities. I also do benchmarking to define the capability boundaries of agentic AI. You can check our work at <a href="https://agent-x.space">Agent-X</a>. In visual generation, I focus on understanding and improving the generation process for better visual synthesis.
+                My research focuses on how models represent and interact with the visual world. Through <a href="https://spherelab.ai/SGP-Gen/">SGP-Gen</a> and <a href="pixelbench/">PixelBench</a>, I explore vision as text and how training on textual representations of visual content can improve multimodal understanding and generation.
               </p>
               <p class="bio-text">
-                I'm also intrigued by the representations learned by models. I believe it is crucial to carefully observe and analyze these internal structures to better understand the inner mechanisms of neural networks.
+                <a href="https://agent-x.space">We</a> also study agentic and active vision: how models can use code and tools to actively gather and manipulate visual information as they reason. We explore how to build, train, and evaluate these capabilities through <a href="https://agent-x.space/pyvision/">PyVision</a>, <a href="https://agent-x.space/pyvision-rl/">PyVision-RL</a>, and <a href="https://agent-x.space/tirbench/">TIR-Bench</a>.
               </p>
+              <p class="bio-note">Also exploring a few new directions and seeing where they lead...</p>
             </div>
           </div>
         </div>
@@ -104,14 +104,14 @@
 
       <section id="News" class="fade-in delay-1">
         <h2><strong>News</strong></h2>
-        <div class="news-container">
+        <div id="news-items" class="news-container">
           <div class="news-item">
             <div class="news-date">4th Nov 2026</div>
             <div class="news-content">We released <strong><a class="pixelbench-wordmark" href="pixelbench/">PixelBench</a></strong> to study pixel-level image generation and understanding in language models. <a href="https://arxiv.org/abs/2611.02540">Paper</a> · <a href="https://github.com/HaoquanZhang/PixelBench">Code &amp; Benchmark</a> · <a href="https://huggingface.co/collections/haoquan03/pixel-reconstruction-tuning">Models</a> · <a href="https://x.com/Haoquan03/status/2117657081981685860">X Post</a>.</div>
           </div>
           <div class="news-item">
             <div class="news-date">29th Jun 2026</div>
-            <div class="news-content">I joined <img src="images/bytedance-color.svg" alt="ByteDance Seed logo" class="exp-mentor-logo"> <strong><a href="https://seed.bytedance.com/">ByteDance Seed</a></strong> as a research intern, working on pushing the frontier of visual agentic AI.</div>
+            <div class="news-content">I joined <img src="images/bytedance-color.svg" alt="ByteDance Seed logo" class="exp-mentor-logo"> <strong><a href="https://seed.bytedance.com/">ByteDance Seed</a></strong> as a research intern, working on understanding foundation models through rigorous evaluation.</div>
           </div>
           <div class="news-item">
             <div class="news-date">18th Jun 2026</div>
@@ -164,7 +164,7 @@
               <div class="exp-info">
                 <div class="exp-title">ByteDance Seed<span class="exp-position"> · Research Intern</span></div>
                 <div class="exp-mentor exp-mentor--inline">
-                  Working with Haodong Duan
+                  Working with <a href="https://kennymckormick.github.io">Haodong Duan</a>
                 </div>
               </div>
             </div>
@@ -213,6 +213,6 @@
 
     </main>
 
-    <script src="js/main.js?v=20261106-x-post"></script>
+    <script src="js/main.js?v=20261107-svg-three-layers"></script>
   </body>
 </html>

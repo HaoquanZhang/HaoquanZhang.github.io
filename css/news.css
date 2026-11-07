@@ -13,3 +13,23 @@
   letter-spacing: 0;
   white-space: nowrap;
 }
+
+.news-toggle {
+  display: block;
+  margin: 6px 20px 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: #666;
+  font: inherit;
+  font-size: 13px;
+  line-height: 1.5;
+  text-decoration: underline;
+  text-decoration-color: #b3b3b3;
+  text-underline-offset: 2px;
+  cursor: pointer;
+}
+
+.news-toggle:hover {
+  color: #222;
+}

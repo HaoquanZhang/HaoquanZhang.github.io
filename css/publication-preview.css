@@ -1,4 +1,4 @@
-/* Keep the pixel preview edge-to-edge in both publication layouts. */
+/* Layer matching images in both publication layouts. */
 .paper-image.paper-preview,
 .paper-card__media.paper-preview {
   position: relative;
@@ -24,11 +24,11 @@
   image-rendering: pixelated;
 }
 
-.paper-preview .paper-preview__indices {
+.paper-preview .paper-preview__overlay {
   position: absolute;
   inset: 0;
   height: 100%;
-  opacity: var(--preview-numbers, 0);
+  opacity: var(--preview-overlay, 0);
   pointer-events: none;
   transition:
     transform 0.36s cubic-bezier(0.2, 0.7, 0.2, 1),
@@ -39,21 +39,122 @@
   .paper-container:hover .paper-preview,
   .paper-card:hover .paper-preview {
     --preview-scale: 4;
-    --preview-numbers: 1;
+    --preview-overlay: 1;
     --preview-reveal-delay: 0.42s;
   }
+
 }
 
 .paper-container:focus-within .paper-preview,
 .paper-card:focus-visible .paper-preview {
   --preview-scale: 4;
-  --preview-numbers: 1;
+  --preview-overlay: 1;
   --preview-reveal-delay: 0.42s;
+}
+
+/* Parallel projection: equal-sized planes, centered on the original thumbnail. */
+.paper-image.sgp-preview,
+.paper-card__media.sgp-preview {
+  position: relative;
+  aspect-ratio: 1;
+  overflow: visible;
+  background: transparent;
+  perspective: none;
+  z-index: 2;
+}
+
+.sgp-preview .sgp-preview__flat {
+  width: 100%;
+  height: 100%;
+  border-radius: 0;
+  opacity: var(--sgp-flat, 1);
+  transition: opacity 0.25s ease;
+}
+
+.sgp-scene,
+.sgp-plane {
+  position: absolute;
+  inset: 0;
+  display: block;
+  transform-style: preserve-3d;
+  pointer-events: none;
+}
+
+.sgp-scene {
+  visibility: var(--sgp-visibility, hidden);
+  transform-origin: 50% 50%;
+  transform:
+    rotateX(var(--sgp-tilt, 0deg))
+    rotateY(var(--sgp-turn, 0deg))
+    rotateZ(var(--sgp-roll, 0deg))
+    scale(var(--sgp-scale, 1));
+  transition:
+    transform 0.65s cubic-bezier(0.2, 0.8, 0.2, 1),
+    visibility 0s var(--sgp-visibility-delay, 0.65s);
+}
+
+.sgp-plane {
+  transform: translateZ(calc(var(--layer) * var(--sgp-depth, 0px)));
+  box-shadow: 0 1px 4px rgb(25 42 58 / var(--sgp-shadow, 0));
+  transition:
+    transform 0.65s cubic-bezier(0.2, 0.8, 0.2, 1),
+    box-shadow 0.45s ease;
+}
+
+.sgp-plane svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.sgp-plane__guide {
+  fill: #f7f2e9;
+  fill-opacity: 0.12;
+  stroke: #8c9dab;
+  stroke-width: 1.5;
+  opacity: var(--sgp-guides, 0);
+  transition: opacity 0.35s ease;
+}
+
+@media (hover: hover) {
+  .paper-container:hover .sgp-preview,
+  .paper-card:hover .sgp-preview {
+    --sgp-flat: 0;
+    --sgp-visibility: visible;
+    --sgp-visibility-delay: 0s;
+    --sgp-turn: -42deg;
+    --sgp-tilt: 8deg;
+    --sgp-roll: -4deg;
+    --sgp-depth: 20px;
+    --sgp-scale: 0.8;
+    --sgp-shadow: 0.08;
+    --sgp-guides: 1;
+  }
+}
+
+.paper-container:focus-within .sgp-preview,
+.paper-card:focus-visible .sgp-preview {
+  --sgp-flat: 0;
+  --sgp-visibility: visible;
+  --sgp-visibility-delay: 0s;
+  --sgp-turn: -42deg;
+  --sgp-tilt: 8deg;
+  --sgp-roll: -4deg;
+  --sgp-depth: 20px;
+  --sgp-scale: 0.8;
+  --sgp-shadow: 0.08;
+  --sgp-guides: 1;
 }
 
 @media (prefers-reduced-motion: reduce) {
   .paper-preview img,
-  .paper-preview .paper-preview__indices {
+  .paper-preview img:first-child,
+  .paper-preview .paper-preview__overlay,
+  .sgp-preview .sgp-preview__flat,
+  .sgp-scene,
+  .sgp-plane,
+  .sgp-plane__guide {
     transition: none;
   }
 }
