@@ -686,21 +686,37 @@ function initNews() {
     return;
   }
 
-  const olderItems = Array.from(container.querySelectorAll('.news-item')).slice(4);
+  const olderItems = Array.from(container.querySelectorAll('.news-item')).slice(2);
   if (olderItems.length === 0) {
     return;
   }
 
+  const archive = document.createElement('div');
+  archive.id = 'news-older-items';
+  archive.className = 'news-archive';
+  olderItems.forEach((item, index) => {
+    const reveal = document.createElement('div');
+    reveal.className = 'news-reveal';
+    reveal.style.setProperty('--news-enter-delay', `${Math.min(index, 6) * 40}ms`);
+    reveal.style.setProperty('--news-exit-delay', `${Math.min(olderItems.length - index - 1, 6) * 25}ms`);
+    const inner = document.createElement('div');
+    inner.className = 'news-reveal__inner';
+    inner.append(item);
+    reveal.append(inner);
+    archive.append(reveal);
+  });
+  container.append(archive);
+
   const toggle = document.createElement('button');
   toggle.type = 'button';
   toggle.className = 'news-toggle';
-  toggle.setAttribute('aria-controls', container.id);
+  toggle.setAttribute('aria-controls', archive.id);
   let expanded = false;
 
   function updateNews() {
-    olderItems.forEach(function(item) {
-      item.hidden = !expanded;
-    });
+    archive.classList.toggle('is-expanded', expanded);
+    archive.inert = !expanded;
+    archive.setAttribute('aria-hidden', String(!expanded));
     toggle.textContent = expanded ? 'Show less' : 'Show more';
     toggle.setAttribute('aria-expanded', String(expanded));
   }
