@@ -21,14 +21,14 @@
 
 .news-reveal {
   --news-delay: var(--news-exit-delay);
-  --news-duration: 0.36s;
+  --news-duration: 0.48s;
   display: grid;
   grid-template-rows: 0fr;
   opacity: 0;
   transform: translateX(-8px);
   visibility: hidden;
   transition:
-    grid-template-rows var(--news-duration) cubic-bezier(0.55, 0, 0.65, 1) var(--news-delay),
+    grid-template-rows var(--news-duration) cubic-bezier(0.5, 0, 0.65, 1) var(--news-delay),
     opacity var(--news-duration) var(--news-easing) var(--news-delay),
     transform var(--news-duration) var(--news-easing) var(--news-delay),
     visibility 0s calc(var(--news-delay) + var(--news-duration));

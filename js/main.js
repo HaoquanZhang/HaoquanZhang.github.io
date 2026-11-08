@@ -694,11 +694,13 @@ function initNews() {
   const archive = document.createElement('div');
   archive.id = 'news-older-items';
   archive.className = 'news-archive';
+  const staggerDuration = Math.min(olderItems.length - 1, 6) * 40;
   olderItems.forEach((item, index) => {
     const reveal = document.createElement('div');
     reveal.className = 'news-reveal';
-    reveal.style.setProperty('--news-enter-delay', `${Math.min(index, 6) * 40}ms`);
-    reveal.style.setProperty('--news-exit-delay', `${Math.min(olderItems.length - index - 1, 6) * 25}ms`);
+    const enterDelay = Math.min(index, 6) * 40;
+    reveal.style.setProperty('--news-enter-delay', `${enterDelay}ms`);
+    reveal.style.setProperty('--news-exit-delay', `${staggerDuration - enterDelay}ms`);
     const inner = document.createElement('div');
     inner.className = 'news-reveal__inner';
     inner.append(item);
