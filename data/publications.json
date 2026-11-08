@@ -183,7 +183,14 @@
     ],
     "venue": "arXiv 2025",
     "venueType": "arxiv",
-    "image": "images/pyvision-2.png",
+    "image": "images/pyvision.svg",
+    "hoverEffect": "color-story",
+    "colorDemo": {
+      "source": "images/pyvision-2.png",
+      "rgb": [234, 85, 23],
+      "counts": [2479, 24536]
+    },
+    "imageAlt": "Two orange circles of different sizes surrounded by blue circles",
     "links": {
       "paper": "https://arxiv.org/abs/2507.07998",
       "code": "https://github.com/agents-x-project/PyVision",

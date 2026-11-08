@@ -131,6 +131,7 @@ function handleResearchResize() {
     const layoutChanged = syncPublicationLayoutMode();
     if (!layoutChanged) {
       updateResearchFilterIndicator();
+      document.querySelectorAll('.is-pyvision-active').forEach(sizePyvisionPreview);
     }
   });
 }
@@ -166,6 +167,7 @@ function renderPublicationList(publications) {
     })
     .join('');
   initPlaceholderTitleEffects(container);
+  initPyvisionPreviews(container);
 }
 
 function stopPlaceholderTitleCycle(restoreTitle = true) {
@@ -379,6 +381,16 @@ function createPublicationMedia(pub, className) {
   }
 
   const alt = pub.imageAlt || pub.title;
+  if (pub.hoverEffect === 'color-story') {
+    return `<button type="button" class="${className} pyvision-preview" aria-label="Play circle comparison" aria-expanded="false" aria-controls="${pub.id}-demo">
+      <svg class="pyvision-scene" viewBox="0 0 640 640" role="img" aria-label="${alt}" focusable="false">
+        <use class="pyvision-context" href="${pub.image}#pyvision-context"/>
+        <use class="pyvision-targets" href="${pub.image}#pyvision-targets"/>
+      </svg>
+      ${createPyvisionStory(pub)}
+    </button>`;
+  }
+
   if (pub.hoverEffect === 'layers') {
     const layers = ['base', 'bike', 'rider'];
     return `<div class="${className} sgp-preview">
@@ -402,7 +414,8 @@ function createPublicationMedia(pub, className) {
 
 function createPublicationHTMLMobile(pub) {
   const cardLink = getPublicationCardLink(pub.links);
-  const tag = cardLink ? 'a' : 'div';
+  const hasDemo = pub.hoverEffect === 'color-story';
+  const tag = cardLink && !hasDemo ? 'a' : 'div';
   const hrefAttr = cardLink
     ? ` href="${cardLink}" target="_blank" rel="noopener noreferrer"`
     : '';
@@ -411,12 +424,12 @@ function createPublicationHTMLMobile(pub) {
   const mediaHTML = createPublicationMedia(pub, 'paper-card__media');
 
   return `
-        <${tag}${hrefAttr} class="paper-card fade-in delay-2${staticClass}${pub.image ? '' : ' paper-card--no-media'}">
+        <${tag}${hasDemo ? '' : hrefAttr} class="paper-card fade-in delay-2${staticClass}${pub.image ? '' : ' paper-card--no-media'}${hasDemo ? ' paper--pyvision' : ''}">
           ${mediaHTML}
-          <div class="paper-card__body">
+          <${hasDemo ? `a${hrefAttr}` : 'div'} class="paper-card__body">
             <p class="paper-card__title${pub.isPlaceholder ? ' paper-card__title--placeholder' : ''}">${pub.title}</p>
             <p class="paper-card__meta">${pub.venue}</p>
-          </div>
+          </${hasDemo ? 'a' : 'div'}>
         </${tag}>`;
 }
 
@@ -497,7 +510,7 @@ function createPublicationHTMLDesktop(pub) {
   const imageHTML = createPublicationMedia(pub, 'paper-image');
 
   return `
-        <div class="paper-container fade-in delay-2${pub.image ? '' : ' paper-container--no-image'}">
+        <div class="paper-container fade-in delay-2${pub.image ? '' : ' paper-container--no-image'}${pub.hoverEffect === 'color-story' ? ' paper--pyvision' : ''}">
           <div class="paper-sidebar">
             <span class="${pub.venueType}"><strong>${venueText}</strong></span>
             ${sidebarLinksHTML}
@@ -507,6 +520,136 @@ function createPublicationHTMLDesktop(pub) {
             <p class="paper-authors">${authorsHTML}</p>
           </div>${imageHTML}${highlightsHTML}
         </div>`;
+}
+
+function createPyvisionStory(pub) {
+  const [left, right] = pub.colorDemo.counts;
+  const rgb = pub.colorDemo.rgb.join(', ');
+  // Exact RGB matches in the source PNG, excluding antialiased edge pixels.
+  return `<span class="pyvision-story" id="${pub.id}-demo" aria-hidden="true" data-left-pixels="${left}" data-right-pixels="${right}">
+    <span class="pyvision-question">Which orange circle is larger?</span>
+    <code class="pyvision-code"><span>rgb = <span class="pyvision-color">[${rgb}]</span></span><span>mask = (img == rgb).all(-1)</span><span class="pyvision-color"><i class="pyvision-swatch" aria-hidden="true"></i>#EA5517</span></code>
+    <svg class="pyvision-measure" viewBox="0 0 640 340" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+      <use class="pyvision-context" href="${pub.image}#pyvision-context" transform="translate(0 -156)"/>
+      <g class="pyvision-tracks">
+        <rect x="72" y="32" width="536" height="115" rx="12"/>
+        <rect x="72" y="194" width="536" height="115" rx="12"/>
+      </g>
+      <rect class="pyvision-region" data-region="left" x="103.5" y="135.5" width="57" height="57" rx="28.5"/>
+      <rect class="pyvision-region" data-region="right" x="361" y="75" width="178" height="178" rx="89"/>
+    </svg>
+    <span class="pyvision-count-heading">Orange pixels</span>
+    <span class="pyvision-bar-labels">
+      <span class="pyvision-bar-label"><span class="pyvision-side">L</span><span class="pyvision-pixels" data-count="left">0 px</span></span>
+      <span class="pyvision-bar-label"><span class="pyvision-side">R</span><span class="pyvision-pixels pyvision-pixels--right" data-count="right">0 px</span></span>
+    </span>
+    <span class="pyvision-answer">Right is larger <span>· ${ (right / left).toFixed(1) }×</span></span>
+  </span>`;
+}
+
+function sizePyvisionPreview(card) {
+  const button = card.querySelector('.pyvision-preview');
+  const bounds = button.getBoundingClientRect();
+  const width = Math.max(bounds.width, Math.min(320, window.innerWidth - bounds.left - 16));
+  button.style.setProperty('--pyvision-width', `${width}px`);
+  card.classList.toggle('pyvision-wide', width >= 300);
+}
+
+function initPyvisionPreviews(container) {
+  container.querySelectorAll('.paper--pyvision').forEach(function(card) {
+    const button = card.querySelector('.pyvision-preview');
+    const story = card.querySelector('.pyvision-story');
+    const contexts = card.querySelectorAll('.pyvision-context');
+    const tracks = story.querySelector('.pyvision-tracks');
+    const labels = story.querySelector('.pyvision-bar-labels');
+    const counts = [Number(story.dataset.leftPixels), Number(story.dataset.rightPixels)];
+    const regions = ['left', 'right'].map(side => story.querySelector(`[data-region="${side}"]`));
+    const numbers = ['left', 'right'].map(side => story.querySelector(`[data-count="${side}"]`));
+    const initial = [[103.5, 135.5, 57, 57, 28.5], [361, 75, 178, 178, 89]];
+    const final = [[72, 32, 536 * counts[0] / counts[1], 115, 12], [72, 194, 536, 115, 12]];
+    const attributes = ['x', 'y', 'width', 'height', 'rx'];
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+    let frame = null;
+    let active = false;
+    let pinned = false;
+    let hovered = false;
+
+    function progress(time, start, duration) {
+      const t = Math.max(0, Math.min(1, (time - start) / duration));
+      return t * t * (3 - 2 * t);
+    }
+
+    function draw(time) {
+      card.dataset.pyvisionStage = time < 1200 ? '1' : time < 3600 ? '2' : time < 5600 ? '3' : '4';
+      const isolated = progress(time, 2200, 900);
+      contexts.forEach(context => { context.style.opacity = 1 - isolated; });
+      const morph = progress(time, 3600, 1500);
+      tracks.style.opacity = progress(time, 3600, 700);
+      labels.style.opacity = progress(time, 4100, 600);
+      regions.forEach((region, index) => {
+        attributes.forEach((attribute, i) => {
+          region.setAttribute(attribute, initial[index][i] + (final[index][i] - initial[index][i]) * morph);
+        });
+        numbers[index].textContent = `${Math.round(counts[index] * morph).toLocaleString('en-US')} px`;
+      });
+    }
+
+    function start() {
+      if (active) return;
+      active = true;
+      sizePyvisionPreview(card);
+      card.classList.add('is-pyvision-active');
+      button.setAttribute('aria-expanded', 'true');
+      story.setAttribute('aria-hidden', 'false');
+      const started = performance.now();
+      function tick(now) {
+        if (!active || !card.isConnected) return;
+        const time = reducedMotion.matches ? 6200 : now - started;
+        draw(time);
+        frame = time < 6200 ? requestAnimationFrame(tick) : null;
+      }
+      tick(started);
+    }
+
+    function stop() {
+      active = false;
+      pinned = false;
+      cancelAnimationFrame(frame);
+      frame = null;
+      card.classList.remove('is-pyvision-active');
+      button.setAttribute('aria-expanded', 'false');
+      button.setAttribute('aria-label', 'Play circle comparison');
+      story.setAttribute('aria-hidden', 'true');
+      draw(0);
+    }
+
+    card.addEventListener('pointerenter', event => {
+      if (event.pointerType === 'touch') return;
+      hovered = true;
+      start();
+    });
+    card.addEventListener('pointerleave', () => {
+      hovered = false;
+      if (!pinned && !card.contains(document.activeElement)) stop();
+    });
+    card.addEventListener('focusin', start);
+    card.addEventListener('focusout', event => {
+      if (!pinned && !hovered && !card.contains(event.relatedTarget)) stop();
+    });
+    button.addEventListener('click', () => {
+      if (pinned) {
+        stop();
+      } else {
+        pinned = true;
+        button.setAttribute('aria-label', 'Close circle comparison');
+        start();
+      }
+    });
+    card.addEventListener('keydown', event => {
+      if (event.key === 'Escape') stop();
+    });
+    draw(0);
+  });
 }
 
 function createHighlightsHTML(highlights) {
