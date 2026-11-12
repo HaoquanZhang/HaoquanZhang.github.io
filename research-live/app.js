@@ -14,12 +14,73 @@ const allGenerations = data => data.repeats.flatMap(r => r.generations);
 const finalIsReleased = data => data.final_evaluation?.state === 'released' && data.final_evaluation?.lineages_frozen === true;
 const tipAttributes = (title, value, lines = []) => `class="chart-point" tabindex="0" role="img" aria-label="${esc(title + '：' + value + '；' + lines.join('；'))}" data-chart-tip="${esc(JSON.stringify({ title, value, lines }))}"`;
 function validateSnapshot(data) {
+  if (data?.schema_version === 'astra_luna_rst_public_v1') {
+    if (data.campaign !== 'astra_luna_rst_v1' || data.test_results_sealed !== true ||
+        !Number.isFinite(Date.parse(data.generated_at)) || !Array.isArray(data.rst?.categories) ||
+        data.rst.categories.length !== 8 || !data.experiment || !data.preparation || !data.validation || !data.goal || !data.solver)
+      throw new Error('RST 快照不完整');
+    if (!data.external_panels || ['tb3','tb4','swe_ood'].some(k => !data.external_panels[k] || data.external_panels[k].scores !== null))
+      throw new Error('RST 测试结果仍须封存');
+    if (data.research_stage !== 'data_preparation' || data.solver.h0_started || data.solver.task_episodes || data.experiment.proposals_frozen)
+      throw new Error('评测阶段需要更新公开数据格式，保留已核验快照');
+    if (data.validation.repeats_per_version !== 3 || data.validation.parent_repeats_per_decision !== 3)
+      throw new Error('验证协议与当前设置不一致');
+    return data;
+  }
   if (data?.schema_version !== 'harness_research_public_v1' || !Array.isArray(data.repeats) || !data.final_evaluation || !Array.isArray(data.datasets)) throw new Error('快照格式暂不受支持');
   if (!Number.isFinite(Date.parse(data.generated_at))) throw new Error('快照缺少有效时间');
   for (const r of data.repeats) if (!Array.isArray(r.generations)) throw new Error('版本记录不完整');
   // Publication validates the complete allowlist too. UI never reveals sealed scores.
   if (!finalIsReleased(data) && (data.final_evaluation.id_score != null || data.final_evaluation.ood_score != null || data.final_evaluation.curves?.length)) throw new Error('快照包含尚未解锁的最终结果');
   return data;
+}
+
+function normalizeRST(raw) {
+  validateSnapshot(raw);
+  const e = raw.experiment;
+  return {
+    rst: raw, generated_at: raw.generated_at, source_heartbeat_at: raw.generated_at,
+    phase: raw.research_stage, protocol_version: raw.campaign, workers: 8,
+    planned_repeats: e.history_target, planned_generations_per_repeat: e.candidate_limit_per_history,
+    control_schedule: e.sparse_h0_indices, completed_generations: 0,
+    current: {stage:raw.research_stage},
+    repeats: Array.from({length:e.history_target}, (_,repeat) => ({repeat,conditions:'rst_fresh_history',generations:[]})),
+    datasets: [], final_evaluation:{state:'sealed',lineages_frozen:false}, totals:{}
+  };
+}
+
+function renderRSTPreparation(data) {
+  const r = data.rst, prep = r.preparation, goals = {active:'持续工作中',blocked:'待恢复',paused:'已暂停',complete:'已完成'};
+  $('preparation-status').innerHTML = [
+    ['远端 Goal',goals[r.goal.status] || '待确认'],
+    ['数据下载',prep.rst_download_process_running ? '运行中' : '当前无下载进程'],
+    ['Luna 接口',r.solver.status === 'health_check_passed' ? '健康检查通过' : '待核验'],
+    ['H0 基线',r.solver.h0_started ? '已启动' : '尚未启动']
+  ].map(([key,value]) => `<span>${esc(key)} <b>${esc(value)}</b></span>`).join('');
+  const cats = r.rst.categories;
+  const row = (label,candidate,qualified,dev,val,target) => `<tr><td>${esc(label)}</td><td>${count(candidate)}</td><td>${count(qualified)}</td><td>${count(dev)}</td><td>${count(val)}</td><td>${esc(target)}</td></tr>`;
+  $('category-rows').innerHTML = cats.map(c => row(c.label,c.candidate_development+c.candidate_validation,c.qualified,c.selected_development,c.selected_validation,`${c.target_development} + ${c.target_validation}`)).join('') + row('合计',r.rst.candidates.total,r.rst.qualified,r.rst.selected.development,r.rst.selected.validation,`${r.rst.targets.development} + ${r.rst.targets.validation}`);
+  $('preparation-note').textContent = `元数据${prep.metadata_verified ? '已校验' : '待校验'} · 分片校验 ${prep.verified_shards}/${prep.required_shards} · 下载分段 ${(prep.downloaded_range_bytes/1e6).toFixed(0)} / ${(prep.required_shard_bytes/1e6).toFixed(0)} MB（尚不等于完整校验通过） · 运行验收已提交 ${prep.qualification_jobs_submitted} 项。当前按元数据做保守分组，完整任务包及跨 benchmark 去重仍待核验。`;
+  $('stat-iterations').innerHTML = `0 <em>/ ${count(r.experiment.history_target*r.experiment.candidate_limit_per_history)}</em>`;
+  $('stat-plan').textContent = `${count(r.experiment.history_target)} 组 × 最多 ${count(r.experiment.candidate_limit_per_history)} 轮 · 数据准备中`;
+  $('stat-workers').innerHTML = '<em>评测未启动</em>';
+  $('stat-workers-note').textContent = '目标上限 8 并发 · 不代表当前运行数';
+  $('quality-note').textContent = '尚无 H0 或候选结果。验证对同一组 64 道题独立运行三次，显示平均成功率；测试分数不参与修改决策。';
+  $('datasets').innerHTML = [
+    ['开发','RST',r.rst.targets.development,r.rst.selected.development,'Astra 可看题目与执行反馈'],
+    ['验证','RST',r.rst.targets.validation,r.rst.selected.validation,'每版本 3 次 · 只反馈汇总'],
+    ['终端泛化','TB3 · 3.0.0',r.external_panels.tb3.target,r.external_panels.tb3.selected,'固定小面板 · 分数封存'],
+    ['终端泛化','TB4 · 4.1.0',r.external_panels.tb4.target,r.external_panels.tb4.selected,'固定小面板 · 分数封存'],
+    ['跨类 OOD','SWE-bench Pro v2',r.external_panels.swe_ood.target,r.external_panels.swe_ood.selected,'仓库修复 · 分数封存']
+  ].map(([role,bench,target,selected,note])=>`<div class="dataset-row"><span>${esc(role)}</span><span>${esc(bench)}<small>${esc(note)} · 已选 ${selected} 题</small></span><span>目标 ${target}</span></div>`).join('');
+}
+
+function renderRSTFinal(data) {
+  $('final-badge').textContent = '逐代评测 · 暂封存';
+  $('final-chart').innerHTML = '<div class="final-items">'+[
+    ['TB3 · 终端泛化',data.rst.external_panels.tb3],['TB4 · 终端泛化',data.rst.external_panels.tb4],['SWE · 跨类 OOD',data.rst.external_panels.swe_ood]
+  ].map(([name,panel])=>`<div class="final-item"><h4>${esc(name)}</h4><strong>—</strong><p>目标 ${panel.target} 题 · 就绪 ${panel.qualified}</p></div>`).join('')+'</div>';
+  $('final-note').textContent = '每个冻结候选都评测；整条版本序列冻结后统一公开曲线。以上是固定子集，非全量官方 benchmark 分数。';
 }
 
 function lineChart(series, { maxX = 6, maxY = 1, percentAxis = true, empty = '等待完整结果', future = true, yLabel = '通过率', pointLabels = false, width = null } = {}) {
@@ -95,7 +156,7 @@ const chartWidth = id => Math.max(280, Math.round($(id).getBoundingClientRect().
 function render() {
   hideTooltip();
   const data = snapshot;
-  const repeat = data.repeats.find(r => r.repeat === activeRepeat) || data.repeats[0];
+  const repeat = data.repeats.find(r => r.repeat === activeRepeat) || data.repeats[0] || {repeat:0,generations:[]};
   activeRepeat = repeat.repeat;
   const generations = repeat.generations;
   const done = allGenerations(data).filter(g => g.generation > 0 && ['complete', 'failed'].includes(g.state));
@@ -112,7 +173,7 @@ function render() {
   $('stat-workers').innerHTML = `${count(data.workers)} <em>并发</em>`;
   $('stat-workers-note').textContent = finite(data.current?.peak_concurrent_episodes) ? `当前批次实测峰值 ${count(data.current.peak_concurrent_episodes)}` : '配置上限 · 本批峰值待记录';
   $('repeat-tabs').innerHTML = data.repeats.map(r => `<button type="button" data-repeat="${r.repeat}" aria-pressed="${r.repeat === activeRepeat}">实验 ${r.repeat + 1}</button>`).join('');
-  $('repeat-condition').textContent = repeat.conditions === 'mixed_protocol_continuation' ? '实验 1：承接旧协议的基线与首轮提案；G1 候选开始使用 8 并发，G2 起启用精简反馈。' : '实验 2：从 H0 独立开始，全程使用新版协议；与实验 1 顺序执行。';
+  $('repeat-condition').textContent = data.rst ? `实验 ${activeRepeat+1}：从 H0 独立开始；每个候选与父版本各重复验证 3 次。` : repeat.conditions === 'mixed_protocol_continuation' ? '实验 1：承接旧协议的基线与首轮提案；G1 候选开始使用 8 并发，G2 起启用精简反馈。' : '实验 2：从 H0 独立开始，全程使用新版协议；与实验 1 顺序执行。';
   $('quality-chart').innerHTML = lineChart(qualitySeries(generations), { maxX: data.planned_generations_per_repeat || 6, width:chartWidth('quality-chart') });
   const pending = generations.find(g => g.generation > 0 && g.state === 'incomplete');
   $('quality-note').textContent = pending ? `G${pending.generation} 候选${pending.candidate ? `已完成 ${count(pending.candidate.completed)}/${count(pending.candidate.total)} 题` : '正在提出改动'}，整批完成后加入曲线。实心点与连线表示每轮保留的版本。` : '实心点与连线表示保留版本；空心点表示每轮候选。不同独立实验分别查看。';
@@ -135,10 +196,11 @@ function render() {
   ].map(([label,value,note]) => `<div><span>${label}</span><strong>${value}</strong><small>${note}</small></div>`).join('');
   renderComplexity(generations, data);
   renderJournal(generations);
-  $('protocol-version').textContent = data.protocol_version === 'performance_v2' ? '协议 v2 · 8 并发' : '协议 ' + (data.protocol_version || '待确认');
-  $('control-schedule').textContent = `H0 在第 ${(data.control_schedule || []).join('、')} 代校准；旧协议的额外校准保留在记录中`;
+  $('protocol-version').textContent = data.rst ? 'RST · 三次配对验证' : data.protocol_version === 'performance_v2' ? '协议 v2 · 8 并发' : '协议 ' + (data.protocol_version || '待确认');
+  $('control-schedule').textContent = `H0 在第 ${(data.control_schedule || []).join('、')} 代校准${data.rst ? '；候选另与当前父版本进行三次配对验证' : '；旧协议的额外校准保留在记录中'}`;
   const roles = { development: '开发', validation: '验证', final_id: '最终 ID', ood: '最终 OOD' };
   $('datasets').innerHTML = data.datasets.map(d => `<div class="dataset-row"><span>${esc(roles[d.role] || d.role)}</span><span>${esc(d.benchmark)}${d.state === 'sealed' ? `<small>候选 ${count(d.selected_candidates)} 题 · 环境就绪 ${count(d.runtime_qualified_candidates)} 题</small>` : ''}</span><span>${d.frozen_tasks == null ? '待冻结' : count(d.frozen_tasks) + ' 题'}</span></div>`).join('');
+  if (data.rst) renderRSTPreparation(data);
   updateFreshness();
 }
 
@@ -168,6 +230,7 @@ function renderJournal(generations) {
 }
 
 function renderFinal(data) {
+  if (data.rst) { renderRSTFinal(data); return; }
   const released = finalIsReleased(data);
   $('final-badge').textContent = released ? '已解锁' : '待解锁';
   if (released && Array.isArray(data.final_evaluation.curves)) {
@@ -189,11 +252,15 @@ function updateFreshness() {
   const stopped = data.phase === 'campaign_stopped_with_recorded_error';
   $('status-dot').className = 'dot ' + (fresh && !stopped ? 'fresh' : 'stale');
   $('connection-label').textContent = stopped ? '研究已停止 · 已记录异常' : fresh ? '研究快照 · 已同步' : '快照较旧 · 状态待核验';
-  const stage = { solver_evaluation:'正在评测候选', meta_proposal:'正在提出改动', resuming:'正在恢复', capacity_and_targeted_tests:'正在检查运行环境' }[cur.stage] || '等待阶段信息';
+  const stage = { data_preparation:'正在准备数据与运行环境', solver_evaluation:'正在评测候选', meta_proposal:'正在提出改动', resuming:'正在恢复', capacity_and_targeted_tests:'正在检查运行环境' }[cur.stage] || '等待阶段信息';
   const phase = data.phase === 'all_lineages_frozen_final_evaluation_pending' ? '版本序列已冻结 · 最终评测准备中' : stopped ? '研究已停止，等待处理已记录的异常' : `${finite(cur.repeat) ? '实验 ' + (cur.repeat + 1) + ' · ' : ''}${finite(cur.generation) ? '第 ' + cur.generation + ' 轮 · ' : ''}${stage}${finite(cur.completed) && finite(cur.total) ? ` ${cur.completed}/${cur.total}` : ''}`;
   $('run-status').innerHTML = `<b>${esc(phase)}</b>${fresh ? '' : ' · 以上为最近一次记录'}`;
   $('freshness').textContent = `源状态 ${formatDate(data.source_heartbeat_at)} · 快照 ${formatDate(data.generated_at)}（北京时间）`;
-  $('publish-note').textContent = '约每 30 分钟同步 · 网页每 60 秒检查更新';
+  if (data.rst) {
+    $('run-status').innerHTML = `<b>RST · 数据准备中，等待运行验收</b>${fresh ? '' : ' · 以上为最近一次记录'}`;
+    $('freshness').textContent = `公开快照 ${formatDate(data.generated_at)} · Goal 状态更新 ${formatDate(new Date(data.rst.goal.source_updated_at*1000).toISOString())}（北京时间）`;
+  }
+  $('publish-note').textContent = '约每 30 分钟同步 · 网页每 60 秒检查更新 · 旧实验独立归档';
 }
 
 async function refresh() {
@@ -202,7 +269,9 @@ async function refresh() {
   try {
     const response = await fetch('data/latest.json?t=' + Date.now(), { cache:'no-store', signal: AbortSignal.timeout(15000) });
     if (!response.ok) throw new Error(`数据请求失败（${response.status}）`);
-    const next = validateSnapshot(await response.json());
+    const raw = validateSnapshot(await response.json());
+    if (raw.schema_version === 'harness_research_public_v1') throw new Error('首页等待当前 RST 实验快照；旧实验请从归档入口查看');
+    const next = normalizeRST(raw);
     if (snapshot && Date.parse(next.generated_at) < Date.parse(snapshot.generated_at)) throw new Error('返回了更早的快照，继续保留当前数据');
     snapshot = next; $('load-error').hidden = true; render();
   } catch (error) {
@@ -267,4 +336,4 @@ if (typeof document !== 'undefined') {
   setInterval(() => { if (!document.hidden) refresh(); }, 60000);
   refresh();
 }
-if (typeof module !== 'undefined') module.exports = { validateSnapshot, fullScore, qualitySeries, lineChart, timingChart, finalIsReleased, esc };
+if (typeof module !== 'undefined') module.exports = { validateSnapshot, normalizeRST, fullScore, qualitySeries, lineChart, timingChart, finalIsReleased, esc };
