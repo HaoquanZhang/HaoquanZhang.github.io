@@ -1,0 +1,495 @@
+{
+  "schema_version": "harness_research_public_v1",
+  "title": "Astra optimizing a Luna harness",
+  "generated_at": "2026-11-12T08:47:07.414504+00:00",
+  "source_heartbeat_at": "2026-11-12T08:47:06.174869+00:00",
+  "phase": "multigeneration_campaign_running",
+  "protocol_version": "performance_v2",
+  "models": {
+    "optimizer": "gpt-6-astra",
+    "solver": "gpt-6-luna"
+  },
+  "workers": 8,
+  "control_schedule": [
+    0,
+    3,
+    6
+  ],
+  "planned_repeats": 2,
+  "planned_generations_per_repeat": 6,
+  "completed_generations": 1,
+  "current": {
+    "stage": "solver_evaluation",
+    "repeat": 0,
+    "generation": 2,
+    "completed": 8,
+    "total": 28,
+    "peak_concurrent_episodes": 8
+  },
+  "datasets": [
+    {
+      "role": "development",
+      "benchmark": "SWE-smith",
+      "frozen_tasks": 16,
+      "runtime_qualified_candidates": 32,
+      "selected_candidates": 16,
+      "state": "frozen"
+    },
+    {
+      "role": "validation",
+      "benchmark": "SWE-smith",
+      "frozen_tasks": 12,
+      "runtime_qualified_candidates": 21,
+      "selected_candidates": 12,
+      "state": "frozen"
+    },
+    {
+      "role": "final_id",
+      "benchmark": "SWE-bench Pro v2",
+      "frozen_tasks": null,
+      "selected_candidates": 40,
+      "runtime_qualified_candidates": 0,
+      "state": "sealed"
+    },
+    {
+      "role": "ood",
+      "benchmark": "Terminal-Bench v4.1.0",
+      "frozen_tasks": null,
+      "selected_candidates": 40,
+      "runtime_qualified_candidates": 0,
+      "state": "sealed"
+    }
+  ],
+  "repeats": [
+    {
+      "repeat": 0,
+      "conditions": "mixed_protocol_continuation",
+      "generations": [
+        {
+          "generation": 0,
+          "state": "complete",
+          "accepted": null,
+          "parent_id": null,
+          "harness_id": "5f97e5e94e9a",
+          "protocol_version": "astra_luna_v1",
+          "h0": {
+            "state": "complete",
+            "completed": 28,
+            "total": 28,
+            "protocol_version": "astra_luna_v1",
+            "harness_id": "5f97e5e94e9a",
+            "development": {
+              "resolved": 7,
+              "completed": 16,
+              "total": 16,
+              "rate": 0.4375,
+              "state": "complete"
+            },
+            "validation": {
+              "resolved": 5,
+              "completed": 12,
+              "total": 12,
+              "rate": 0.4166666666666667,
+              "state": "complete"
+            },
+            "wall_seconds": 574.4795428379439,
+            "elapsed_observed_seconds": null,
+            "started_at": "2026-11-12T07:51:48.868472+00:00",
+            "finished_at": null,
+            "episode_work_seconds": 1914.714718782343,
+            "api_wait_work_seconds": 1304.4691410358064,
+            "tool_work_seconds": 197.62016237480566,
+            "judge_command_work_seconds": 295.15208888053894,
+            "judge_total_work_seconds": null,
+            "environment_prepare_work_seconds": null,
+            "input_tokens": 1816779,
+            "output_tokens": 56683,
+            "cached_input_tokens": 1515290,
+            "model_calls": 304,
+            "tool_calls": 301,
+            "episode_errors": 2,
+            "judge_errors": 0,
+            "error_rate": 0.07142857142857142,
+            "peak_concurrent_episodes": null
+          },
+          "candidate": null,
+          "adopted": {
+            "state": "complete",
+            "completed": 28,
+            "total": 28,
+            "protocol_version": "astra_luna_v1",
+            "harness_id": "5f97e5e94e9a",
+            "development": {
+              "resolved": 7,
+              "completed": 16,
+              "total": 16,
+              "rate": 0.4375,
+              "state": "complete"
+            },
+            "validation": {
+              "resolved": 5,
+              "completed": 12,
+              "total": 12,
+              "rate": 0.4166666666666667,
+              "state": "complete"
+            },
+            "wall_seconds": 574.4795428379439,
+            "elapsed_observed_seconds": null,
+            "started_at": "2026-11-12T07:51:48.868472+00:00",
+            "finished_at": null,
+            "episode_work_seconds": 1914.714718782343,
+            "api_wait_work_seconds": 1304.4691410358064,
+            "tool_work_seconds": 197.62016237480566,
+            "judge_command_work_seconds": 295.15208888053894,
+            "judge_total_work_seconds": null,
+            "environment_prepare_work_seconds": null,
+            "input_tokens": 1816779,
+            "output_tokens": 56683,
+            "cached_input_tokens": 1515290,
+            "model_calls": 304,
+            "tool_calls": 301,
+            "episode_errors": 2,
+            "judge_errors": 0,
+            "error_rate": 0.07142857142857142,
+            "peak_concurrent_episodes": null
+          },
+          "meta": null,
+          "code": {
+            "parse_status": "ok",
+            "bytes": 2373,
+            "characters": 2373,
+            "effective_lines": 34,
+            "functions": 1,
+            "branch_nodes": 7,
+            "loop_nodes": 3,
+            "modules": [
+              "json",
+              "time"
+            ],
+            "added_lines": null,
+            "deleted_lines": null
+          },
+          "public_change_summary": "Initial fixed harness baseline."
+        },
+        {
+          "generation": 1,
+          "state": "complete",
+          "accepted": false,
+          "parent_id": "5f97e5e94e9a",
+          "harness_id": "7da2ece88148",
+          "protocol_version": "performance_v2",
+          "h0": {
+            "state": "complete",
+            "completed": 28,
+            "total": 28,
+            "protocol_version": "astra_luna_v1",
+            "harness_id": "5f97e5e94e9a",
+            "development": {
+              "resolved": 7,
+              "completed": 16,
+              "total": 16,
+              "rate": 0.4375,
+              "state": "complete"
+            },
+            "validation": {
+              "resolved": 5,
+              "completed": 12,
+              "total": 12,
+              "rate": 0.4166666666666667,
+              "state": "complete"
+            },
+            "wall_seconds": null,
+            "elapsed_observed_seconds": null,
+            "started_at": "2026-11-12T08:16:56.992359+00:00",
+            "finished_at": null,
+            "episode_work_seconds": 1667.679636596702,
+            "api_wait_work_seconds": 1381.2422996978275,
+            "tool_work_seconds": 60.10991814220324,
+            "judge_command_work_seconds": 185.6960323653184,
+            "judge_total_work_seconds": null,
+            "environment_prepare_work_seconds": null,
+            "input_tokens": 1682704,
+            "output_tokens": 60099,
+            "cached_input_tokens": 1390876,
+            "model_calls": 300,
+            "tool_calls": 296,
+            "episode_errors": 3,
+            "judge_errors": 0,
+            "error_rate": 0.10714285714285714,
+            "peak_concurrent_episodes": null
+          },
+          "candidate": {
+            "state": "complete",
+            "completed": 28,
+            "total": 28,
+            "protocol_version": "performance_v2",
+            "harness_id": "7da2ece88148",
+            "development": {
+              "resolved": 6,
+              "completed": 16,
+              "total": 16,
+              "rate": 0.375,
+              "state": "complete"
+            },
+            "validation": {
+              "resolved": 5,
+              "completed": 12,
+              "total": 12,
+              "rate": 0.4166666666666667,
+              "state": "complete"
+            },
+            "wall_seconds": 672.0593990269117,
+            "elapsed_observed_seconds": null,
+            "started_at": "2026-11-12T08:28:21.048743+00:00",
+            "finished_at": "2026-11-12T08:39:33.096967+00:00",
+            "episode_work_seconds": 4260.6546104806475,
+            "api_wait_work_seconds": 3848.9997653472237,
+            "tool_work_seconds": 175.74647793592885,
+            "judge_command_work_seconds": 188.56386589584872,
+            "judge_total_work_seconds": 202.50416569737718,
+            "environment_prepare_work_seconds": 11.83776090759784,
+            "input_tokens": 4057479,
+            "output_tokens": 186769,
+            "cached_input_tokens": 0,
+            "model_calls": 837,
+            "tool_calls": 1126,
+            "episode_errors": 0,
+            "judge_errors": 0,
+            "error_rate": 0.0,
+            "peak_concurrent_episodes": 8
+          },
+          "adopted": {
+            "state": "complete",
+            "completed": 28,
+            "total": 28,
+            "protocol_version": "astra_luna_v1",
+            "harness_id": "5f97e5e94e9a",
+            "development": {
+              "resolved": 7,
+              "completed": 16,
+              "total": 16,
+              "rate": 0.4375,
+              "state": "complete"
+            },
+            "validation": {
+              "resolved": 5,
+              "completed": 12,
+              "total": 12,
+              "rate": 0.4166666666666667,
+              "state": "complete"
+            },
+            "wall_seconds": 574.4795428379439,
+            "elapsed_observed_seconds": null,
+            "started_at": "2026-11-12T07:51:48.868472+00:00",
+            "finished_at": null,
+            "episode_work_seconds": 1914.714718782343,
+            "api_wait_work_seconds": 1304.4691410358064,
+            "tool_work_seconds": 197.62016237480566,
+            "judge_command_work_seconds": 295.15208888053894,
+            "judge_total_work_seconds": null,
+            "environment_prepare_work_seconds": null,
+            "input_tokens": 1816779,
+            "output_tokens": 56683,
+            "cached_input_tokens": 1515290,
+            "model_calls": 304,
+            "tool_calls": 301,
+            "episode_errors": 2,
+            "judge_errors": 0,
+            "error_rate": 0.07142857142857142,
+            "peak_concurrent_episodes": null
+          },
+          "meta": {
+            "state": "complete",
+            "protocol_version": "astra_luna_v1",
+            "wall_seconds": 492.24431985616684,
+            "model_calls": 13,
+            "input_tokens": 701770,
+            "output_tokens": 21131,
+            "cached_input_tokens": 618093,
+            "tool_calls": 15,
+            "tool_work_seconds": null,
+            "api_wait_work_seconds": 483.55166268348694,
+            "internal_cognitive_seconds": null,
+            "public_change_summary": null
+          },
+          "code": {
+            "parse_status": "ok",
+            "bytes": 15689,
+            "characters": 15689,
+            "effective_lines": 269,
+            "functions": 12,
+            "branch_nodes": 33,
+            "loop_nodes": 12,
+            "modules": [
+              "json",
+              "time"
+            ],
+            "added_lines": 302,
+            "deleted_lines": 27
+          },
+          "public_change_summary": "针对开发基线仅解决 7/16 的情况，加入按证据定位、复现、修复和验证的流程，压缩较早上下文并保留工具调用配对，提交前增加一次集中复查。预期减少遗漏边界情况和长轨迹的上下文膨胀。"
+        },
+        {
+          "generation": 2,
+          "state": "incomplete",
+          "accepted": null,
+          "parent_id": "5f97e5e94e9a",
+          "harness_id": "6ae5c7c3bf73",
+          "protocol_version": "performance_v2",
+          "h0": null,
+          "candidate": {
+            "state": "incomplete",
+            "completed": 8,
+            "total": 28,
+            "protocol_version": "performance_v2",
+            "harness_id": "6ae5c7c3bf73",
+            "development": {
+              "resolved": 1,
+              "completed": 5,
+              "total": 16,
+              "rate": 0.2,
+              "state": "incomplete"
+            },
+            "validation": {
+              "resolved": 1,
+              "completed": 3,
+              "total": 12,
+              "rate": 0.3333333333333333,
+              "state": "incomplete"
+            },
+            "wall_seconds": null,
+            "elapsed_observed_seconds": 138.3672571182251,
+            "started_at": "2026-11-12T08:44:48.995439+00:00",
+            "finished_at": null,
+            "episode_work_seconds": 739.454377041664,
+            "api_wait_work_seconds": 684.0120325298049,
+            "tool_work_seconds": 27.469629043713212,
+            "judge_command_work_seconds": 17.91921871062368,
+            "judge_total_work_seconds": 20.56129884067923,
+            "environment_prepare_work_seconds": 3.4796497742645442,
+            "input_tokens": 981043,
+            "output_tokens": 30418,
+            "cached_input_tokens": 496742,
+            "model_calls": 150,
+            "tool_calls": 154,
+            "episode_errors": 0,
+            "judge_errors": 0,
+            "error_rate": 0.0,
+            "peak_concurrent_episodes": null
+          },
+          "adopted": {
+            "state": "complete",
+            "completed": 28,
+            "total": 28,
+            "protocol_version": "astra_luna_v1",
+            "harness_id": "5f97e5e94e9a",
+            "development": {
+              "resolved": 7,
+              "completed": 16,
+              "total": 16,
+              "rate": 0.4375,
+              "state": "complete"
+            },
+            "validation": {
+              "resolved": 5,
+              "completed": 12,
+              "total": 12,
+              "rate": 0.4166666666666667,
+              "state": "complete"
+            },
+            "wall_seconds": 574.4795428379439,
+            "elapsed_observed_seconds": null,
+            "started_at": "2026-11-12T07:51:48.868472+00:00",
+            "finished_at": null,
+            "episode_work_seconds": 1914.714718782343,
+            "api_wait_work_seconds": 1304.4691410358064,
+            "tool_work_seconds": 197.62016237480566,
+            "judge_command_work_seconds": 295.15208888053894,
+            "judge_total_work_seconds": null,
+            "environment_prepare_work_seconds": null,
+            "input_tokens": 1816779,
+            "output_tokens": 56683,
+            "cached_input_tokens": 1515290,
+            "model_calls": 304,
+            "tool_calls": 301,
+            "episode_errors": 2,
+            "judge_errors": 0,
+            "error_rate": 0.07142857142857142,
+            "peak_concurrent_episodes": null
+          },
+          "meta": {
+            "state": "complete",
+            "protocol_version": "performance_v2",
+            "wall_seconds": 313.5036681140773,
+            "model_calls": 10,
+            "input_tokens": 312759,
+            "output_tokens": 11418,
+            "cached_input_tokens": 256146,
+            "tool_calls": 17,
+            "tool_work_seconds": 0.005751132965087891,
+            "api_wait_work_seconds": 307.139511346817,
+            "internal_cognitive_seconds": null,
+            "public_change_summary": null
+          },
+          "code": {
+            "parse_status": "ok",
+            "bytes": 12052,
+            "characters": 12052,
+            "effective_lines": 215,
+            "functions": 8,
+            "branch_nodes": 28,
+            "loop_nodes": 11,
+            "modules": [
+              "copy",
+              "json",
+              "time"
+            ],
+            "added_lines": 240,
+            "deleted_lines": 27
+          },
+          "public_change_summary": null
+        }
+      ]
+    },
+    {
+      "repeat": 1,
+      "conditions": "performance_v2_fresh_history",
+      "generations": []
+    }
+  ],
+  "final_evaluation": {
+    "state": "sealed",
+    "id_score": null,
+    "ood_score": null,
+    "lineages_frozen": false,
+    "id_environment_ready_count": 0,
+    "ood_environment_ready_count": 0
+  },
+  "totals": {
+    "submissions": 2,
+    "accepted": 0,
+    "evaluated_episodes": 92,
+    "episode_errors": 5,
+    "episode_error_rate": 0.05434782608695652,
+    "judge_errors": 0,
+    "infrastructure_failures": null,
+    "solver_input_tokens": 8538005,
+    "solver_output_tokens": 333969,
+    "solver_model_calls": 1591,
+    "solver_episode_work_seconds": 8582.503342901357,
+    "meta_input_tokens": 1014529,
+    "meta_output_tokens": 32549,
+    "meta_model_calls": 23,
+    "meta_wall_seconds": 805.7479879702441,
+    "monetary_cost": null
+  },
+  "events": [
+    {
+      "stage": "selection",
+      "time": "2026-11-12T08:39:33.120826+00:00",
+      "summary": "Incumbent retained.",
+      "repeat": 0,
+      "generation": 1
+    }
+  ]
+}
