@@ -12,6 +12,7 @@ const fullScore = score => score?.state === 'complete' && score.completed === sc
 const scoreText = score => finite(fullScore(score)) ? `${percent(score.rate)} <small>(${count(score.resolved)}/${count(score.total)})</small>` : '—';
 const allGenerations = data => data.repeats.flatMap(r => r.generations);
 const finalIsReleased = data => data.final_evaluation?.state === 'released' && data.final_evaluation?.lineages_frozen === true;
+const tipAttributes = (title, value, lines = []) => `class="chart-point" tabindex="0" role="img" aria-label="${esc(title + '：' + value + '；' + lines.join('；'))}" data-chart-tip="${esc(JSON.stringify({ title, value, lines }))}"`;
 function validateSnapshot(data) {
   if (data?.schema_version !== 'harness_research_public_v1' || !Array.isArray(data.repeats) || !data.final_evaluation || !Array.isArray(data.datasets)) throw new Error('快照格式暂不受支持');
   if (!Number.isFinite(Date.parse(data.generated_at))) throw new Error('快照缺少有效时间');
@@ -21,14 +22,14 @@ function validateSnapshot(data) {
   return data;
 }
 
-function lineChart(series, { maxX = 6, maxY = 1, percentAxis = true, empty = '等待完整结果', future = true, yLabel = '通过率', pointLabels = false } = {}) {
+function lineChart(series, { maxX = 6, maxY = 1, percentAxis = true, empty = '等待完整结果', future = true, yLabel = '通过率', pointLabels = false, width = null } = {}) {
   const usable = series.map(s => ({ ...s, points: s.points.filter(p => finite(p.x) && finite(p.y)) }));
   if (!usable.some(s => s.points.length)) return `<div class="chart-empty">${esc(empty)}<small>暂无可绘制的数据</small></div>`;
-  const w = typeof window !== 'undefined' && window.innerWidth < 700 ? 360 : 720, h = 246, left = 42, right = 20, top = 20, bottom = 33;
+  const w = width || (typeof window !== 'undefined' && window.innerWidth < 700 ? 360 : 720), h = 246, left = 42, right = 20, top = 20, bottom = 33;
   const x = v => left + (w - left - right) * v / Math.max(1, maxX);
   const y = v => h - bottom - (h - top - bottom) * v / Math.max(maxY, 1e-9);
   const latest = Math.max(...usable.flatMap(s => s.points.map(p => p.x)));
-  let svg = `<svg viewBox="0 0 ${w} ${h}" role="img" aria-label="${esc(yLabel)}随代数变化"><title>${esc(yLabel)}随代数变化</title>`;
+  let svg = `<svg viewBox="0 0 ${w} ${h}" role="group" aria-label="${esc(yLabel)}随代数变化"><title>${esc(yLabel)}随代数变化</title>`;
   if (future && latest < maxX) svg += `<rect x="${x(latest) + 8}" y="${top}" width="${Math.max(0, x(maxX) - x(latest) - 8)}" height="${h - top - bottom}" fill="#f0f3ed" opacity=".65"/><text class="future" text-anchor="middle" x="${x(latest + (maxX - latest) / 2)}" y="${top + 27}">后续轮次</text>`;
   for (let i = 0; i <= 4; i++) { const val = maxY * i / 4; svg += `<line class="grid" x1="${left}" x2="${w - right}" y1="${y(val)}" y2="${y(val)}"/><text text-anchor="end" x="${left - 10}" y="${y(val) + 4}">${percentAxis ? (val * 100).toFixed(0) + '%' : Math.round(val)}</text>`; }
   svg += `<line class="axis" x1="${left}" x2="${w - right}" y1="${h - bottom}" y2="${h - bottom}"/>`;
@@ -41,8 +42,9 @@ function lineChart(series, { maxX = 6, maxY = 1, percentAxis = true, empty = '�
       svg += `<path d="${d}" fill="none" stroke="${s.color}" stroke-width="2"${s.dashed ? ' stroke-dasharray="4 4"' : ''}/>`;
     }
     for (const p of s.points) {
-      const description = `${p.x === 0 ? 'H0' : 'G' + p.x} ${s.label}：${percentAxis ? percent(p.y) : count(p.y)}`;
-      svg += `<circle cx="${x(p.x)}" cy="${y(p.y)}" r="${s.hollow ? 5.5 : 3.7}" fill="${s.hollow ? '#fafbf8' : s.color}" stroke="${s.color}" stroke-width="1.8"><title>${esc(description)}</title></circle>`;
+      const title = `${p.x === 0 ? 'H0 · 基线' : 'G' + p.x} · ${s.label}`;
+      const value = percentAxis ? percent(p.y) : count(p.y);
+      svg += `<circle ${tipAttributes(title, value, p.details || [])} cx="${x(p.x)}" cy="${y(p.y)}" r="${s.hollow ? 6 : 4}" fill="${s.hollow ? '#fff' : s.color}" stroke="${s.color}" stroke-width="1.8"/>`;
       if (pointLabels) svg += `<text class="chart-value" text-anchor="${p.x === 0 ? 'start' : 'middle'}" x="${x(p.x) + (p.x === 0 ? 10 : 0)}" y="${y(p.y) - 12}">${percentAxis ? percent(p.y) : count(p.y)}</text>`;
     }
   }
@@ -53,27 +55,33 @@ function qualitySeries(generations) {
   const series = [];
   for (const split of ['development', 'validation']) {
     const label = split === 'development' ? '开发' : '验证';
-    series.push({ label: label + '候选', color: COLORS[split], hollow: true, line: false, points: generations.filter(g => g.candidate?.state === 'complete').map(g => ({ x: g.generation, y: fullScore(g.candidate[split]) })) });
-    series.push({ label: label + '保留版本', color: COLORS[split], points: generations.filter(g => g.state === 'complete' || g.state === 'failed').map(g => ({ x: g.generation, y: fullScore(g.adopted?.[split]) })) });
+    const point = (g, arm, candidate) => ({ x:g.generation, y:fullScore(arm?.[split]), details:[
+      `${count(arm?.[split]?.resolved)} / ${count(arm?.[split]?.total)} 题通过`,
+      candidate ? (g.accepted === true ? '本轮候选已采纳' : g.accepted === false ? '本轮候选未采纳' : '候选评测完成，等待决策') : '本轮结束后保留的版本',
+      `版本 ${arm?.harness_id || '待记录'}`,
+      `评测协议 ${arm?.protocol_version || '待记录'}`
+    ] });
+    series.push({ label: label + '候选', color: COLORS[split], hollow: true, line: false, points: generations.filter(g => g.candidate?.state === 'complete').map(g => point(g,g.candidate,true)) });
+    series.push({ label: label + '保留版本', color: COLORS[split], points: generations.filter(g => g.state === 'complete' || g.state === 'failed').map(g => point(g,g.adopted,false)) });
   }
   return series;
 }
 
-function timingChart(generations) {
+function timingChart(generations, width = null) {
   const entries = generations.map(g => ({ g, parts: [
     { label: '提出改动', value: g.meta?.state === 'complete' ? g.meta.wall_seconds : null, color: COLORS.meta },
     { label: g.generation === 0 ? '基线评测' : '候选评测', value: (g.generation === 0 ? g.h0 : g.candidate)?.state === 'complete' ? (g.generation === 0 ? g.h0 : g.candidate).wall_seconds : null, color: COLORS.development },
     { label: 'H0 校准', value: g.generation > 0 && g.h0?.state === 'complete' ? g.h0.wall_seconds : null, color: COLORS.control }
   ] })).filter(e => e.parts.some(p => finite(p.value)));
   if (!entries.length) return '<div class="chart-empty">等待完整计时</div>';
-  const w = typeof window !== 'undefined' && window.innerWidth < 700 ? 360 : 600, h = Math.max(220, 54 * entries.length + 45), left = 35, right = 105, plot = w - left - right;
+  const w = width || (typeof window !== 'undefined' && window.innerWidth < 700 ? 360 : 600), h = Math.max(220, 54 * entries.length + 45), left = 35, right = 105, plot = w - left - right;
   const max = Math.max(1, ...entries.map(e => e.parts.reduce((sum, p) => sum + (finite(p.value) ? p.value : 0), 0)));
-  let svg = `<svg viewBox="0 0 ${w} ${h}" role="img" aria-label="各轮已测量阶段的墙钟耗时"><title>各轮已测量阶段的墙钟耗时，分钟</title>`;
+  let svg = `<svg viewBox="0 0 ${w} ${h}" role="group" aria-label="各轮已测量阶段的墙钟耗时"><title>各轮已测量阶段的墙钟耗时，分钟</title>`;
   for (let i = 0; i <= 4; i++) { const x = left + plot * i / 4; svg += `<line class="grid" x1="${x}" x2="${x}" y1="10" y2="${h - 30}"/><text text-anchor="middle" x="${x}" y="${h - 10}">${(max / 60 * i / 4).toFixed(1)}</text>`; }
   entries.forEach(({ g, parts }, index) => {
     const y = 20 + index * 48; let offset = left;
     svg += `<text x="0" y="${y + 17}">${g.generation === 0 ? 'H0' : 'G' + g.generation}</text>`;
-    for (const p of parts) if (finite(p.value)) { const width = p.value / max * plot; svg += `<rect x="${offset}" y="${y}" width="${width}" height="25" fill="${p.color}" rx="1"><title>${esc(p.label)}：${minutes(p.value)}</title></rect>`; offset += width; }
+    for (const p of parts) if (finite(p.value)) { const width = p.value / max * plot; svg += `<rect ${tipAttributes((g.generation === 0 ? 'H0' : 'G'+g.generation)+' · '+p.label,minutes(p.value),['实际测量的阶段墙钟时间',`${p.value.toFixed(1)} 秒`])} x="${offset}" y="${y}" width="${width}" height="25" fill="${p.color}" rx="1"/>`; offset += width; }
     const missing = g.generation > 0 && (!finite(g.candidate?.wall_seconds) || !finite(g.meta?.wall_seconds) || (g.h0 && !finite(g.h0.wall_seconds)));
     const sum = parts.reduce((a, p) => a + (finite(p.value) ? p.value : 0), 0);
     svg += `<text class="small" x="${offset + 9}" y="${y + 17}">${(sum / 60).toFixed(1)} 分${missing ? ' · 部分阶段' : ''}</text>`;
@@ -83,7 +91,9 @@ function timingChart(generations) {
 
 let snapshot = null, activeRepeat = 0, metric = 'effective_lines', fetchRunning = false;
 const $ = id => document.getElementById(id);
+const chartWidth = id => Math.max(280, Math.round($(id).getBoundingClientRect().width));
 function render() {
+  hideTooltip();
   const data = snapshot;
   const repeat = data.repeats.find(r => r.repeat === activeRepeat) || data.repeats[0];
   activeRepeat = repeat.repeat;
@@ -103,11 +113,11 @@ function render() {
   $('stat-workers-note').textContent = finite(data.current?.peak_concurrent_episodes) ? `当前批次实测峰值 ${count(data.current.peak_concurrent_episodes)}` : '配置上限 · 本批峰值待记录';
   $('repeat-tabs').innerHTML = data.repeats.map(r => `<button type="button" data-repeat="${r.repeat}" aria-pressed="${r.repeat === activeRepeat}">实验 ${r.repeat + 1}</button>`).join('');
   $('repeat-condition').textContent = repeat.conditions === 'mixed_protocol_continuation' ? '实验 1：承接旧协议的基线与首轮提案；G1 候选开始使用 8 并发，G2 起启用精简反馈。' : '实验 2：从 H0 独立开始，全程使用新版协议；与实验 1 顺序执行。';
-  $('quality-chart').innerHTML = lineChart(qualitySeries(generations), { maxX: data.planned_generations_per_repeat || 6 });
+  $('quality-chart').innerHTML = lineChart(qualitySeries(generations), { maxX: data.planned_generations_per_repeat || 6, width:chartWidth('quality-chart') });
   const pending = generations.find(g => g.generation > 0 && g.state === 'incomplete');
   $('quality-note').textContent = pending ? `G${pending.generation} 候选${pending.candidate ? `已完成 ${count(pending.candidate.completed)}/${count(pending.candidate.total)} 题` : '正在提出改动'}，整批完成后加入曲线。实心点与连线表示每轮保留的版本。` : '实心点与连线表示保留版本；空心点表示每轮候选。不同独立实验分别查看。';
   renderFinal(data);
-  $('timing-chart').innerHTML = timingChart(generations);
+  $('timing-chart').innerHTML = timingChart(generations,chartWidth('timing-chart'));
   const measured = [...generations].reverse().find(g => (g.candidate?.state === 'complete' && finite(g.candidate.episode_work_seconds)) || (g.generation === 0 && finite(g.h0?.episode_work_seconds)));
   const work = measured?.candidate?.state === 'complete' ? measured.candidate : measured?.h0;
   $('work-generation').textContent = measured ? measured.generation === 0 ? 'H0 · 累计工作时间' : `G${measured.generation} · 候选累计工作时间` : '等待计时';
@@ -133,9 +143,9 @@ function render() {
 }
 
 function renderComplexity(generations, data) {
-  const points = generations.map(g => ({ x: g.generation, y: g.code?.[metric] }));
+  const points = generations.map(g => ({ x: g.generation, y: g.code?.[metric], details:[g.generation === 0 ? '初始固定 Harness' : '当轮候选 Harness',`版本 ${g.harness_id || '待记录'}`,finite(g.code?.added_lines) ? `相对父版本 +${g.code.added_lines} / −${g.code.deleted_lines} 行` : '无父版本差分'] }));
   const max = Math.max(1, ...points.map(p => finite(p.y) ? p.y : 0));
-  $('complexity-chart').innerHTML = lineChart([{ label: METRICS[metric], color: COLORS.development, points }], { maxX: data.planned_generations_per_repeat || 6, maxY: Math.ceil(max * 1.2 / 4) * 4, percentAxis: false, yLabel: METRICS[metric], pointLabels: true });
+  $('complexity-chart').innerHTML = lineChart([{ label: METRICS[metric], color: COLORS.development, points }], { maxX: data.planned_generations_per_repeat || 6, maxY: Math.ceil(max * 1.2 / 4) * 4, percentAxis: false, yLabel: METRICS[metric], pointLabels: true, width:chartWidth('complexity-chart') });
   const latest = [...generations].reverse().find(g => g.code);
   const code = latest?.code || {};
   $('code-metrics').innerHTML = [['有效代码行','effective_lines'],['字符数','characters'],['函数','functions'],['分支节点','branch_nodes'],['循环节点','loop_nodes'],['UTF-8 字节','bytes']].map(([label,key]) => `<div><span>${label}</span><strong>${count(code[key])}</strong></div>`).join('');
@@ -162,7 +172,7 @@ function renderFinal(data) {
   $('final-badge').textContent = released ? '已解锁' : '待解锁';
   if (released && Array.isArray(data.final_evaluation.curves)) {
     const curves = data.final_evaluation.curves.filter(c => c.repeat === activeRepeat);
-    $('final-chart').innerHTML = lineChart(['id','ood'].map((key,i) => ({ label: key.toUpperCase(), color: i ? COLORS.validation : COLORS.development, points: curves.map(c => ({ x: c.generation, y: c[key + '_score'] })) })), { maxX: data.planned_generations_per_repeat || 6, future: false });
+    $('final-chart').innerHTML = lineChart(['id','ood'].map((key,i) => ({ label: key.toUpperCase(), color: i ? COLORS.validation : COLORS.development, points: curves.map(c => ({ x: c.generation, y: c[key + '_score'],details:['冻结版本的最终评测'] })) })), { maxX: data.planned_generations_per_repeat || 6, future: false,width:chartWidth('final-chart') });
     $('final-note').textContent = '版本序列已冻结。绿色为最终 ID，橙色为 OOD，按冻结版本统一评测。';
   } else {
     $('final-chart').innerHTML = [['最终 ID','SWE-bench Pro v2'],['最终 OOD','Terminal-Bench v4.1.0']].map(([name,bench]) => `<div class="final-item"><h4>${name}</h4><strong>— —</strong><p>${bench}</p></div>`).join('');
@@ -201,11 +211,57 @@ async function refresh() {
   } finally { fetchRunning = false; $('refresh').disabled = false; }
 }
 
+let tooltipTarget = null;
+function hideTooltip() {
+  if (typeof document === 'undefined') return;
+  if (tooltipTarget) tooltipTarget.removeAttribute('aria-describedby');
+  tooltipTarget = null;
+  const tip = $('chart-tooltip'); if (tip) tip.hidden = true;
+}
+function showTooltip(target, clientX, clientY) {
+  const data = JSON.parse(target.dataset.chartTip);
+  const tip = $('chart-tooltip');
+  if (tooltipTarget && tooltipTarget !== target) tooltipTarget.removeAttribute('aria-describedby');
+  tooltipTarget = target;
+  target.setAttribute('aria-describedby','chart-tooltip');
+  tip.innerHTML = `<strong>${esc(data.title)}</strong><div class="tip-value">${esc(data.value)}</div>${data.lines.map(line=>`<p>${esc(line)}</p>`).join('')}`;
+  tip.hidden = false;
+  const box = target.getBoundingClientRect();
+  const x = finite(clientX) ? clientX : box.left + box.width / 2;
+  const y = finite(clientY) ? clientY : box.top;
+  const bounds = tip.getBoundingClientRect();
+  tip.style.left = Math.max(12,Math.min(x + 14,window.innerWidth - bounds.width - 12)) + 'px';
+  tip.style.top = Math.max(12,y + bounds.height + 24 > window.innerHeight ? y - bounds.height - 14 : y + 14) + 'px';
+}
+
+function selectSection(id) {
+  document.querySelectorAll('.section-nav a').forEach(link=>{
+    if (link.dataset.section === id) link.setAttribute('aria-current','location');
+    else link.removeAttribute('aria-current');
+  });
+  document.querySelectorAll('.margin-note').forEach(note=>note.classList.toggle('is-active',note.dataset.note === id));
+}
+
 if (typeof document !== 'undefined') {
   $('refresh').addEventListener('click', refresh);
   $('repeat-tabs').addEventListener('click', e => { const button = e.target.closest('button[data-repeat]'); if (button) { activeRepeat = Number(button.dataset.repeat); render(); } });
   $('complexity-metric').addEventListener('change', e => { metric = e.target.value; if (snapshot) renderComplexity(snapshot.repeats.find(r => r.repeat === activeRepeat).generations, snapshot); });
   document.addEventListener('visibilitychange', () => { if (!document.hidden) refresh(); });
+  document.addEventListener('pointerover',event=>{const point=event.target.closest?.('[data-chart-tip]');if(point)showTooltip(point,event.clientX,event.clientY);});
+  document.addEventListener('pointermove',event=>{if(tooltipTarget && event.target.closest?.('[data-chart-tip]') === tooltipTarget)showTooltip(tooltipTarget,event.clientX,event.clientY);});
+  document.addEventListener('pointerout',event=>{if(event.target.closest?.('[data-chart-tip]') && !event.relatedTarget?.closest?.('[data-chart-tip]'))hideTooltip();});
+  document.addEventListener('focusin',event=>{const point=event.target.closest?.('[data-chart-tip]');if(point)showTooltip(point);});
+  document.addEventListener('focusout',event=>{if(event.target.closest?.('[data-chart-tip]'))hideTooltip();});
+  document.addEventListener('click',event=>{const point=event.target.closest?.('[data-chart-tip]');if(point)showTooltip(point);else hideTooltip();});
+  document.addEventListener('keydown',event=>{if(event.key==='Escape')hideTooltip();});
+  window.addEventListener('scroll',hideTooltip,{passive:true});
+  document.querySelector('.section-nav').addEventListener('click',event=>{const link=event.target.closest('a[data-section]');if(link)selectSection(link.dataset.section);});
+  const sections = [...document.querySelectorAll('main > .section')];
+  const observer = new IntersectionObserver(entries=>{
+    const visible=entries.filter(entry=>entry.isIntersecting).sort((a,b)=>a.boundingClientRect.top-b.boundingClientRect.top);
+    if(visible[0])selectSection(visible[0].target.id);
+  },{rootMargin:'-8% 0px -65% 0px',threshold:0});
+  sections.forEach(section=>observer.observe(section));
   let resizeTimer;
   window.addEventListener('resize', () => { clearTimeout(resizeTimer); resizeTimer = setTimeout(() => { if (snapshot) render(); }, 150); });
   setInterval(() => { if (!document.hidden) refresh(); }, 60000);
