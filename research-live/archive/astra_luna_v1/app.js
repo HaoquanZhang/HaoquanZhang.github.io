@@ -1,6 +1,6 @@
 'use strict';
 
-const COLORS = { development: '#227763', validation: '#b96234', meta: '#8d79a8', control: '#a8b3ae' };
+const COLORS = { development: '#5c7896', validation: '#b96234', meta: '#8d79a8', control: '#aab5c1' };
 const METRICS = { effective_lines: '有效代码行', characters: '字符数', functions: '函数数', branch_nodes: '分支节点', loop_nodes: '循环节点' };
 const finite = value => typeof value === 'number' && Number.isFinite(value);
 const esc = value => String(value ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
@@ -30,7 +30,7 @@ function lineChart(series, { maxX = 6, maxY = 1, percentAxis = true, empty = '�
   const y = v => h - bottom - (h - top - bottom) * v / Math.max(maxY, 1e-9);
   const latest = Math.max(...usable.flatMap(s => s.points.map(p => p.x)));
   let svg = `<svg viewBox="0 0 ${w} ${h}" role="group" aria-label="${esc(yLabel)}随代数变化"><title>${esc(yLabel)}随代数变化</title>`;
-  if (future && latest < maxX) svg += `<rect x="${x(latest) + 8}" y="${top}" width="${Math.max(0, x(maxX) - x(latest) - 8)}" height="${h - top - bottom}" fill="#f0f3ed" opacity=".65"/><text class="future" text-anchor="middle" x="${x(latest + (maxX - latest) / 2)}" y="${top + 27}">后续轮次</text>`;
+  if (future && latest < maxX) svg += `<rect x="${x(latest) + 8}" y="${top}" width="${Math.max(0, x(maxX) - x(latest) - 8)}" height="${h - top - bottom}" fill="#f1f4f8" opacity=".65"/><text class="future" text-anchor="middle" x="${x(latest + (maxX - latest) / 2)}" y="${top + 27}">后续轮次</text>`;
   for (let i = 0; i <= 4; i++) { const val = maxY * i / 4; svg += `<line class="grid" x1="${left}" x2="${w - right}" y1="${y(val)}" y2="${y(val)}"/><text text-anchor="end" x="${left - 10}" y="${y(val) + 4}">${percentAxis ? (val * 100).toFixed(0) + '%' : Math.round(val)}</text>`; }
   svg += `<line class="axis" x1="${left}" x2="${w - right}" y1="${h - bottom}" y2="${h - bottom}"/>`;
   for (let i = 0; i <= maxX; i++) svg += `<text text-anchor="middle" x="${x(i)}" y="${h - 12}">${i === 0 ? 'H0' : 'G' + i}</text>`;
