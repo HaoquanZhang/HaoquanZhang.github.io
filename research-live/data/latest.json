@@ -38,10 +38,10 @@
       "version": "4.1.0"
     }
   },
-  "generated_at": "2026-11-13T16:55:34.503134+00:00",
+  "generated_at": "2026-11-13T17:25:47.870810+00:00",
   "goal": {
     "existing_goal_preserved": true,
-    "source_updated_at": 1794588933,
+    "source_updated_at": 1794590736,
     "status": "active"
   },
   "limitations": [
