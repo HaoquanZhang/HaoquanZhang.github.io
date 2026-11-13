@@ -224,7 +224,7 @@ function initPlaceholderTitleEffects(container) {
 
 function updateResearchFilterIndicator() {
   const filter = document.querySelector('.research-filter');
-  if (!filter || window.innerWidth <= 600) {
+  if (!filter) {
     return;
   }
 
@@ -236,8 +236,10 @@ function updateResearchFilterIndicator() {
 
   const filterRect = filter.getBoundingClientRect();
   const buttonRect = activeButton.getBoundingClientRect();
-  indicator.style.left = buttonRect.left - filterRect.left + 'px';
+  indicator.style.transform = 'translate(' + (buttonRect.left - filterRect.left)
+    + 'px, ' + (buttonRect.top - filterRect.top) + 'px)';
   indicator.style.width = buttonRect.width + 'px';
+  indicator.style.height = buttonRect.height + 'px';
 }
 
 function updateResearchContent(normalized, filteredPublications) {
@@ -278,6 +280,9 @@ function setResearchFilter(filter, skipTransition = false) {
 
   const container = document.getElementById('publications-container');
   const intro = document.querySelector('.research-line-intro');
+  if (!skipTransition && getActiveResearchFilter() === normalized && container && container.children.length > 0) {
+    return;
+  }
   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const shouldFadeOut = !skipTransition
     && !prefersReducedMotion
@@ -383,10 +388,6 @@ function createPublicationMedia(pub, className) {
   const alt = pub.imageAlt || pub.title;
   if (pub.hoverEffect === 'color-story') {
     return `<button type="button" class="${className} pyvision-preview" aria-label="Play circle comparison" aria-expanded="false" aria-controls="${pub.id}-demo">
-      <svg class="pyvision-scene" viewBox="0 0 640 640" role="img" aria-label="${alt}" focusable="false">
-        <use class="pyvision-context" href="${pub.image}#pyvision-context"/>
-        <use class="pyvision-targets" href="${pub.image}#pyvision-targets"/>
-      </svg>
       ${createPyvisionStory(pub)}
     </button>`;
   }
@@ -529,7 +530,7 @@ function createPyvisionStory(pub) {
   return `<span class="pyvision-story" id="${pub.id}-demo" aria-hidden="true" data-left-pixels="${left}" data-right-pixels="${right}">
     <span class="pyvision-question">Which orange circle is larger?</span>
     <code class="pyvision-code"><span>rgb = <span class="pyvision-color">[${rgb}]</span></span><span>mask = (img == rgb).all(-1)</span><span class="pyvision-color"><i class="pyvision-swatch" aria-hidden="true"></i>#EA5517</span></code>
-    <svg class="pyvision-measure" viewBox="0 0 640 340" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+    <svg class="pyvision-scene" viewBox="0 0 640 340" preserveAspectRatio="none" aria-hidden="true" focusable="false">
       <use class="pyvision-context" href="${pub.image}#pyvision-context" transform="translate(0 -156)"/>
       <g class="pyvision-tracks">
         <rect x="72" y="32" width="536" height="115" rx="12"/>
@@ -552,7 +553,7 @@ function sizePyvisionPreview(card) {
   const bounds = button.getBoundingClientRect();
   const width = Math.max(bounds.width, Math.min(320, window.innerWidth - bounds.left - 16));
   button.style.setProperty('--pyvision-width', `${width}px`);
-  card.classList.toggle('pyvision-wide', width >= 300);
+  card.classList.toggle('pyvision-wide', width >= 240);
 }
 
 function initPyvisionPreviews(container) {
@@ -573,6 +574,7 @@ function initPyvisionPreviews(container) {
     let active = false;
     let pinned = false;
     let hovered = false;
+    let currentTime = 0;
 
     function progress(time, start, duration) {
       const t = Math.max(0, Math.min(1, (time - start) / duration));
@@ -580,12 +582,13 @@ function initPyvisionPreviews(container) {
     }
 
     function draw(time) {
-      card.dataset.pyvisionStage = time < 1200 ? '1' : time < 3600 ? '2' : time < 5600 ? '3' : '4';
-      const isolated = progress(time, 2200, 900);
+      currentTime = time;
+      card.dataset.pyvisionStage = time < 1600 ? '1' : time < 4000 ? '2' : time < 6000 ? '3' : '4';
+      const isolated = progress(time, 2400, 1100);
       contexts.forEach(context => { context.style.opacity = 1 - isolated; });
-      const morph = progress(time, 3600, 1500);
-      tracks.style.opacity = progress(time, 3600, 700);
-      labels.style.opacity = progress(time, 4100, 600);
+      const morph = progress(time, 4000, 1500);
+      tracks.style.opacity = progress(time, 4000, 700);
+      labels.style.opacity = active ? progress(time, 4600, 600) : 0;
       regions.forEach((region, index) => {
         attributes.forEach((attribute, i) => {
           region.setAttribute(attribute, initial[index][i] + (final[index][i] - initial[index][i]) * morph);
@@ -596,22 +599,24 @@ function initPyvisionPreviews(container) {
 
     function start() {
       if (active) return;
+      cancelAnimationFrame(frame);
       active = true;
       sizePyvisionPreview(card);
       card.classList.add('is-pyvision-active');
       button.setAttribute('aria-expanded', 'true');
       story.setAttribute('aria-hidden', 'false');
-      const started = performance.now();
+      const started = performance.now() - currentTime;
       function tick(now) {
         if (!active || !card.isConnected) return;
-        const time = reducedMotion.matches ? 6200 : now - started;
+        const time = reducedMotion.matches ? 6800 : now - started;
         draw(time);
-        frame = time < 6200 ? requestAnimationFrame(tick) : null;
+        frame = time < 6800 ? requestAnimationFrame(tick) : null;
       }
-      tick(started);
+      tick(performance.now());
     }
 
     function stop() {
+      if (!active) return;
       active = false;
       pinned = false;
       cancelAnimationFrame(frame);
@@ -620,7 +625,20 @@ function initPyvisionPreviews(container) {
       button.setAttribute('aria-expanded', 'false');
       button.setAttribute('aria-label', 'Play circle comparison');
       story.setAttribute('aria-hidden', 'true');
-      draw(0);
+      if (reducedMotion.matches) {
+        draw(0);
+        return;
+      }
+      // Return the same shapes to their starting positions instead of swapping images.
+      const fromTime = currentTime;
+      const closingStarted = performance.now();
+      function close(now) {
+        if (active || !card.isConnected) return;
+        const amount = progress(now - closingStarted, 0, 650);
+        draw(fromTime * (1 - amount));
+        frame = amount < 1 ? requestAnimationFrame(close) : null;
+      }
+      frame = requestAnimationFrame(close);
     }
 
     card.addEventListener('pointerenter', event => {

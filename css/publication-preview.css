@@ -55,7 +55,7 @@
 /* The whole comparison stays inside a fixed-height thumbnail, opening to the right. */
 .paper-container.paper--pyvision {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) 105px;
+  grid-template-columns: minmax(0, 1fr) var(--publication-image-size, 105px);
   column-gap: 18px;
 }
 
@@ -77,7 +77,7 @@
 
 .paper-image.pyvision-preview,
 .paper-card__media.pyvision-preview {
-  --pyvision-size: 105px;
+  --pyvision-size: var(--publication-image-size, 105px);
   appearance: none;
   position: relative;
   display: block;
@@ -101,21 +101,8 @@
   outline-offset: 3px;
 }
 
-.pyvision-scene {
-  display: block;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-  transition: opacity 0.3s ease, transform 0.65s ease;
-}
-
-.is-pyvision-active .pyvision-scene {
-  opacity: 0;
-  transform: translateY(-6px);
-}
-
 .pyvision-context { fill: #28a7e0; }
-.pyvision-targets, .pyvision-region { fill: #ea5517; }
+.pyvision-region { fill: #ea5517; }
 
 .pyvision-story {
   position: absolute;
@@ -124,24 +111,39 @@
   display: block;
   width: var(--pyvision-size);
   height: 100%;
-  box-sizing: border-box;
-  border: 1px solid transparent;
   border-radius: 8px;
-  overflow: hidden;
-  background: #fcfaf7;
+  background: transparent;
+  box-shadow: inset 0 0 0 1px transparent;
   color: #333;
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  opacity: 0;
-  visibility: hidden;
-  transition: width 0.65s cubic-bezier(0.2, 0.7, 0.2, 1), opacity 0.3s ease, visibility 0s 0.65s;
+  transition: width 0.65s cubic-bezier(0.2, 0.7, 0.2, 1),
+    background-color 0.45s ease, box-shadow 0.45s ease;
 }
 
 .is-pyvision-active .pyvision-story {
   width: var(--pyvision-width, var(--pyvision-size));
-  border-color: #eee8df;
-  opacity: 1;
-  visibility: visible;
-  transition-delay: 0s;
+  background: #fcfaf7;
+  box-shadow: inset 0 0 0 1px #eee8df;
+}
+
+/* The cropped viewBox removes only blank padding: the resting circles retain
+   their original size and position. This same SVG moves and becomes the bars. */
+.pyvision-scene {
+  position: absolute;
+  display: block;
+  left: 0;
+  top: calc(var(--pyvision-size) * 0.24375);
+  width: var(--pyvision-size);
+  height: calc(var(--pyvision-size) * 0.53125);
+  pointer-events: none;
+  transition: left 0.8s cubic-bezier(0.2, 0.7, 0.2, 1),
+    top 0.8s cubic-bezier(0.2, 0.7, 0.2, 1),
+    width 0.8s ease, height 0.8s ease;
+}
+
+.is-pyvision-active .pyvision-scene {
+  left: calc((100% - var(--pyvision-size)) / 2);
+  top: 36%;
 }
 
 .pyvision-question,
@@ -157,33 +159,45 @@
   text-align: center;
   white-space: normal;
   opacity: 0;
-  transition: opacity 0.35s ease;
+  transform: translateY(3px);
+  transition: opacity 0.35s ease, transform 0.45s ease;
 }
 
 .pyvision-wide .pyvision-question { font-size: 12px; }
 
 .is-pyvision-active[data-pyvision-stage="1"] .pyvision-question {
   opacity: 1;
-  transition-delay: 0.3s;
+  transform: none;
+  transition-delay: 0.35s;
 }
 
 .pyvision-code {
   position: absolute;
-  inset: 0 12px;
+  inset: 4px 8px auto;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  gap: 4px;
+  align-items: center;
+  gap: 1px;
   color: #77716b;
-  font: 9px/1.5 Menlo, Consolas, monospace;
+  font: 8px/1.4 Menlo, Consolas, monospace;
   white-space: normal;
-  overflow-wrap: anywhere;
   opacity: 0;
-  transform: translateY(4px);
+  transform: translateY(3px);
   transition: opacity 0.4s ease, transform 0.4s ease;
 }
 
-.pyvision-wide .pyvision-code { left: 108px; font-size: 10px; }
+.pyvision-code > span:last-child { display: none; }
+
+.pyvision-wide .pyvision-code {
+  inset: 0 auto 0 10px;
+  width: calc(100% - var(--pyvision-size) - 24px);
+  align-items: flex-start;
+  justify-content: center;
+  gap: 4px;
+  font-size: 9px;
+}
+
+.pyvision-wide .pyvision-code > span:last-child { display: block; }
 .pyvision-color { color: #b84413; }
 
 .pyvision-swatch {
@@ -195,41 +209,22 @@
   background: #ea5517;
 }
 
-.paper--pyvision[data-pyvision-stage="2"] .pyvision-code {
+.is-pyvision-active[data-pyvision-stage="2"] .pyvision-code {
   opacity: 1;
   transform: none;
+  transition-delay: 0.2s;
 }
 
-.pyvision-measure {
-  position: absolute;
-  display: block;
-  left: 50%;
-  top: 36%;
-  width: calc(var(--pyvision-size) * 1.1);
-  height: calc(var(--pyvision-size) * 0.584);
-  transform: translateX(-50%);
-  pointer-events: none;
-  transition: width 0.9s ease, height 0.9s ease, left 0.9s ease, top 0.9s ease, transform 0.9s ease, opacity 0.4s ease;
+.pyvision-wide.is-pyvision-active[data-pyvision-stage="2"] .pyvision-scene {
+  left: calc(75% - var(--pyvision-size) / 2);
+  top: calc(50% - var(--pyvision-size) * 0.265625);
 }
 
-.paper--pyvision[data-pyvision-stage="2"] .pyvision-measure { opacity: 0; }
-
-.pyvision-wide[data-pyvision-stage="2"] .pyvision-measure {
-  opacity: 1;
-  left: 6px;
-  top: 24%;
-  width: 96px;
-  height: 51px;
-  transform: none;
-}
-
-.paper--pyvision:is([data-pyvision-stage="3"], [data-pyvision-stage="4"]) .pyvision-measure {
-  opacity: 1;
+.is-pyvision-active:is([data-pyvision-stage="3"], [data-pyvision-stage="4"]) .pyvision-scene {
   left: 0;
   top: 28%;
   width: 100%;
   height: 68%;
-  transform: none;
 }
 
 .pyvision-tracks { fill: #f8e4d9; }
@@ -241,11 +236,11 @@
 .pyvision-pixels { display: block; margin-left: 11.25%; width: 83.75%; color: #83300d; font-size: 10px; line-height: 1.2; font-weight: 600; text-align: center; }
 .pyvision-pixels--right { color: #fff; }
 
-.paper--pyvision[data-pyvision-stage="3"] .pyvision-count-heading { opacity: 1; }
+.is-pyvision-active[data-pyvision-stage="3"] .pyvision-count-heading { opacity: 1; transform: none; }
 .pyvision-count-heading { color: #9a7967; font-weight: 400; }
 .pyvision-answer { color: #a34219; }
 .pyvision-answer span { color: #9a7967; font-weight: 400; }
-.paper--pyvision[data-pyvision-stage="4"] .pyvision-answer { opacity: 1; }
+.is-pyvision-active[data-pyvision-stage="4"] .pyvision-answer { opacity: 1; transform: none; }
 
 /* Parallel projection: equal-sized planes, centered on the original thumbnail. */
 .paper-image.sgp-preview,
@@ -355,7 +350,6 @@
   .pyvision-story,
   .pyvision-question,
   .pyvision-code,
-  .pyvision-measure,
   .pyvision-count-heading,
   .paper--pyvision .paper-card__body,
   .pyvision-scene,

@@ -2,6 +2,7 @@
 
 :root {
   --publication-hover-duration: 0.2s;
+  --publication-image-size: 97px;
 }
 
 a {
@@ -69,7 +70,6 @@ body {
   margin: 0 auto;
   padding: 0 12px;
   border: 1px solid transparent;
-  border-bottom-color: #e3e3e3;
   background: rgb(255 255 255 / 96%);
   transition:
     max-width 0.2s ease,
@@ -138,8 +138,8 @@ body {
 h2 {
   margin: 0;
   color: #000000;
-  font-family: Cambria, 'DM Serif Display', Georgia, 'Times New Roman', serif;
-  font-weight: 400;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-weight: 500;
   font-size: 28px;
 }
 
@@ -149,8 +149,8 @@ h2 strong {
 }
 
 .papertitle {
-  font-size: 22px;
-  font-weight: 700;
+  font-size: 20px;
+  font-weight: 600;
 }
 
 /* Main content wrapper - replaces old table layout */
@@ -170,7 +170,6 @@ h2 strong {
 .main-content section > h2 {
   padding: 20px 0 8px;
   margin: 0 20px 6px;
-  border-bottom: 1px solid #dcdcdc;
 }
 
 .research-heading {
@@ -180,59 +179,12 @@ h2 strong {
   gap: 12px;
   padding: 20px 0 8px;
   margin: 0 20px 6px;
-  border-bottom: 1px solid #dcdcdc;
 }
 
 .research-heading h2 {
   margin: 0;
   padding: 0;
   border: none;
-}
-
-.research-filter {
-  position: relative;
-  display: inline-flex;
-  flex-shrink: 0;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: flex-end;
-  gap: 4px;
-  margin: 0;
-  border: none;
-}
-
-.research-filter__indicator {
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 100%;
-  background: #eeeeee;
-  transition: left 0.25s ease, width 0.25s ease;
-  pointer-events: none;
-  z-index: 0;
-}
-
-.research-filter__btn {
-  position: relative;
-  z-index: 1;
-  border: none;
-  background: none;
-  color: #999;
-  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  font-size: 12px;
-  font-weight: 500;
-  line-height: 1.4;
-  padding: 6px 9px;
-  cursor: pointer;
-  transition: color 0.15s ease;
-}
-
-.research-filter__btn.is-active {
-  color: #111;
-}
-
-.research-filter__btn:hover {
-  color: #444;
 }
 
 .research-line-intro {
@@ -316,32 +268,6 @@ h2 strong {
 /* Bio section: remove extra top padding, main-content already handles nav clearance */
 #Top {
   padding-top: 16px;
-}
-
-/* Footer */
-footer {
-  padding: 0 0 20px;
-}
-
-footer hr {
-  margin: 0 20px;
-  border: none;
-  height: 1px;
-  background-color: rgb(231, 231, 231);
-}
-
-.footer-text {
-  margin: 20px 0 0;
-  padding: 0;
-  text-align: center;
-  font-size: small;
-  line-height: 1.5;
-}
-
-.copyright {
-  margin: 0;
-  font-size: medium;
-  color: rgb(143, 143, 143);
 }
 
 /* Shared styles for all venue badge types */
@@ -458,8 +384,8 @@ hr {
 }
 
 .paper-image {
-  flex: 0 0 105px;
-  max-width: 105px;
+  flex: 0 0 var(--publication-image-size);
+  max-width: var(--publication-image-size);
   margin-left: 18px;
 }
 
@@ -734,21 +660,49 @@ hr {
 .bio-links {
   display: flex;
   flex-direction: column;
-  align-items: flex-end;
-  gap: 3px;
+  align-items: stretch;
+  gap: 0;
   margin-top: 0;
 }
 
 .bio-links a {
+  display: block;
+  /* Keep spacing inside each link so the hover regions meet without gaps. */
+  padding: 2px 0;
   color: #777;
   font-size: 12px;
   font-weight: 500;
+  text-align: right;
   text-decoration: none;
-  transition: color 0.2s ease;
+  transition: color 0.18s ease, opacity 0.18s ease;
 }
 
-.bio-links a:hover {
+.bio-links a:hover,
+.bio-links a:focus-visible {
   color: #222;
+  text-decoration: none;
+}
+
+.bio-links:has(a:focus-visible) a:not(:focus-visible):not(:hover) {
+  opacity: 0.38;
+}
+
+.bio-links a:focus-visible {
+  outline: 1px solid currentColor;
+  outline-offset: 3px;
+  border-radius: 3px;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .bio-links:has(a:hover) a:not(:hover):not(:focus-visible) {
+    opacity: 0.38;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bio-links a {
+    transition: none;
+  }
 }
 
 .bio-text {

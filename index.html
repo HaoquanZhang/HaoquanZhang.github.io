@@ -31,11 +31,13 @@
     <meta name="twitter:description" content="Research in vision as text, multimodal learning, and agentic and active vision.">
     <meta name="twitter:image" content="https://haoquanzhang.github.io/images/face.jpg">
     <link rel="shortcut icon" href="images/favicon/iris.webp" type="image/x-icon">
-    <link rel="stylesheet" href="css/desktop.css?v=20261107-bio-note" media="screen and (min-width: 601px)">
-    <link rel="stylesheet" href="css/mobile.css?v=20261107-bio-note" media="screen and (max-width: 600px)">
-    <link rel="stylesheet" href="css/desktop.css?v=20261107-bio-note" media="print">
-    <link rel="stylesheet" href="css/publication-preview.css?v=20261108-compact-story">
+    <link rel="stylesheet" href="css/desktop.css?v=20261111-paper-weight" media="screen and (min-width: 601px)">
+    <link rel="stylesheet" href="css/mobile.css?v=20261111-clean-headings" media="screen and (max-width: 600px)">
+    <link rel="stylesheet" href="css/desktop.css?v=20261111-paper-weight" media="print">
+    <link rel="stylesheet" href="css/research-filter.css?v=20261111-text-tabs">
+    <link rel="stylesheet" href="css/publication-preview.css?v=20261111-continuous-svg">
     <link rel="stylesheet" href="css/news.css?v=20261108-news-gentle-close">
+    <link rel="stylesheet" href="css/footer.css?v=20261111-simple-text">
     <!-- Google Fonts: Source Serif 4 -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -70,7 +72,7 @@
               <span class="bio-affiliation bio-affiliation--org">ByteDance Seed</span>
               <span class="bio-affiliation bio-affiliation--school">CUHK</span>
             </h1>
-            <div class="bio-links">
+            <div class="bio-links" role="group" aria-label="Social profiles">
               <a href="https://scholar.google.com/citations?user=VUboP9QAAAAJ&hl=en-US">Google Scholar</a>
               <a href="https://www.xiaohongshu.com/user/profile/6325ef2a0000000023027921">RedNote</a>
               <a class="bio-link--desktop-only" href="https://github.com/HaoquanZhang">GitHub</a>
@@ -141,9 +143,9 @@
           <h2><strong>Research</strong></h2>
           <div class="research-filter" role="group" aria-label="Filter research by topic">
             <span class="research-filter__indicator" aria-hidden="true"></span>
-            <button type="button" class="research-filter__btn is-active" data-filter="selected" aria-pressed="true">Favorite</button>
-            <button type="button" class="research-filter__btn" data-filter="agentic-vision" aria-pressed="false">Agentic Vision</button>
-            <button type="button" class="research-filter__btn" data-filter="visual-generation" aria-pressed="false">Visual Generation</button>
+            <button type="button" class="research-filter__btn is-active" data-filter="selected" aria-pressed="true" aria-controls="publications-container"><span class="research-filter__label">Favorite</span></button>
+            <button type="button" class="research-filter__btn" data-filter="agentic-vision" aria-pressed="false" aria-controls="publications-container"><span class="research-filter__label">Agentic Vision</span></button>
+            <button type="button" class="research-filter__btn" data-filter="visual-generation" aria-pressed="false" aria-controls="publications-container"><span class="research-filter__label">Visual Generation</span></button>
           </div>
         </div>
         <div class="research-line-intro" aria-live="polite" aria-hidden="true">
@@ -204,15 +206,12 @@
         </div>
       </section> -->
 
-      <footer>
-        <hr>
-        <p class="footer-text fade-in delay-5">
-          <span class="copyright"><i class="far fa-copyright"></i> 2026 Haoquan Zhang&nbsp;&nbsp;</span>
-        </p>
-      </footer>
-
     </main>
 
-    <script src="js/main.js?v=20261108-news-original-reverse"></script>
+    <footer class="site-footer" aria-label="Site footer">
+      <p>© 2026 Haoquan Zhang. All rights reserved.</p>
+    </footer>
+
+    <script src="js/main.js?v=20261111-continuous-svg"></script>
   </body>
 </html>

@@ -1,0 +1,103 @@
+/* Text filters share continuous hit areas and a sliding selection background. */
+.research-filter {
+  position: relative;
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: stretch;
+  gap: 0;
+  margin: 0 -7px 0 0;
+}
+
+.research-filter__btn {
+  position: relative;
+  z-index: 1;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  color: #777;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1.5;
+  padding: 5px 7px;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: color 0.18s ease, opacity 0.18s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.research-filter__btn.is-active,
+.research-filter__btn:hover,
+.research-filter__btn:focus-visible {
+  color: #222;
+}
+
+.research-filter__indicator {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  border-radius: 2px;
+  background: #eee;
+  pointer-events: none;
+  z-index: 0;
+  transition: transform 0.24s cubic-bezier(0.22, 1, 0.36, 1),
+    width 0.24s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.research-filter:has(:focus-visible) .research-filter__btn:not(:focus-visible):not(:hover) {
+  opacity: 0.4;
+}
+
+.research-filter__btn:focus-visible {
+  outline: 1px solid #999;
+  outline-offset: -3px;
+  border-radius: 3px;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .research-filter:has(.research-filter__btn:hover) .research-filter__btn:not(:hover):not(:focus-visible) {
+    opacity: 0.4;
+  }
+}
+
+@media (max-width: 600px) {
+  .research-heading {
+    gap: 6px;
+  }
+
+  .research-filter {
+    margin: 0 -5px 0 0;
+  }
+
+  .research-filter__btn {
+    font-size: 10px;
+    padding: 4px 5px;
+  }
+}
+
+@media (max-width: 359px) {
+  .research-heading {
+    gap: 4px;
+  }
+
+  .research-heading h2 {
+    font-size: 22px;
+  }
+
+  .research-filter {
+    margin-right: -3px;
+  }
+
+  .research-filter__btn {
+    font-size: 9px;
+    padding-inline: 3px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .research-filter__btn,
+  .research-filter__indicator {
+    transition: none;
+  }
+}
