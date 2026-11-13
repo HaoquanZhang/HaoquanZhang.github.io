@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Astra 改进 Luna Harness 的研究进展：逐轮效果、耗时、代码复杂度与改动依据。">
+  <meta name="color-scheme" content="light">
+  <title>RST · Harness 自我改进实验</title>
+  <link rel="stylesheet" href="style.css?v=20261112-blue-1">
+  <script src="app.js?v=20261112-blue-1" defer></script>
+</head>
+<body>
+<header class="masthead wrap">
+  <a href="https://haoquanzhang.github.io/" class="home">Haoquan Zhang <span>/ 研究</span></a>
+  <div class="live-label"><span class="dot" id="status-dot"></span><span id="connection-label">正在读取快照</span></div>
+</header>
+<div class="reading-layout wrap">
+  <nav class="section-nav" aria-label="页面导航">
+    <p class="nav-title">当前实验 · RST</p>
+    <a href="#preparation" data-section="preparation" aria-current="location"><span>00</span>数据准备</a>
+    <a href="#quality" data-section="quality"><span>01</span>效果</a>
+    <a href="#efficiency" data-section="efficiency"><span>02</span>效率</a>
+    <a href="#structure" data-section="structure"><span>03</span>结构</a>
+    <a href="#journal" data-section="journal"><span>04</span>迭代记录</a>
+    <a href="#protocol" data-section="protocol"><span>05</span>实验设置</a>
+    <a class="archive-link" href="archive/astra_luna_v1/">旧实验 ↗</a>
+    <small class="nav-footer">SWE-smith 设置与记录<br>独立归档，不并入本轮</small>
+  </nav>
+<main class="content">
+  <section class="intro" aria-labelledby="page-title">
+    <div><p class="eyebrow">实验记录 / 002 · RST</p><h1 id="page-title">在终端任务中改进 Harness</h1>
+    <p class="lede">用 RST 的 8 类任务开发执行方法。Astra 修改 Harness，Luna 完成任务；通过重复验证，观察改进能否稳定复现，并迁移到新任务。</p></div>
+    <div class="experiment-label"><span>Astra → Harness → Luna</span><small>固定模型权重 · 迭代执行方法</small></div>
+  </section>
+  <div class="status-line" role="status" aria-live="polite"><p id="run-status">正在获取研究状态…</p><button id="refresh" type="button">刷新数据 <span aria-hidden="true">↻</span></button></div>
+  <div id="load-error" class="notice" hidden></div>
+  <section class="stats" aria-label="实验概况">
+    <div><span>已完成迭代</span><strong id="stat-iterations">—</strong><small id="stat-plan">等待快照</small></div>
+    <div><span>保留版本 · 验证 Mean@3</span><strong id="stat-validation">—</strong><small id="stat-validation-note">—</small></div>
+    <div><span>已采纳改动</span><strong id="stat-accepted">—</strong><small id="stat-accepted-note">—</small></div>
+    <div><span>评测并发</span><strong id="stat-workers">—</strong><small id="stat-workers-note">—</small></div>
+  </section>
+
+  <section id="preparation" class="section">
+    <div class="section-heading"><div><span class="section-number">00</span><h2>先把数据准备好</h2></div><span class="tag">8 类 · 目标 320 题</span></div>
+    <div id="preparation-status" class="preparation-status"></div>
+    <div class="table-scroll"><table class="preparation-table"><caption>正式目标：每类 32 道开发＋8 道验证；候选包含环境验收失败的替补。</caption><thead><tr><th scope="col">类别</th><th scope="col">候选</th><th scope="col">已验收</th><th scope="col">已选开发</th><th scope="col">已选验证</th><th scope="col">目标</th></tr></thead><tbody id="category-rows"></tbody></table></div>
+    <p id="preparation-note" class="caption"></p>
+  </section>
+
+  <section id="quality" class="section">
+    <div class="section-heading"><div><span class="section-number">01</span><h2>效果随迭代变化</h2></div><div id="repeat-tabs" class="tabs" aria-label="独立实验" role="group"></div></div>
+    <p id="repeat-condition" class="caption"></p>
+    <div class="quality-layout">
+      <div class="primary-chart"><div class="chart-top"><h3>开发与验证</h3><div class="legend"><span><i class="swatch dev"></i>开发</span><span><i class="swatch val"></i>验证</span><span><i class="hollow"></i>候选</span><span><i class="solid"></i>保留</span></div></div>
+        <div id="quality-chart" class="chart" role="group" aria-label="开发和验证通过率曲线"></div><p id="quality-note" class="caption"></p>
+      </div>
+      <aside class="final-area" aria-label="最终泛化评测"><div class="chart-top"><h3>最终泛化评测</h3><span id="final-badge" class="tag">待解锁</span></div>
+        <div id="final-chart"></div><p id="final-note" class="caption">每个冻结候选都评测 TB3、TB4 和 SWE OOD；整条版本序列冻结后统一公开曲线。</p>
+      </aside>
+    </div>
+  </section>
+
+  <section id="efficiency" class="section">
+    <div class="section-heading"><div><span class="section-number">02</span><h2>时间花在哪里</h2></div><span class="caption">每轮实际耗时与资源用量</span></div>
+    <div class="two-col"><div><div class="chart-top"><h3>每轮墙钟耗时</h3><div class="legend"><span><i class="swatch meta"></i>提出改动</span><span><i class="swatch dev"></i>候选评测</span><span><i class="swatch control"></i>H0 校准</span></div></div><div id="timing-chart" class="chart"></div><p class="caption">墙钟耗时是实际等待时间。缺失阶段不按 0 计算；未结束的评测不参与耗时比较。</p></div>
+    <div><div class="chart-top"><h3>评测内部开销</h3><span id="work-generation" class="caption"></span></div><div id="work-breakdown"></div><p class="caption">按所有题目的累计工作时间统计；并发任务的时间会相加，不等于墙钟耗时。API 等待包含服务端推理与网络。</p></div></div>
+    <div id="cost-metrics" class="metric-strip"></div>
+  </section>
+
+  <section id="structure" class="section">
+    <div class="section-heading"><div><span class="section-number">03</span><h2>Harness 如何变化</h2></div><label class="select-label">观察指标 <select id="complexity-metric"><option value="effective_lines">有效代码行</option><option value="characters">字符数</option><option value="functions">函数数</option><option value="branch_nodes">分支节点</option><option value="loop_nodes">循环节点</option></select></label></div>
+    <div class="two-col"><div><div id="complexity-chart" class="chart"></div><p class="caption">比较每代候选 Harness。长度和复杂度用于解释改动，不作为越大或越小越好的目标。</p></div><div><h3>最近候选的结构</h3><div id="code-metrics" class="code-metrics"></div><p id="code-change" class="caption"></p><p class="caption">有效代码行排除空行与纯注释；分支节点按 AST 统计条件与异常分支，并非精确的圈复杂度。</p></div></div>
+  </section>
+
+  <section id="journal" class="section">
+    <div class="section-heading"><div><span class="section-number">04</span><h2>每一轮，为什么改</h2></div><span class="caption">点击展开：依据 → 改动 → 结果</span></div>
+    <div class="journal-head" aria-hidden="true"><span>版本 / 状态</span><span>开发</span><span>验证</span><span>有效行</span><span>改动概述</span></div><div id="generation-log"></div>
+  </section>
+
+  <section id="protocol" class="section protocol-section">
+    <div class="section-heading"><div><span class="section-number">05</span><h2>实验设置</h2></div><span id="protocol-version" class="tag">—</span></div>
+    <ol class="process-flow" aria-label="每轮实验流程"><li><b>开发诊断</b><span>256 道开发题</span></li><li><b>修改 Harness</b><span>保存并冻结候选</span></li><li><b>重复验证 ×3</b><span>候选与父版本配对</span></li><li><b>决定是否采用</b><span>平均效果与成本</span></li><li><b>独立 benchmark</b><span>逐代评测 · 结果封存</span></li><li><b>下一轮</b><span>保留全部版本记录</span></li></ol>
+    <div class="two-col"><div><h3>固定什么，允许修改什么</h3><dl class="protocol-list"><div><dt>改进者</dt><dd>Astra · 提出、分析和修改 Harness</dd></div><div><dt>执行者</dt><dd>Luna · 模型与权重保持固定</dd></div><div><dt>一轮迭代</dt><dd>提出一个候选 → 评测 → 决定是否保留；未采纳也计为一轮</dd></div><div><dt>选择规则</dt><dd>比较三次验证的平均成功率、稳定性与成本；按预先固定规则选择，证据不明确时保留父版本</dd></div><div><dt>重复验证</dt><dd>64 道题 × 3 次，候选与当前父版本分别运行；每次使用干净环境</dd></div><div><dt>统计方式</dt><dd>Mean@3：三次成功率的平均值，仍是 64 道独立题目</dd></div><div><dt>对照校准</dt><dd id="control-schedule">H0 在第 0、3、6 代校准</dd></div></dl></div><div><h3>数据与反馈边界</h3><div id="datasets"></div><p class="caption">Astra 可看开发题和执行结果；验证只反馈汇总。同一任务族不跨开发与验证集。TB3 / TB4 / SWE OOD 逐代评测，题目、答案、轨迹与分数在版本序列冻结前封存。</p></div></div>
+  </section>
+</main>
+<aside class="margin-notes" aria-label="阅读旁注">
+  <p class="nav-title">阅读旁注</p>
+  <div data-note="preparation" class="margin-note is-active"><span>00 / 候选不等于可用</span><p>先检查环境、参考执行与裁判，再冻结正式任务。验收未完成时，不能把候选数算成已准备题数。</p><p>开发与验证按任务族隔离，类别保持均衡。</p></div>
+  <div data-note="quality" class="margin-note"><span>01 / 怎样读曲线</span><p>实心点是每轮保留的版本，空心点是当轮候选。悬停或点选数据点，可以查看得分、样本数与版本。</p><p>三次重复衡量随机波动；每一代的 TB3 / TB4 / SWE OOD 结果在版本序列冻结后解锁。</p></div>
+  <div data-note="efficiency" class="margin-note"><span>02 / 两种时间</span><p>墙钟时间是实际等待多久。累计工作时间将并发任务相加，用来解释开销来源。</p></div>
+  <div data-note="structure" class="margin-note"><span>03 / 长度与效果</span><p>更长或更复杂不等于更好。将结构变化与得分、耗时一起看。</p></div>
+  <div data-note="journal" class="margin-note"><span>04 / 一轮的含义</span><p>提出候选、评测、作出保留决定，合起来是一轮。未采纳也计入轮数。</p></div>
+  <div data-note="protocol" class="margin-note"><span>05 / 三次验证与两组实验</span><p>同一个 Harness 验证三次，期间不修改。两组独立优化历史分别从 H0 开始，两者不是同一个计数。</p></div>
+</aside>
+</div>
+<div id="chart-tooltip" class="chart-tooltip" role="tooltip" hidden></div>
+<footer class="wrap"><p>当前 RST 实验 · 准备进度与评测结果分别记录</p><p id="freshness">快照时间：—</p><p id="publish-note">网页每 60 秒检查数据更新。</p></footer>
+<noscript><p class="wrap notice">请启用 JavaScript 查看图表。公开汇总数据见 <a href="data/latest.json">JSON 快照</a>。</p></noscript>
+</body>
+</html>

@@ -1,0 +1,224 @@
+{
+  "campaign": "astra_luna_rst_v1",
+  "experiment": {
+    "candidate_evaluations_complete": 0,
+    "candidate_limit_per_history": 6,
+    "candidates_adopted": 0,
+    "history_target": 2,
+    "proposals_frozen": 0,
+    "sparse_h0_indices": [
+      0,
+      3,
+      6
+    ]
+  },
+  "external_panels": {
+    "swe_ood": {
+      "official_total": null,
+      "qualified": 0,
+      "scores": null,
+      "selected": 0,
+      "target": 16,
+      "version": "SWE-bench Pro v2"
+    },
+    "tb3": {
+      "official_total": null,
+      "qualified": 0,
+      "scores": null,
+      "selected": 0,
+      "target": 16,
+      "version": "3.0.0"
+    },
+    "tb4": {
+      "official_total": null,
+      "qualified": 0,
+      "scores": null,
+      "selected": 0,
+      "target": 16,
+      "version": "4.1.0"
+    }
+  },
+  "generated_at": "2026-11-13T07:40:40.737341+00:00",
+  "goal": {
+    "existing_goal_preserved": true,
+    "source_updated_at": 1794555620,
+    "status": "active"
+  },
+  "limitations": [
+    "candidate_counts_are_not_qualified_counts",
+    "metadata_similarity_is_not_complete_deduplication",
+    "package_and_external_overlap_audits_pending",
+    "runtime_qualification_pending",
+    "external_official_totals_pending_verification",
+    "optimizer_health_not_rechecked",
+    "no_h0_or_candidate_results",
+    "small_external_panels_are_not_official_full_scores",
+    "api_sampling_seed_support_unverified",
+    "complexity_strata_are_metadata_proxies"
+  ],
+  "optimizer": {
+    "interface": "Codex CLI",
+    "model": "gpt-6-astra",
+    "readiness_checked": false,
+    "reasoning": "high"
+  },
+  "preparation": {
+    "downloaded_range_bytes": 937574400,
+    "metadata_bytes": 124619731,
+    "metadata_verified": true,
+    "packages_verified": 384,
+    "qualification_jobs_submitted": 0,
+    "required_shard_bytes": 937574400,
+    "required_shards": 3,
+    "research_controller_started": false,
+    "rst_download_process_running": false,
+    "tb3_download_process_running": false,
+    "verified_shards": 3
+  },
+  "research_stage": "data_preparation",
+  "rst": {
+    "ancestry_verified": false,
+    "candidates": {
+      "development": 304,
+      "total": 384,
+      "validation": 80
+    },
+    "categories": [
+      {
+        "candidate_development": 38,
+        "candidate_validation": 10,
+        "id": "build_compile",
+        "label": "构建编译",
+        "packages_verified": 48,
+        "qualified": 0,
+        "selected_development": 0,
+        "selected_validation": 0,
+        "target_development": 32,
+        "target_validation": 8
+      },
+      {
+        "candidate_development": 38,
+        "candidate_validation": 10,
+        "id": "environment_dependencies",
+        "label": "环境依赖",
+        "packages_verified": 48,
+        "qualified": 0,
+        "selected_development": 0,
+        "selected_validation": 0,
+        "target_development": 32,
+        "target_validation": 8
+      },
+      {
+        "candidate_development": 38,
+        "candidate_validation": 10,
+        "id": "system_services_operations",
+        "label": "系统服务/运维",
+        "packages_verified": 48,
+        "qualified": 0,
+        "selected_development": 0,
+        "selected_validation": 0,
+        "target_development": 32,
+        "target_validation": 8
+      },
+      {
+        "candidate_development": 38,
+        "candidate_validation": 10,
+        "id": "files_data",
+        "label": "文件与数据",
+        "packages_verified": 48,
+        "qualified": 0,
+        "selected_development": 0,
+        "selected_validation": 0,
+        "target_development": 32,
+        "target_validation": 8
+      },
+      {
+        "candidate_development": 38,
+        "candidate_validation": 10,
+        "id": "database",
+        "label": "数据库",
+        "packages_verified": 48,
+        "qualified": 0,
+        "selected_development": 0,
+        "selected_validation": 0,
+        "target_development": 32,
+        "target_validation": 8
+      },
+      {
+        "candidate_development": 38,
+        "candidate_validation": 10,
+        "id": "network_interfaces",
+        "label": "网络接口",
+        "packages_verified": 48,
+        "qualified": 0,
+        "selected_development": 0,
+        "selected_validation": 0,
+        "target_development": 32,
+        "target_validation": 8
+      },
+      {
+        "candidate_development": 38,
+        "candidate_validation": 10,
+        "id": "script_automation",
+        "label": "脚本自动化",
+        "packages_verified": 48,
+        "qualified": 0,
+        "selected_development": 0,
+        "selected_validation": 0,
+        "target_development": 32,
+        "target_validation": 8
+      },
+      {
+        "candidate_development": 38,
+        "candidate_validation": 10,
+        "id": "debug_repair",
+        "label": "调试修复",
+        "packages_verified": 48,
+        "qualified": 0,
+        "selected_development": 0,
+        "selected_validation": 0,
+        "target_development": 32,
+        "target_validation": 8
+      }
+    ],
+    "classification": "derived_regex_v1",
+    "conservative_families_in_metadata": 10060,
+    "metadata_family_overlap": 0,
+    "official_total": 37484,
+    "qualified": 0,
+    "revision": "be44f96808d5a9b599d5cb024341ff00091adeb7",
+    "selected": {
+      "development": 0,
+      "total": 0,
+      "validation": 0
+    },
+    "targets": {
+      "development": 256,
+      "total": 320,
+      "validation": 64
+    },
+    "unclassified_metadata_rows": 13581
+  },
+  "schema_version": "astra_luna_rst_public_v1",
+  "solver": {
+    "h0_started": false,
+    "health_model_calls": 1,
+    "health_observed_at": 1794489075.5798416,
+    "reasoning": "medium",
+    "requested_model": "gpt-6-luna",
+    "source_model_heartbeat": null,
+    "status": "health_check_passed",
+    "task_episodes": 0
+  },
+  "test_results_sealed": true,
+  "validation": {
+    "attempts_per_version_target": 192,
+    "distinct_task_target": 64,
+    "inference_unit": "task_or_family",
+    "interleaved_parent_candidate": true,
+    "metric": "Mean@3",
+    "paired_attempts_per_decision_target": 384,
+    "parent_repeats_per_decision": 3,
+    "repeats_per_version": 3
+  }
+}
