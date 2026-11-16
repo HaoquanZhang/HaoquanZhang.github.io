@@ -3,9 +3,9 @@
   "campaign": "astra_luna_codecontests_v1",
   "experiment": "luna56_single_history_v1",
   "protocol": "03fcecb1df3560d54754019881e93e9811442d0ed0d622bfd7b906af35a29a86",
-  "generated_at": "2026-11-16T07:13:30.814645+00:00",
-  "source_observed_at": "2026-11-16T07:13:30.814645+00:00",
-  "source_state_sha256": "f9db6fdaa3bbce8a8fd1da0bf80c274f84b513920028e53d61f4854be54d2c57",
+  "generated_at": "2026-11-16T07:30:08.036171+00:00",
+  "source_observed_at": "2026-11-16T07:30:08.036171+00:00",
+  "source_state_sha256": "c881270c7ef0db63ebafd96b2cf2b6d22cbecb98c0c87a101d7f1e7190720b57",
   "models": {
     "optimizer": "gpt-6-astra",
     "optimizer_reasoning": "high",
@@ -372,7 +372,7 @@
       "round": 8,
       "proposal_status": "executable_candidate",
       "complete": false,
-      "adopted": null,
+      "adopted": false,
       "parent_round": 7,
       "retained_round": 7,
       "development": {
@@ -381,13 +381,37 @@
         "complete": true
       },
       "validation": {
-        "completed": 313,
+        "completed": 384,
         "total": 384,
+        "complete": true
+      },
+      "final_tests": {
+        "completed": 34,
+        "total": 144,
         "complete": false
       },
-      "final_tests": null,
       "calibration": null,
-      "result": null
+      "result": {
+        "parent_solved": [
+          52,
+          53,
+          53
+        ],
+        "parent_mean": 0.8229166666666666,
+        "parent_sd": 0.009021097956087902,
+        "candidate_solved": [
+          51,
+          50,
+          51
+        ],
+        "candidate_mean": 0.7916666666666666,
+        "candidate_sd": 0.009021097956087902,
+        "gain_pp": -3.125,
+        "interval_pp": [
+          -6.770833333333333,
+          0.0
+        ]
+      }
     }
   ],
   "history_frozen": false,
