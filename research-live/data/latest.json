@@ -3,9 +3,9 @@
   "campaign": "astra_luna_codecontests_v1",
   "experiment": "luna56_single_history_v1",
   "protocol": "03fcecb1df3560d54754019881e93e9811442d0ed0d622bfd7b906af35a29a86",
-  "generated_at": "2026-11-16T06:57:08.122566+00:00",
-  "source_observed_at": "2026-11-16T06:57:08.122566+00:00",
-  "source_state_sha256": "4531301f1fcec1cbb6fd9948696036861f2e971c2241f27a3535efb61cff0649",
+  "generated_at": "2026-11-16T07:13:30.814645+00:00",
+  "source_observed_at": "2026-11-16T07:13:30.814645+00:00",
+  "source_state_sha256": "f9db6fdaa3bbce8a8fd1da0bf80c274f84b513920028e53d61f4854be54d2c57",
   "models": {
     "optimizer": "gpt-6-astra",
     "optimizer_reasoning": "high",
@@ -381,7 +381,7 @@
         "complete": true
       },
       "validation": {
-        "completed": 184,
+        "completed": 313,
         "total": 384,
         "complete": false
       },
