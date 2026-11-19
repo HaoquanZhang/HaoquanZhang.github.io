@@ -26,8 +26,9 @@ a:hover {
 
 body {
   margin: 0;
-  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-family: 'Geist', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   font-size: 16px;
+  font-weight: 450;
 }
 
 .site-nav {
@@ -138,8 +139,8 @@ body {
 h2 {
   margin: 0;
   color: #000000;
-  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  font-weight: 500;
+  font-family: 'Geist', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-weight: 520;
   font-size: 28px;
 }
 
@@ -150,7 +151,7 @@ h2 strong {
 
 .papertitle {
   font-size: 20px;
-  font-weight: 600;
+  font-weight: 560;
 }
 
 /* Main content wrapper - replaces old table layout */
@@ -221,7 +222,7 @@ h2 strong {
 .research-line-intro__description {
   margin: 0;
   color: #666;
-  font-family: Cambria, 'Source Serif 4', Georgia, 'Times New Roman', serif;
+  font-family: 'Geist', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   font-size: 14px;
   line-height: 1.5;
   white-space: pre-line;
@@ -328,11 +329,17 @@ hr {
 .paper-sidebar .conference {
   background: none;
   padding: 0;
+  font-family: 'Geist', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   font-size: 18px;
-  font-weight: 700;
+  font-weight: 560;
   margin-bottom: 6px;
   text-align: right;
   white-space: nowrap;
+}
+
+.paper-sidebar strong {
+  font-family: inherit;
+  font-weight: inherit;
 }
 
 .paper-sidebar .arxiv   { color: #8b1a1a; }
@@ -442,7 +449,7 @@ hr {
   margin-bottom: 6px;
   text-decoration-line: underline;
   text-decoration-color: transparent;
-  text-decoration-thickness: 2.5px;
+  text-decoration-thickness: 2.25px;
   text-underline-offset: 3px;
   transition: text-decoration-color var(--publication-hover-duration) ease;
 }
@@ -456,7 +463,7 @@ hr {
 }
 
 .paper-main .paper-authors {
-  font-family: Cambria, 'Source Serif 4', Georgia, 'Times New Roman', serif;
+  font-family: 'Geist', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   margin: 4px 0 0 0;
   font-size: 14px;
   line-height: 1.5;
@@ -490,7 +497,7 @@ hr {
 .exp-period {
   grid-column: 2;
   grid-row: 1;
-  font-family: Cambria, 'Source Serif 4', Georgia, 'Times New Roman', serif;
+  font-family: 'Geist', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   font-size: 14px;
   line-height: 1.2;
   color: #999;
@@ -520,7 +527,7 @@ hr {
 }
 
 .exp-title {
-  font-weight: 700;
+  font-weight: 550;
   font-size: 16px;
   line-height: 1.2;
 }
@@ -532,8 +539,9 @@ hr {
 }
 
 .exp-mentor {
+  margin-top: 3px;
   font-size: 14px;
-  line-height: 1.2;
+  line-height: 1.25;
   color: #999;
 }
 
@@ -614,7 +622,7 @@ hr {
   flex-direction: column;
   align-items: flex-end;
   text-align: right;
-  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-family: 'Geist', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   font-size: 20px;
   line-height: 1.3;
   font-weight: bold;
@@ -747,7 +755,7 @@ hr {
   position: absolute;
   right: calc(100% + 16px);
   top: 8px;
-  font-family: Cambria, 'Source Serif 4', Georgia, 'Times New Roman', serif;
+  font-family: 'Geist', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   font-weight: normal;
   font-size: 15px;
   line-height: 1.5;

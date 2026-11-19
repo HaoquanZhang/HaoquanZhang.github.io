@@ -115,7 +115,7 @@
   background: transparent;
   box-shadow: inset 0 0 0 1px transparent;
   color: #333;
-  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-family: 'Geist', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   transition: width 0.65s cubic-bezier(0.2, 0.7, 0.2, 1),
     background-color 0.45s ease, box-shadow 0.45s ease;
 }

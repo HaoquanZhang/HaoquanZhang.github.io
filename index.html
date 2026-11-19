@@ -14,7 +14,7 @@
     </script>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>Haoquan Zhang 张皓泉</title>
-    <meta name="author" content="HaoquanZhang">
+    <meta name="author" content="Haoquan Zhang">
     <meta name="google-site-verification" content="vJ_pZMsbGuDnzTd88nb-RQcqes9CnJjFV7_vN4YtXwU" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="Haoquan Zhang's personal homepage: research in vision as text, multimodal learning, and agentic and active vision.">
@@ -31,17 +31,18 @@
     <meta name="twitter:description" content="Research in vision as text, multimodal learning, and agentic and active vision.">
     <meta name="twitter:image" content="https://haoquanzhang.github.io/images/face.jpg">
     <link rel="shortcut icon" href="images/favicon/iris.webp" type="image/x-icon">
-    <link rel="stylesheet" href="css/desktop.css?v=20261111-paper-weight" media="screen and (min-width: 601px)">
-    <link rel="stylesheet" href="css/mobile.css?v=20261111-clean-headings" media="screen and (max-width: 600px)">
-    <link rel="stylesheet" href="css/desktop.css?v=20261111-paper-weight" media="print">
-    <link rel="stylesheet" href="css/research-filter.css?v=20261111-text-tabs">
-    <link rel="stylesheet" href="css/publication-preview.css?v=20261111-continuous-svg">
+    <link rel="stylesheet" href="css/desktop.css?v=20261120-all-geist" media="screen and (min-width: 601px)">
+    <link rel="stylesheet" href="css/mobile.css?v=20261120-all-geist" media="screen and (max-width: 600px)">
+    <link rel="stylesheet" href="css/desktop.css?v=20261120-all-geist" media="print">
+    <link rel="stylesheet" href="css/research-filter.css?v=20261120-geist">
+    <link rel="stylesheet" href="css/publication-preview.css?v=20261120-all-geist">
     <link rel="stylesheet" href="css/news.css?v=20261108-news-gentle-close">
-    <link rel="stylesheet" href="css/footer.css?v=20261111-simple-text">
-    <!-- Google Fonts: Source Serif 4 -->
+    <link rel="stylesheet" href="css/blog.css?v=20261120-mobile-center">
+    <link rel="stylesheet" href="css/footer.css?v=20261120-geist">
+    <!-- Google Fonts: Geist -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,700;1,8..60,400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400..700&display=swap" rel="stylesheet">
     <!-- Font Awesome CDN -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   </head>
@@ -54,7 +55,8 @@
           <a href="#Top">About</a>
           <a href="#News">News</a>
           <a href="#Research">Research</a>
-          <a href="#Experiences">Experiences</a>
+          <a href="#Blogs">Blogs</a>
+          <a href="#Experience">Experience</a>
         </div>
       </div>
     </nav>
@@ -125,7 +127,7 @@
           </div>
           <div class="news-item">
             <div class="news-date">24th Feb 2026</div>
-            <div class="news-content">PyVision-RL is now online. Check <a href="https://agent-x.space/pyvision-rl/">this page</a> for more details.</div>
+            <div class="news-content">PyVision-RL is now online. Check out <a href="https://agent-x.space/pyvision-rl/">this page</a> for more details.</div>
           </div>
           <!-- <div class="news-item">
             <div class="news-date">19th Sep 2025</div>
@@ -143,7 +145,7 @@
           <h2><strong>Research</strong></h2>
           <div class="research-filter" role="group" aria-label="Filter research by topic">
             <span class="research-filter__indicator" aria-hidden="true"></span>
-            <button type="button" class="research-filter__btn is-active" data-filter="selected" aria-pressed="true" aria-controls="publications-container"><span class="research-filter__label">Favorite</span></button>
+            <button type="button" class="research-filter__btn is-active" data-filter="selected" aria-pressed="true" aria-controls="publications-container"><span class="research-filter__label">Favorites</span></button>
             <button type="button" class="research-filter__btn" data-filter="agentic-vision" aria-pressed="false" aria-controls="publications-container"><span class="research-filter__label">Agentic Vision</span></button>
             <button type="button" class="research-filter__btn" data-filter="visual-generation" aria-pressed="false" aria-controls="publications-container"><span class="research-filter__label">Visual Generation</span></button>
           </div>
@@ -156,18 +158,59 @@
         </div>
       </section>
 
-      <section id="Experiences" class="fade-in delay-5">
-        <h2><strong>Experiences</strong></h2>
+      <section id="Blogs" class="fade-in delay-3">
+        <h2><strong>Blogs</strong></h2>
+        <div class="blog-list">
+          <article class="blog-entry">
+            <a class="blog-entry__thumb blog-thumb--bang" href="exclamation-bench/" aria-label="Open !!!Bench">
+              <svg viewBox="0 0 92 92" aria-hidden="true" focusable="false">
+                <line x1="10" y1="74" x2="82" y2="74" stroke="#f3e3d3" stroke-width="1"/>
+                <!-- Shared circular bases + ascending exclamation stems -->
+                <path class="bang-mini-stem" style="--i:0" d="M14.5 60 Q17 58.5 19.5 60 L18.7 65.5 Q17 66.5 15.3 65.5 Z" fill="#1d1d1f"/>
+                <circle class="bang-mini-dot" style="--i:0" cx="17" cy="74" r="3.6" fill="#1d1d1f"/>
+
+                <path class="bang-mini-stem" style="--i:1" d="M28.8 52 Q31.5 50 34.2 52 L33.2 65.5 Q31.5 66.5 29.8 65.5 Z" fill="#1d1d1f"/>
+                <circle class="bang-mini-dot" style="--i:1" cx="31.5" cy="74" r="3.6" fill="#1d1d1f"/>
+
+                <path class="bang-mini-stem" style="--i:2" d="M43 42 Q46 39.5 49 42 L47.8 65.5 Q46 66.5 44.2 65.5 Z" fill="#1d1d1f"/>
+                <circle class="bang-mini-dot" style="--i:2" cx="46" cy="74" r="3.6" fill="#1d1d1f"/>
+
+                <path class="bang-mini-stem" style="--i:3" d="M57.2 31 Q60.5 28.5 63.8 31 L62.3 65.5 Q60.5 66.5 58.7 65.5 Z" fill="#1d1d1f"/>
+                <circle class="bang-mini-dot" style="--i:3" cx="60.5" cy="74" r="3.6" fill="#1d1d1f"/>
+
+                <path class="bang-mini-stem" style="--i:4" d="M71 15 Q75 12 79 15 L77 65.5 Q75 66.8 73 65.5 Z" fill="#e87722"/>
+                <circle class="bang-mini-dot" style="--i:4" cx="75" cy="74" r="3.6" fill="#e87722"/>
+              </svg>
+            </a>
+            <div class="blog-entry__main">
+              <a class="blog-entry__title" href="exclamation-bench/"><span class="bang-accent">!!!</span>Bench: Which Model Loves Saying “<span class="bang-accent">!</span>” the Most?</a>
+              <div class="blog-entry__date">18th Nov 2026</div>
+            </div>
+          </article>
+
+          <article class="blog-entry">
+            <a class="blog-entry__thumb paper-preview" href="pixelbench/" aria-label="Open PixelBench">
+              <img src="images/pixelbench-owl.png" alt="A pixel owl generated by GPT-6 Astra">
+              <img class="paper-preview__overlay" src="images/pixelbench-owl-indices.svg" alt="" aria-hidden="true">
+            </a>
+            <div class="blog-entry__main">
+              <a class="blog-entry__title" href="pixelbench/">PixelBench: Can LLMs Understand and Generate Images Pixel by Pixel?</a>
+              <div class="blog-entry__date">4th Nov 2026</div>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section id="Experience" class="fade-in delay-5">
+        <h2><strong>Experience</strong></h2>
         <div class="experience-section">
           <div class="experience-item">
             <div class="exp-period">Jun 2026 – Present</div>
             <div class="exp-main">
               <img src="images/bytedance-color.svg" class="exp-logo" alt="ByteDance Seed logo">
               <div class="exp-info">
-                <div class="exp-title">ByteDance Seed<span class="exp-position"> · Research Intern</span></div>
-                <div class="exp-mentor exp-mentor--inline">
-                  Working with <a href="https://kennymckormick.github.io">Haodong Duan</a>
-                </div>
+                <div class="exp-title">ByteDance Seed <span class="exp-position">· Research Intern</span></div>
+                <div class="exp-mentor">Working with <a href="https://kennymckormick.github.io">Haodong Duan</a></div>
               </div>
             </div>
           </div>

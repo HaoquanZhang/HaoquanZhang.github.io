@@ -1,0 +1,41 @@
+{
+  "version": "0.2-en-chat",
+  "base_url": "http://vlmeval.byted.org/model_proxy_hub/gateway/v1",
+  "models": [
+    "hy4",
+    "claude-opus-5.5",
+    "deepseek-v4.1-flash-1017",
+    "gemini-4-carbon",
+    "glm-5.3",
+    "gpt-6.1-sol",
+    "gpt-6-luna",
+    "grok-4.7",
+    "kimi-k3.1-pro-261024",
+    "muse-spark-1.3",
+    "seed-2.1-pro-0915"
+  ],
+  "temperature": 1,
+  "max_tokens": 4096,
+  "repeats": 1,
+  "system_message": null,
+  "seed": null,
+  "reasoning": "provider default; only final assistant content counted",
+  "concurrency": 12,
+  "budget_usd": 15,
+  "main_track": "60 English chat prompts: 30 English adaptations of original Chinese prompts plus 30 new English prompts; six categories, 10 each",
+  "not_official_mt_bench_score": true,
+  "created_at": "2026-11-18T13:05:40.508244+00:00",
+  "excluded_models": [
+    "seed-2.1-lite-0915",
+    "qwen-3.8-max-0902"
+  ],
+  "exclusion_reason": "User requested exclusion after partial run, 2026-11-18; Qwen4 deferred until API available.",
+  "runtime_notes": [
+    "Independent extension. Parent results and HTML remain unchanged.",
+    "Initial concurrency 12, technical retry token caps 8192 then 16384; max 3 attempts total, no retry after content_filter.",
+    "Usage baseline independently observed on the assigned-key webpage before running. Same conservative token-price estimate while usage endpoint is cooling down."
+  ],
+  "retry_policy": "At most 3 total attempts for technical failures: 4096/8192/16384 token caps; stop retrying content_filter. Final recovery uses concurrency 8 and transport timeout 300s. No retry based on punctuation.",
+  "max_attempts_per_pair": 3,
+  "parent_experiment": "../exclamation-bench"
+}

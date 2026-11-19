@@ -356,7 +356,7 @@ function initResearchFilter() {
 async function renderPublications() {
   try {
     await loadAuthorLinks();
-    const response = await fetch('data/publications.json?v=20261106-x-post', { cache: 'no-cache' });
+    const response = await fetch('data/publications.json?v=20261120-copy', { cache: 'no-cache' });
     allPublications = await response.json();
     initResearchFilter();
   } catch (error) {

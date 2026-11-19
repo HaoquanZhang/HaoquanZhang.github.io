@@ -22,6 +22,8 @@ a:hover {
 
 body{
   margin: 0;
+  font-family: 'Geist', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-weight: 450;
 }
 
 .site-nav {
@@ -89,7 +91,7 @@ body{
 
 .site-nav__brand {
   color: #222;
-  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-family: 'Geist', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   font-size: 11px;
   font-weight: 700;
   text-decoration: none;
@@ -120,7 +122,7 @@ body{
 
 .site-nav__links a {
   color: #666;
-  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-family: 'Geist', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   font-size: 11px;
   font-weight: 600;
   text-decoration: none;
@@ -138,19 +140,19 @@ th,
 tr,
 p,
 a {
-  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-family: 'Geist', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   /* font-size: 14px; */
 }
 
 strong {
-  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-family: 'Geist', 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 
 h2 {
   margin: 0 20px 4px;
   color: #000000;
-  font-weight: 500;
-  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-weight: 520;
+  font-family: 'Geist', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   font-size: 24px;
   padding: 20px 0 8px;
 }
@@ -204,7 +206,7 @@ h2 strong {
 .research-line-intro__description {
   margin: 0;
   color: #666;
-  font-family: Cambria, 'Source Serif 4', Georgia, 'Times New Roman', serif;
+  font-family: 'Geist', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   font-size: 13px;
   line-height: 1.45;
   white-space: pre-line;
@@ -241,7 +243,7 @@ section {
   text-align: center;
   vertical-align: middle;
   font-weight: 700;
-  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-family: 'Geist', 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 
 .insub {
@@ -255,7 +257,7 @@ section {
   text-align: center;
   vertical-align: middle;
   font-weight: 700;
-  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-family: 'Geist', 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 
 .arxiv {
@@ -269,7 +271,7 @@ section {
   text-align: center;
   vertical-align: middle;
   font-weight: 700;
-  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-family: 'Geist', 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 
 .accepted {
@@ -283,7 +285,7 @@ section {
   text-align: center;
   vertical-align: middle;
   font-weight: 700;
-  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-family: 'Geist', 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 
 .award {
@@ -297,7 +299,7 @@ section {
   text-align: center;
   vertical-align: middle;
   font-weight: 700;
-  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-family: 'Geist', 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 
 .conference {
@@ -311,7 +313,7 @@ section {
   text-align: center;
   vertical-align: middle;
   font-weight: 700;
-  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-family: 'Geist', 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 
 hr {
@@ -382,9 +384,9 @@ hr {
 .paper-card__title {
   margin: 0 0 6px;
   padding: 0;
-  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-family: 'Geist', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   font-size: 15px;
-  font-weight: 700;
+  font-weight: 560;
   line-height: 1.35;
   color: #111;
   display: -webkit-box;
@@ -400,7 +402,7 @@ hr {
 
 .paper-card__meta {
   margin: 0;
-  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-family: 'Geist', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   font-size: 13px;
   font-weight: 400;
   line-height: 1.3;
@@ -430,7 +432,7 @@ hr {
   font-size: 14px;
   color: #999;
   font-weight: normal;
-  font-family: Cambria, 'Source Serif 4', Georgia, 'Times New Roman', serif;
+  font-family: 'Geist', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   margin-bottom: 6px;
 }
 
@@ -453,11 +455,11 @@ hr {
 
 .exp-info {
   flex: 1;
-  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-family: 'Geist', 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 
 .exp-title {
-  font-weight: 700;
+  font-weight: 550;
   font-size: 16px;
   line-height: 1.4;
   color: #000000;
@@ -539,7 +541,7 @@ hr {
   color: #4a4a4a;
   font-size: 13px;
   text-decoration: underline;
-  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-family: 'Geist', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   font-weight: 700;
 }
 
@@ -572,7 +574,7 @@ hr {
   line-height: 1.3;
   text-align: left;
   margin: 0 0 6px 0;
-  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-family: 'Geist', 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 
 .name-info__names {
@@ -664,14 +666,14 @@ hr {
   font-weight: normal;
   font-size: 14px;
   color: #999;
-  font-family: Cambria, 'Source Serif 4', Georgia, 'Times New Roman', serif;
+  font-family: 'Geist', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   margin-bottom: 4px;
 }
 
 .news-content {
   font-size: 14px;
   line-height: 1.5;
-  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-family: 'Geist', 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 
 .news-content strong {
@@ -725,7 +727,7 @@ hr {
   color: #000000;
   text-decoration: none;
   font-weight: 700;
-  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-family: 'Geist', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   flex-shrink: 0;
 }
 

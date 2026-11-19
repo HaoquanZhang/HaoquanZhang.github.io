@@ -74,7 +74,7 @@
     },
     "highlights": [
       "The first thinking-with-images benchmark for agentic AI.",
-      "Tool use is quite necessary in our benchmark."
+      "Tool use is essential in our benchmark."
     ],
     "topics": ["selected", "agentic-vision"],
     "year": 2026,
@@ -132,8 +132,8 @@
       "project": "https://spherelab.ai/SGP-Gen/"
     },
     "highlights": [
-      "Training LLMs to generate SVG by RLVR with CLIP reward.",
-      "SGP-GenBench benchmarks SVG generation in 3 aspects."
+      "Training LLMs to generate SVGs via RLVR with a CLIP reward.",
+      "SGP-GenBench evaluates SVG generation across three aspects."
     ],
     "topics": ["selected", "visual-generation"],
     "year": 2025,
@@ -225,7 +225,7 @@
       "code": "https://github.com/minglllli/CLS-RL"
     },
     "highlights": [
-      "To think or not to think? It's a question.",
+      "To think or not to think? That is the question.",
       "Reasoning with thinking is not always beneficial."
     ],
     "topics": ["selected"],

@@ -3,7 +3,7 @@
   padding: 40px 20px max(24px, env(safe-area-inset-bottom));
   background: linear-gradient(to bottom, rgb(255 255 255 / 0%), #f4f4f4);
   color: #999;
-  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-family: 'Geist', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   font-size: 12px;
   line-height: 1.5;
   text-align: center;
