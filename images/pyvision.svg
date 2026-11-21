@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="640" viewBox="0 0 640 640">
+  <title>PyVision: comparing two orange regions by extracting their color</title>
+  <!-- Geometry and colors sampled from pyvision-2.png; both states share these circles. -->
+  <defs>
+    <g id="pyvision-context">
+      <circle cx="65" cy="286" r="28.5"/>
+      <circle cx="65" cy="354" r="28.5"/>
+      <circle cx="132" cy="248" r="28.5"/>
+      <circle cx="132" cy="391" r="28.5"/>
+      <circle cx="199" cy="286" r="28.5"/>
+      <circle cx="199" cy="354" r="28.5"/>
+      <circle cx="318" cy="281" r="28.5"/>
+      <circle cx="318" cy="359" r="28.5"/>
+      <circle cx="366" cy="424" r="28.5"/>
+      <circle cx="370" cy="214" r="28.5"/>
+      <circle cx="450" cy="186" r="28.5"/>
+      <circle cx="450" cy="456" r="28.5"/>
+      <circle cx="530" cy="214" r="28.5"/>
+      <circle cx="530" cy="424" r="28.5"/>
+      <circle cx="578" cy="359" r="28.5"/>
+      <circle cx="579" cy="281" r="28.5"/>
+    </g>
+    <g id="pyvision-targets">
+      <circle cx="132" cy="320" r="28.5"/>
+      <circle cx="450" cy="320" r="89"/>
+    </g>
+  </defs>
+  <use href="#pyvision-context" fill="#28a7e0"/>
+  <use href="#pyvision-targets" fill="#ea5517"/>
+</svg>

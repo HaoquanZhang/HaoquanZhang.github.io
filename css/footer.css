@@ -1,0 +1,19 @@
+.site-footer {
+  margin: 16px auto 0;
+  padding: 40px 20px max(26px, env(safe-area-inset-bottom));
+  color: #999;
+  font-family: 'Geist', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-size: 12px;
+  line-height: 1.5;
+  text-align: center;
+}
+
+.site-footer__mark {
+  display: block;
+  margin: 0 auto 12px;
+  color: #b4b4b4;
+}
+
+.site-footer p {
+  margin: 0;
+}

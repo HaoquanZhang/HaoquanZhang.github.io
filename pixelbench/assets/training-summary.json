@@ -1,0 +1,8 @@
+{
+  "source": "arxiv_source.zip / iclr2027_conference.tex / tab:molmo-main",
+  "aggregation": "Four matched seed pairs; reported deltas before rounding individual scores.",
+  "rows": [
+    {"name": "By example", "zh": "按样本平均", "baseline": 54.2, "pixel": 54.8, "delta": 0.6, "units": 24850},
+    {"name": "By benchmark", "zh": "按 Benchmark 平均", "baseline": 54.1, "pixel": 54.6, "delta": 0.5, "units": 16}
+  ]
+}

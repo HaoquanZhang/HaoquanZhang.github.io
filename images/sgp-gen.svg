@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="400" viewBox="0 0 400 400">
+  <title>SGP-Gen: a motorcycle built from simple geometric shapes</title>
+  <!-- Hand-drawn from teaser.png. These group IDs also supply the 3D preview planes. -->
+  <g id="sgp-base">
+    <rect width="400" height="400" fill="#f7f2e9"/>
+    <rect y="334" width="400" height="66" fill="#99ab8d"/>
+  </g>
+  <g id="sgp-bike">
+    <path d="M98 222 C98 186 130 167 169 167 H233 C275 167 305 188 307 222 V289 H98 Z" fill="#817b8f"/>
+    <ellipse cx="113" cy="177" rx="29" ry="25" fill="#645e64"/>
+    <rect x="120" y="155" width="45" height="20" transform="rotate(-15 120 155)" fill="#646a6c"/>
+    <rect x="257" y="158" width="40" height="20" transform="rotate(-30 257 158)" fill="#646a6c"/>
+    <rect x="326" y="187" width="25" height="31" rx="11" fill="#df2a3b"/>
+    <ellipse cx="104" cy="284" rx="64.5" ry="66" fill="#99999c"/>
+    <ellipse cx="296" cy="284" rx="64.5" ry="66" fill="#99999c"/>
+    <circle cx="104" cy="284" r="25" fill="#001940"/>
+    <circle cx="296" cy="284" r="25" fill="#001940"/>
+    <polygon points="102,269 304,329 299,349 97,289" fill="#646a6c"/>
+  </g>
+  <g id="sgp-rider">
+    <rect x="144" y="195" width="19" height="42" transform="rotate(-14 144 195)" fill="#001943"/>
+    <rect x="193" y="205" width="20" height="62" transform="rotate(-14 193 205)" fill="#001943"/>
+    <rect x="114" y="152" width="20" height="25" rx="10" fill="#b4b0ac"/>
+    <ellipse cx="185" cy="164" rx="37.5" ry="38.5" fill="#0f2034"/>
+    <circle cx="173" cy="101" r="25" fill="#00193a"/>
+  </g>
+</svg>
