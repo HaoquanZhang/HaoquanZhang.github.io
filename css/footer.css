@@ -1,6 +1,6 @@
 .site-footer {
-  margin: 16px auto 0;
-  padding: 40px 20px max(26px, env(safe-area-inset-bottom));
+  margin: 0 auto;
+  padding: 26px 20px max(26px, env(safe-area-inset-bottom));
   color: #999;
   font-family: 'Geist', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   font-size: 12px;

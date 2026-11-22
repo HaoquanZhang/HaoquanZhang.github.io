@@ -167,7 +167,7 @@
     ],
     "topics": ["visual-generation"],
     "year": 2025,
-    "show": true
+    "show": false
   },
   {
     "id": "pyvision-2025",

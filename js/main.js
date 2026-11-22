@@ -50,7 +50,28 @@ const researchLineContent = {
   }
 };
 
+let isSiteNavFloating = null;
+
+function updateSiteNav() {
+  const siteNav = document.querySelector('.site-nav');
+  if (!siteNav) {
+    return;
+  }
+
+  const nextFloating = isSiteNavFloating ? window.scrollY > 4 : window.scrollY > 14;
+  if (nextFloating === isSiteNavFloating) {
+    return;
+  }
+
+  isSiteNavFloating = nextFloating;
+  siteNav.classList.toggle('is-floating', nextFloating);
+}
+
 function initSiteNav() {
+  updateSiteNav();
+  window.addEventListener('scroll', updateSiteNav, { passive: true });
+  window.addEventListener('resize', updateSiteNav, { passive: true });
+
   document.querySelectorAll('.site-nav a[href^="#"], .section-anchor[href^="#"]').forEach(function(link) {
     link.addEventListener('click', function(event) {
       const target = document.querySelector(link.getAttribute('href'));

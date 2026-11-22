@@ -31,7 +31,7 @@ body{
   z-index: 20;
   box-sizing: border-box;
   width: 100%;
-  padding: 0 8px;
+  padding: 0;
 }
 
 .site-nav::before {
@@ -41,7 +41,7 @@ body{
   bottom: 0;
   left: 0;
   z-index: 0;
-  height: 100vh;
+  height: 68px;
   background: linear-gradient(
     to bottom,
     #ffffff 0,
@@ -58,16 +58,26 @@ body{
   align-items: center;
   justify-content: space-between;
   box-sizing: border-box;
-  width: calc(100% - 24px);
+  width: 100%;
   height: 44px;
   margin: 0 auto;
-  padding: 0 14px;
-  border: 1px solid #dedede;
+  padding: 0 20px;
+  border: 1px solid transparent;
   border-radius: 22px;
-  background: rgb(255 255 255 / 92%);
+  background: #ffffff;
+  box-shadow: 0 5px 20px rgb(0 0 0 / 0%);
+  transition:
+    width 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+    padding 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 0.22s ease,
+    box-shadow 0.22s ease;
+}
+
+.site-nav.is-floating .site-nav__inner {
+  width: calc(100% - 24px);
+  padding: 0 15px;
+  border-color: #dedede;
   box-shadow: 0 5px 20px rgb(0 0 0 / 10%);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
 }
 
 .site-nav__brand {
@@ -94,6 +104,12 @@ body{
   font-weight: 600;
   text-decoration: none;
   transition: color 0.2s ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .site-nav__inner {
+    transition: none;
+  }
 }
 
 .site-nav__brand:hover,
@@ -552,7 +568,7 @@ hr {
   font-size: 13px;
   text-decoration: underline;
   font-family: 'Geist', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  font-weight: 700;
+  font-weight: 580;
 }
 
 .bio-links a:hover,
@@ -580,7 +596,7 @@ hr {
 
 .name-info {
   font-size: 22px;
-  font-weight: 700;
+  font-weight: 530;
   line-height: 1.3;
   text-align: left;
   margin: 0 0 6px 0;
@@ -603,12 +619,16 @@ hr {
   font-weight: inherit;
 }
 
+.name-info__cn {
+  font-weight: 450;
+}
+
 .bio-affiliation--compact {
   display: block;
   margin-top: 4px;
   font-family: inherit;
   font-size: 18px;
-  font-weight: 600;
+  font-weight: 530;
   line-height: inherit;
   color: #3579b0;
   white-space: nowrap;
